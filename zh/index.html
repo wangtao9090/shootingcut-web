@@ -46,6 +46,7 @@
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
         .hero h1 { font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 1.5rem; }
         .hero h1 .gradient { background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero h1 .hero-word { display: inline; }
         .hero p { font-size: 1.2rem; color: var(--text-secondary); max-width: 620px; margin: 0 auto 2.5rem; line-height: 1.7; }
         section { position: relative; z-index: 1; padding: 6rem 2rem; }
         .container { max-width: 1200px; margin: 0 auto; }
@@ -79,6 +80,7 @@
             .nav-links { display: none; }
             .mobile-toggle { display: block; }
             .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,14,23,0.98); padding: 1.5rem 2rem; border-bottom: 1px solid rgba(59,130,246,0.1); }
+            .hero h1 .hero-word { display: block; }
             .footer-inner { flex-direction: column; text-align: center; }
         }
     </style>
@@ -108,8 +110,9 @@
                 即将登陆 App Store
             </div>
             <h1>
-                射击。分析。<br>
-                <span class="gradient">进步。</span>
+                <span class="hero-word">射击。</span>
+                <span class="hero-word">分析。</span>
+                <span class="hero-word gradient">进步。</span>
             </h1>
             <p>
                 ShootingCut&trade; 帮助实用射击选手快速对齐、剪辑和分析比赛视频。

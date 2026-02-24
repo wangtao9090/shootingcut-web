@@ -74,6 +74,7 @@
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
         .hero h1 { font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 1.5rem; }
         .hero h1 .gradient { background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero h1 .hero-word { display: inline; }
         .hero p { font-size: 1.2rem; color: var(--text-secondary); max-width: 620px; margin: 0 auto 2.5rem; line-height: 1.7; }
         .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
         .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 2rem; border-radius: 10px; font-size: 1rem; font-weight: 600; text-decoration: none; transition: all 0.3s; cursor: pointer; border: none; }
@@ -150,6 +151,7 @@
             .nav-links { display: none; }
             .mobile-toggle { display: block; }
             .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,14,23,0.98); padding: 1.5rem 2rem; border-bottom: 1px solid rgba(59,130,246,0.1); }
+            .hero h1 .hero-word { display: block; }
             .features-grid, .modes-grid { grid-template-columns: 1fr; }
             .footer-inner { flex-direction: column; text-align: center; }
         }
@@ -182,8 +184,9 @@
                 Coming Soon to the App Store
             </div>
             <h1>
-                Shoot. Analyze.<br>
-                <span class="gradient">Improve.</span>
+                <span class="hero-word">Shoot.</span>
+                <span class="hero-word">Analyze.</span>
+                <span class="hero-word gradient">Improve.</span>
             </h1>
             <p>
                 ShootingCut&trade; helps competitive shooters quickly align, edit, and analyze
