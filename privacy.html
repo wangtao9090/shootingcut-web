@@ -24,8 +24,11 @@
         nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 2rem; backdrop-filter: blur(20px); background: rgba(10,14,23,0.8); border-bottom: 1px solid rgba(59,130,246,0.1); }
         .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .logo a { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; }
+        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
         .nav-back a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
         .nav-back a:hover { color: var(--text-primary); }
+        .lang-switch a { color: var(--accent-light); text-decoration: none; font-size: 0.85rem; font-weight: 600; padding: 0.3rem 0.8rem; border: 1px solid rgba(96,165,250,0.3); border-radius: 6px; transition: all 0.3s; }
+        .lang-switch a:hover { background: rgba(96,165,250,0.1); }
         .content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 8rem 2rem 4rem; }
         .content h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 0.5rem; }
         .content .updated { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 3rem; }
@@ -45,7 +48,10 @@
     <nav>
         <div class="nav-inner">
             <div class="logo"><a href="/">ShootingCut&trade;</a></div>
-            <div class="nav-back"><a href="/">&larr; Back to Home</a></div>
+            <div class="nav-right">
+                <div class="lang-switch"><a href="/privacy-zh.html">中文</a></div>
+                <div class="nav-back"><a href="/">&larr; Back to Home</a></div>
+            </div>
         </div>
     </nav>
 
