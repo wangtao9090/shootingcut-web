@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShootingCut&trade; LLC — Software & Mobile App Development</title>
-    <meta name="description" content="ShootingCut LLC is a Wyoming-based software and mobile application development company delivering cutting-edge digital solutions.">
+    <title>ShootingCut&trade; — Smart Video Analysis for Competitive Shooters</title>
+    <meta name="description" content="ShootingCut is an intelligent video analysis and auto-editing tool designed for IPSC, USPSA, and IDPA competitive shooters. Coming soon to the App Store.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -22,6 +22,8 @@
             --accent-glow: rgba(59, 130, 246, 0.3);
             --gradient-1: linear-gradient(135deg, #3b82f6, #8b5cf6);
             --gradient-2: linear-gradient(135deg, #06b6d4, #3b82f6);
+            --orange: #f59e0b;
+            --green: #22c55e;
         }
 
         html { scroll-behavior: smooth; }
@@ -36,693 +38,121 @@
 
         /* ── Animated Background ── */
         .bg-grid {
-            position: fixed;
-            inset: 0;
+            position: fixed; inset: 0;
             background-image:
-                linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+                linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
             background-size: 60px 60px;
-            z-index: 0;
-            pointer-events: none;
+            z-index: 0; pointer-events: none;
         }
-
-        .bg-glow {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.15;
-            pointer-events: none;
-            z-index: 0;
-        }
-
+        .bg-glow { position: fixed; width: 600px; height: 600px; border-radius: 50%; filter: blur(120px); opacity: 0.15; pointer-events: none; z-index: 0; }
         .bg-glow-1 { background: #3b82f6; top: -200px; right: -100px; }
         .bg-glow-2 { background: #8b5cf6; bottom: -200px; left: -100px; }
 
         /* ── Navigation ── */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            padding: 1rem 2rem;
-            backdrop-filter: blur(20px);
-            background: rgba(10, 14, 23, 0.8);
-            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        nav.scrolled {
-            padding: 0.7rem 2rem;
-            background: rgba(10, 14, 23, 0.95);
-        }
-
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .logo span { font-weight: 400; opacity: 0.7; }
-
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 2rem; backdrop-filter: blur(20px); background: rgba(10,14,23,0.8); border-bottom: 1px solid rgba(59,130,246,0.1); transition: all 0.3s ease; }
+        nav.scrolled { padding: 0.7rem 2rem; background: rgba(10,14,23,0.95); }
+        .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .nav-links { display: flex; gap: 2rem; list-style: none; }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-1);
-            transition: width 0.3s;
-        }
-
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--gradient-1); transition: width 0.3s; }
         .nav-links a:hover { color: var(--text-primary); }
         .nav-links a:hover::after { width: 100%; }
-
-        .nav-cta {
-            padding: 0.5rem 1.2rem;
-            background: var(--gradient-1);
-            color: white !important;
-            border-radius: 8px;
-            font-weight: 600;
-            -webkit-text-fill-color: white !important;
-        }
-
+        .nav-cta { padding: 0.5rem 1.2rem; background: var(--gradient-1); color: white !important; border-radius: 8px; font-weight: 600; -webkit-text-fill-color: white !important; }
         .nav-cta::after { display: none !important; }
+        .mobile-toggle { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
 
-        .mobile-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* ── Hero Section ── */
-        .hero {
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 8rem 2rem 4rem;
-        }
-
+        /* ── Hero ── */
+        .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 8rem 2rem 4rem; }
         .hero-content { max-width: 800px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); border-radius: 100px; font-size: 0.85rem; color: var(--orange); margin-bottom: 2rem; }
+        .hero-badge .dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 1.5rem; }
+        .hero h1 .gradient { background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: 1.2rem; color: var(--text-secondary); max-width: 620px; margin: 0 auto 2.5rem; line-height: 1.7; }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 2rem; border-radius: 10px; font-size: 1rem; font-weight: 600; text-decoration: none; transition: all 0.3s; cursor: pointer; border: none; }
+        .btn-primary { background: var(--gradient-1); color: white; box-shadow: 0 4px 20px var(--accent-glow); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
+        .btn-outline { background: transparent; color: var(--text-primary); border: 1px solid rgba(148,163,184,0.3); }
+        .btn-outline:hover { border-color: var(--accent); background: rgba(59,130,246,0.05); }
 
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.4rem 1rem;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 100px;
-            font-size: 0.85rem;
-            color: var(--accent-light);
-            margin-bottom: 2rem;
-        }
+        /* ── Sections ── */
+        section { position: relative; z-index: 1; padding: 6rem 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section-label { display: inline-block; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-light); margin-bottom: 1rem; }
+        .section-title { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 1rem; }
+        .section-subtitle { font-size: 1.1rem; color: var(--text-secondary); max-width: 650px; line-height: 1.7; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header .section-subtitle { margin: 0 auto; }
 
-        .hero-badge .dot {
-            width: 6px;
-            height: 6px;
-            background: #22c55e;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
+        /* ── Platform Tags ── */
+        .platform-tags { display: flex; gap: 0.8rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
+        .platform-tag { padding: 0.5rem 1.2rem; background: var(--bg-card); border: 1px solid rgba(148,163,184,0.1); border-radius: 100px; font-size: 0.85rem; color: var(--text-secondary); }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
+        /* ── Feature Cards ── */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .feature-card { background: var(--bg-card); border: 1px solid rgba(148,163,184,0.08); border-radius: 16px; padding: 2rem; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient-2); opacity: 0; transition: opacity 0.3s; }
+        .feature-card:hover { border-color: rgba(6,182,212,0.2); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+        .feature-card:hover::before { opacity: 1; }
+        .feature-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+        .feature-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .feature-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.2rem);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -1.5px;
-            margin-bottom: 1.5rem;
-        }
+        /* ── Modes Section ── */
+        .modes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+        .mode-card { background: var(--bg-card); border: 1px solid rgba(148,163,184,0.08); border-radius: 16px; padding: 2rem; text-align: center; transition: all 0.3s ease; }
+        .mode-card:hover { border-color: rgba(59,130,246,0.2); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+        .mode-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+        .mode-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .mode-card .mode-name { font-size: 0.85rem; color: var(--accent-light); margin-bottom: 0.8rem; }
+        .mode-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5; }
 
-        .hero h1 .gradient {
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+        /* ── Coming Soon Banner ── */
+        .coming-soon { text-align: center; padding: 4rem 2rem; position: relative; z-index: 1; }
+        .coming-soon-badge { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8rem 2rem; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); border-radius: 100px; font-size: 1.1rem; font-weight: 700; color: var(--orange); margin-bottom: 1.5rem; }
+        .coming-soon p { color: var(--text-secondary); font-size: 1.05rem; max-width: 500px; margin: 0 auto; }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 2.5rem;
-            line-height: 1.7;
-        }
+        /* ── About ── */
+        .about-content { max-width: 700px; margin: 0 auto; text-align: center; }
+        .about-content .section-subtitle { max-width: 700px; margin: 0 auto; }
 
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.85rem 2rem;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-primary {
-            background: var(--gradient-1);
-            color: white;
-            box-shadow: 0 4px 20px var(--accent-glow);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px var(--accent-glow);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text-primary);
-            border: 1px solid rgba(148, 163, 184, 0.3);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--accent);
-            background: rgba(59, 130, 246, 0.05);
-        }
-
-        /* ── Section Styles ── */
-        section {
-            position: relative;
-            z-index: 1;
-            padding: 6rem 2rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-label {
-            display: inline-block;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent-light);
-            margin-bottom: 1rem;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 4vw, 2.8rem);
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 1rem;
-        }
-
-        .section-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            line-height: 1.7;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-header .section-subtitle {
-            margin: 0 auto;
-        }
-
-        /* ── Services Grid ── */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .service-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(148, 163, 184, 0.08);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--gradient-1);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .service-card:hover {
-            border-color: rgba(59, 130, 246, 0.2);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .service-card:hover::before { opacity: 1; }
-
-        .service-icon {
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            font-size: 1.5rem;
-            margin-bottom: 1.2rem;
-            background: rgba(59, 130, 246, 0.1);
-        }
-
-        .service-card h3 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.6rem;
-        }
-
-        .service-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* ── Tech Stack ── */
-        .tech-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .tech-tag {
-            padding: 0.6rem 1.4rem;
-            background: var(--bg-card);
-            border: 1px solid rgba(148, 163, 184, 0.08);
-            border-radius: 100px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            transition: all 0.3s;
-        }
-
-        .tech-tag:hover {
-            border-color: var(--accent);
-            color: var(--accent-light);
-            background: rgba(59, 130, 246, 0.05);
-        }
-
-        /* ── About Section ── */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(148, 163, 184, 0.08);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .stat-card .number {
-            font-size: 2rem;
-            font-weight: 800;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stat-card .label {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-top: 0.3rem;
-        }
-
-        .about-visual {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .code-window {
-            background: var(--bg-secondary);
-            border: 1px solid rgba(148, 163, 184, 0.1);
-            border-radius: 12px;
-            overflow: hidden;
-            width: 100%;
-            max-width: 480px;
-        }
-
-        .code-header {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 12px 16px;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .code-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        .code-dot.red { background: #ef4444; }
-        .code-dot.yellow { background: #eab308; }
-        .code-dot.green { background: #22c55e; }
-
-        .code-body {
-            padding: 1.2rem;
-            font-family: 'JetBrains Mono', 'Fira Code', monospace;
-            font-size: 0.85rem;
-            line-height: 1.8;
-            color: var(--text-secondary);
-        }
-
-        .code-body .keyword { color: #c084fc; }
-        .code-body .string { color: #34d399; }
-        .code-body .func { color: #60a5fa; }
-        .code-body .comment { color: #4b5563; }
-
-        /* ── Contact Section ── */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-
-        .contact-info { display: flex; flex-direction: column; gap: 2rem; }
-
-        .contact-item {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-        }
-
-        .contact-icon {
-            width: 44px;
-            height: 44px;
-            min-width: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(59, 130, 246, 0.1);
-            border-radius: 10px;
-            font-size: 1.2rem;
-        }
-
-        .contact-item h4 {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 0.2rem;
-        }
-
-        .contact-item p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .contact-item a {
-            color: var(--accent-light);
-            text-decoration: none;
-        }
-
+        /* ── Contact ── */
+        .contact-center { max-width: 600px; margin: 0 auto; }
+        .contact-items { display: flex; flex-direction: column; gap: 1.5rem; }
+        .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+        .contact-icon { width: 44px; height: 44px; min-width: 44px; display: flex; align-items: center; justify-content: center; background: rgba(59,130,246,0.1); border-radius: 10px; font-size: 1.2rem; }
+        .contact-item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.2rem; }
+        .contact-item p { color: var(--text-secondary); font-size: 0.9rem; }
+        .contact-item a { color: var(--accent-light); text-decoration: none; }
         .contact-item a:hover { text-decoration: underline; }
 
-        .contact-form {
-            background: var(--bg-card);
-            border: 1px solid rgba(148, 163, 184, 0.08);
-            border-radius: 16px;
-            padding: 2rem;
-        }
-
-        .form-group { margin-bottom: 1.2rem; }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            background: var(--bg-secondary);
-            border: 1px solid rgba(148, 163, 184, 0.1);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 0.95rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .form-group textarea { resize: vertical; min-height: 120px; }
-
         /* ── Footer ── */
-        footer {
-            position: relative;
-            z-index: 1;
-            padding: 2rem;
-            border-top: 1px solid rgba(148, 163, 184, 0.08);
-            text-align: center;
-        }
-
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        footer p {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 1.5rem;
-            list-style: none;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: color 0.3s;
-        }
-
+        footer { position: relative; z-index: 1; padding: 2rem; border-top: 1px solid rgba(148,163,184,0.08); text-align: center; }
+        .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        footer p { color: var(--text-secondary); font-size: 0.85rem; }
+        .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+        .footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
         .footer-links a:hover { color: var(--accent-light); }
 
-        /* ── Product Section ── */
-        .product-showcase {
-            display: flex;
-            flex-direction: column;
-            gap: 3rem;
-        }
-
-        .product-hero-visual {
-            display: flex;
-            justify-content: center;
-        }
-
-        .product-screen {
-            background: var(--bg-card);
-            border: 1px solid rgba(148, 163, 184, 0.1);
-            border-radius: 12px;
-            overflow: hidden;
-            width: 100%;
-            max-width: 700px;
-        }
-
-        .product-screen-body {
-            padding: 2rem;
-        }
-
-        .timeline-mock {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .product-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .product-feature-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(148, 163, 184, 0.08);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--gradient-2);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .product-feature-card:hover {
-            border-color: rgba(6, 182, 212, 0.2);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .product-feature-card:hover::before { opacity: 1; }
-
-        .product-feature-icon {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .product-feature-card h3 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-feature-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
         /* ── Animations ── */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
 
         /* ── Responsive ── */
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .mobile-toggle { display: block; }
-
-            .nav-links.open {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: rgba(10, 14, 23, 0.98);
-                padding: 1.5rem 2rem;
-                border-bottom: 1px solid rgba(59, 130, 246, 0.1);
-            }
-
-            .about-grid,
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .about-stats {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .footer-inner {
-                flex-direction: column;
-                text-align: center;
-            }
+            .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,14,23,0.98); padding: 1.5rem 2rem; border-bottom: 1px solid rgba(59,130,246,0.1); }
+            .features-grid, .modes-grid { grid-template-columns: 1fr; }
+            .footer-inner { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
-    <!-- Background Effects -->
     <div class="bg-grid"></div>
     <div class="bg-glow bg-glow-1"></div>
     <div class="bg-glow bg-glow-2"></div>
@@ -730,263 +160,172 @@
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-inner">
-            <div class="logo">ShootingCut&trade;<span> LLC</span></div>
+            <div class="logo">ShootingCut&trade;</div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#product">Product</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#tech">Tech Stack</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#modes">Edit Modes</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+                <li><a href="#contact" class="nav-cta">Contact</a></li>
             </ul>
             <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">&#9776;</button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero" id="home">
         <div class="hero-content fade-in">
             <div class="hero-badge">
                 <span class="dot"></span>
-                Based in Wyoming, USA
+                Coming Soon to the App Store
             </div>
             <h1>
-                Analyze Every Shot.<br>
-                <span class="gradient">Elevate Your Game.</span>
+                Shoot. Analyze.<br>
+                <span class="gradient">Improve.</span>
             </h1>
             <p>
-                ShootingCut&trade; LLC delivers cutting-edge software solutions
-                for competitive shooters. We build tools that help you analyze, improve, and share your shooting performance.
+                ShootingCut&trade; is an intelligent video analysis and auto-editing tool
+                designed for IPSC, USPSA, and IDPA competitive shooters. Automatically detect
+                timer beeps and gunshots, analyze your performance, and export
+                professional match videos — all from your Apple devices.
             </p>
             <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary">
-                    Get in Touch
+                <a href="#features" class="btn btn-primary">
+                    Discover Features
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
-                <a href="#services" class="btn btn-outline">Explore Services</a>
+                <a href="#contact" class="btn btn-outline">Get in Touch</a>
+            </div>
+            <div class="platform-tags">
+                <span class="platform-tag">macOS 14.0+</span>
+                <span class="platform-tag">iPadOS 17.0+</span>
+                <span class="platform-tag">iOS 17.0+</span>
             </div>
         </div>
     </section>
 
-    <!-- Product Section -->
-    <section id="product" style="background: var(--bg-secondary);">
+    <!-- Features -->
+    <section id="features" style="background: var(--bg-secondary);">
         <div class="container">
             <div class="section-header fade-in">
-                <span class="section-label">Our Product</span>
-                <h2 class="section-title">ShootingCut&trade;</h2>
+                <span class="section-label">Core Features</span>
+                <h2 class="section-title">Built for Competitive Shooters</h2>
                 <p class="section-subtitle">
-                    The ultimate video analysis and editing tool built for competitive shooters.
-                    Analyze, review, and share your IPSC, USPSA, and IDPA match and training footage like never before.
+                    Powered by FFT audio signal processing, ShootingCut&trade; automatically detects
+                    timer beeps and gunshots in your match footage, giving you instant performance insights.
                 </p>
             </div>
-
-            <div class="product-showcase fade-in">
-                <!-- Product Hero Visual -->
-                <div class="product-hero-visual">
-                    <div class="product-screen">
-                        <div class="code-header">
-                            <span class="code-dot red"></span>
-                            <span class="code-dot yellow"></span>
-                            <span class="code-dot green"></span>
-                            <span style="margin-left: auto; font-size: 0.75rem; color: var(--text-secondary);">ShootingCut Editor</span>
-                        </div>
-                        <div class="product-screen-body">
-                            <div class="timeline-mock">
-                                <div class="timeline-track" style="background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 30%, #06b6d4 60%, #3b82f6 100%); height: 24px; border-radius: 4px;"></div>
-                                <div class="timeline-track" style="background: linear-gradient(90deg, #22c55e 0%, #22c55e 40%, transparent 40%); height: 16px; border-radius: 4px; opacity: 0.6;"></div>
-                                <div class="timeline-track" style="background: linear-gradient(90deg, #f59e0b 10%, #f59e0b 70%, transparent 70%); height: 16px; border-radius: 4px; opacity: 0.5;"></div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">&#128202;</div>
+                    <h3>Smart Audio Analysis</h3>
+                    <p>FFT-based detection of timer beeps (2500–3500 Hz) and gunshot pulses. Automatically identifies each shot, calculates split times, first shot time, and total run time.</p>
                 </div>
-
-                <!-- Feature Cards -->
-                <div class="product-features">
-                    <div class="product-feature-card fade-in">
-                        <div class="product-feature-icon">&#127919;</div>
-                        <h3>Stage & Run Analysis</h3>
-                        <p>Break down each stage with shot-by-shot analysis. Track split times, transitions between positions, and identify areas for improvement in your match runs.</p>
-                    </div>
-                    <div class="product-feature-card fade-in">
-                        <div class="product-feature-icon">&#129302;</div>
-                        <h3>AI Shot Detection</h3>
-                        <p>Automatically detect shots fired, magazine changes, and movement transitions. AI-powered scene segmentation tailored for shooting sports footage.</p>
-                    </div>
-                    <div class="product-feature-card fade-in">
-                        <div class="product-feature-icon">&#9201;</div>
-                        <h3>Timer & Scoring Overlay</h3>
-                        <p>Overlay shot timers, hit factor calculations, and scoring data directly onto your video. Compare your performance across multiple runs side by side.</p>
-                    </div>
-                    <div class="product-feature-card fade-in">
-                        <div class="product-feature-icon">&#128202;</div>
-                        <h3>Performance Tracking</h3>
-                        <p>Track your progress over time with detailed analytics. Monitor draw times, reload speeds, transition efficiency, and hit factor trends across matches.</p>
-                    </div>
-                    <div class="product-feature-card fade-in">
-                        <div class="product-feature-icon">&#127916;</div>
-                        <h3>Quick Edit & Export</h3>
-                        <p>Trim, annotate, and add slow-motion to key moments. One-click export optimized for YouTube, Instagram, and sharing with your shooting squad.</p>
-                    </div>
-                    <div class="product-feature-card fade-in">
-                        <div class="product-feature-icon">&#129309;</div>
-                        <h3>Community & Sharing</h3>
-                        <p>Share annotated match videos with your team or coach. Built for the IPSC, USPSA, and IDPA community — compare runs and learn from top competitors.</p>
-                    </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">&#9201;</div>
+                    <h3>Auto Trim & Cut</h3>
+                    <p>Automatically trim your video around the timer start and last shot. Configurable start and end padding ensures you capture exactly the action you need.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">&#127916;</div>
+                    <h3>Real-Time Subtitle Overlay</h3>
+                    <p>Overlay live shot count, split times, cumulative time, first shot, and best split directly onto your exported video. Choose from 6 colors with auto landscape/portrait layout.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">&#127919;</div>
+                    <h3>Interactive Waveform</h3>
+                    <p>Visual waveform with color-coded markers — green for timer, orange for gunshots. Drag to adjust timer position, right-click to delete false positives or set last shot.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">&#128247;</div>
+                    <h3>Multi-Camera Sync</h3>
+                    <p>Sync multiple camera angles by matching timer beeps. Split-screen comparison, multi-angle playback, and intelligent auto-cut between POV, follow, and static cameras.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">&#128229;</div>
+                    <h3>Flexible Export</h3>
+                    <p>Export in Original, 4K, 1080p, or 720p resolution. Includes watermark, custom score text overlay, and per-clip audio control. Save to Files or Photos library.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services">
+    <!-- Edit Modes -->
+    <section id="modes">
         <div class="container">
             <div class="section-header fade-in">
-                <span class="section-label">What We Do</span>
-                <h2 class="section-title">Our Services</h2>
+                <span class="section-label">4 Edit Modes</span>
+                <h2 class="section-title">One App, Every Scenario</h2>
                 <p class="section-subtitle">
-                    From concept to deployment, we provide end-to-end development
-                    services tailored to your business needs.
+                    From single-clip quick edits to multi-camera match productions,
+                    ShootingCut&trade; adapts to your workflow.
                 </p>
             </div>
-            <div class="services-grid">
-                <div class="service-card fade-in">
-                    <div class="service-icon">&#128241;</div>
-                    <h3>Mobile App Development</h3>
-                    <p>Native and cross-platform mobile applications for iOS and Android, built with performance and user experience in mind.</p>
+            <div class="modes-grid">
+                <div class="mode-card fade-in">
+                    <div class="mode-icon">&#9986;&#65039;</div>
+                    <h3>Auto Trim</h3>
+                    <div class="mode-name">Single Video</div>
+                    <p>Quick auto-cut around timer and last shot, with subtitle overlay. Perfect for fast post-match review.</p>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">&#128187;</div>
-                    <h3>Web Application Development</h3>
-                    <p>Modern, responsive web applications using the latest frameworks and best practices for scalability and maintainability.</p>
+                <div class="mode-card fade-in">
+                    <div class="mode-icon">&#128279;</div>
+                    <h3>Merge</h3>
+                    <div class="mode-name">2+ Videos</div>
+                    <p>Combine multiple clips into one seamless video. Drag to reorder, per-clip auto-cut, and independent score text.</p>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">&#9729;&#65039;</div>
-                    <h3>Cloud & Infrastructure</h3>
-                    <p>Cloud-native architecture design, deployment, and management on AWS, GCP, and Azure for optimal performance.</p>
+                <div class="mode-card fade-in">
+                    <div class="mode-icon">&#128250;</div>
+                    <h3>Split Sync</h3>
+                    <div class="mode-name">2 Videos</div>
+                    <p>Dual-view synchronized by timer. Compare two runs or two angles side by side with HUD data overlay.</p>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">&#128640;</div>
-                    <h3>API & Backend Development</h3>
-                    <p>Robust, secure RESTful and GraphQL APIs that power your applications with reliable data and business logic.</p>
-                </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">&#129302;</div>
-                    <h3>AI & Machine Learning</h3>
-                    <p>Intelligent solutions leveraging machine learning, natural language processing, and computer vision technologies.</p>
-                </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">&#128736;&#65039;</div>
-                    <h3>DevOps & Automation</h3>
-                    <p>Streamlined CI/CD pipelines, infrastructure as code, and automated testing to accelerate your development lifecycle.</p>
+                <div class="mode-card fade-in">
+                    <div class="mode-icon">&#127910;</div>
+                    <h3>Stage Mix</h3>
+                    <div class="mode-name">3+ Videos</div>
+                    <p>Multi-camera auto-edit. Tag cameras as POV, Follow, or Static — the app selects the best angle for each segment.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Tech Stack Section -->
-    <section id="tech" style="background: var(--bg-secondary);">
-        <div class="container">
-            <div class="section-header fade-in">
-                <span class="section-label">Technology</span>
-                <h2 class="section-title">Our Tech Stack</h2>
-                <p class="section-subtitle">
-                    We leverage modern, battle-tested technologies to build reliable digital products.
-                </p>
-            </div>
-            <div class="tech-grid fade-in">
-                <span class="tech-tag">React</span>
-                <span class="tech-tag">React Native</span>
-                <span class="tech-tag">TypeScript</span>
-                <span class="tech-tag">Node.js</span>
-                <span class="tech-tag">Python</span>
-                <span class="tech-tag">Go</span>
-                <span class="tech-tag">Swift</span>
-                <span class="tech-tag">Kotlin</span>
-                <span class="tech-tag">Flutter</span>
-                <span class="tech-tag">PostgreSQL</span>
-                <span class="tech-tag">MongoDB</span>
-                <span class="tech-tag">Redis</span>
-                <span class="tech-tag">AWS</span>
-                <span class="tech-tag">Docker</span>
-                <span class="tech-tag">Kubernetes</span>
-                <span class="tech-tag">GraphQL</span>
-                <span class="tech-tag">TensorFlow</span>
-                <span class="tech-tag">Next.js</span>
-            </div>
-        </div>
-    </section>
+    <!-- Coming Soon -->
+    <div class="coming-soon fade-in" style="background: var(--bg-secondary);">
+        <div class="coming-soon-badge">&#128640; Coming Soon</div>
+        <p>
+            ShootingCut&trade; is currently in development and will be available on the App Store soon.
+            Stay tuned for our official launch!
+        </p>
+    </div>
 
-    <!-- About Section -->
+    <!-- About -->
     <section id="about">
         <div class="container">
-            <div class="about-grid">
-                <div class="fade-in">
-                    <span class="section-label">About Us</span>
-                    <h2 class="section-title">ShootingCut&trade; LLC</h2>
-                    <p class="section-subtitle">
-                        We are a Wyoming-based software development company focused on
-                        building tools for the competitive shooting community. Our flagship product,
-                        ShootingCut&trade;, helps IPSC, USPSA, and IDPA competitors analyze match footage,
-                        track performance, and accelerate their training.
-                    </p>
-                    <div class="about-stats">
-                        <div class="stat-card">
-                            <div class="number">50+</div>
-                            <div class="label">Projects Delivered</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="number">99%</div>
-                            <div class="label">Client Satisfaction</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="number">24/7</div>
-                            <div class="label">Support Available</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="number">&#9889;</div>
-                            <div class="label">Fast Delivery</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-visual fade-in">
-                    <div class="code-window">
-                        <div class="code-header">
-                            <span class="code-dot red"></span>
-                            <span class="code-dot yellow"></span>
-                            <span class="code-dot green"></span>
-                        </div>
-                        <div class="code-body">
-                            <span class="comment">// ShootingCut&trade; LLC</span><br>
-                            <span class="keyword">const</span> <span class="func">company</span> = {<br>
-                            &nbsp;&nbsp;name: <span class="string">"ShootingCut&trade; LLC"</span>,<br>
-                            &nbsp;&nbsp;location: <span class="string">"Wyoming, USA"</span>,<br>
-                            &nbsp;&nbsp;focus: [<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Shooting Sports Video"</span>,<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Performance Analysis"</span>,<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"IPSC / USPSA / IDPA"</span><br>
-                            &nbsp;&nbsp;],<br>
-                            &nbsp;&nbsp;mission: <span class="string">"Shoot. Analyze. Improve."</span><br>
-                            };<br><br>
-                            <span class="func">company</span>.<span class="keyword">launch</span>();
-                        </div>
-                    </div>
-                </div>
+            <div class="about-content fade-in">
+                <span class="section-label">About</span>
+                <h2 class="section-title">ShootingCut&trade; LLC</h2>
+                <p class="section-subtitle">
+                    ShootingCut&trade; LLC is a Wyoming-based independent software studio dedicated to building
+                    tools for the competitive shooting community. As a passionate shooter and developer,
+                    I created ShootingCut&trade; to solve a real problem — quickly analyzing and
+                    sharing match footage without the hassle of manual video editing.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact -->
     <section id="contact" style="background: var(--bg-secondary);">
         <div class="container">
             <div class="section-header fade-in">
-                <span class="section-label">Get in Touch</span>
-                <h2 class="section-title">Let's Work Together</h2>
+                <span class="section-label">Contact</span>
+                <h2 class="section-title">Get in Touch</h2>
                 <p class="section-subtitle">
-                    Have a project in mind? We'd love to hear from you.
-                    Reach out and let's discuss how we can help.
+                    Questions, feedback, or partnership inquiries — feel free to reach out.
                 </p>
             </div>
-            <div class="contact-grid">
-                <div class="contact-info fade-in">
+            <div class="contact-center fade-in">
+                <div class="contact-items">
                     <div class="contact-item">
                         <div class="contact-icon">&#128231;</div>
                         <div>
@@ -998,35 +337,10 @@
                         <div class="contact-icon">&#128205;</div>
                         <div>
                             <h4>Registered Office</h4>
-                            <p>30 N Gould St, STE R<br>Sheridan, WY 82801, USA</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">&#127758;</div>
-                        <div>
-                            <h4>Business Hours</h4>
-                            <p>Monday – Friday, 9:00 AM – 6:00 PM (MST)</p>
+                            <p>30 N Gould St, STE R, Sheridan, WY 82801, USA</p>
                         </div>
                     </div>
                 </div>
-                <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" placeholder="John Doe" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" placeholder="john@example.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" placeholder="Tell us about your project..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
-                        Send Message
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </button>
-                </form>
             </div>
         </div>
     </section>
@@ -1037,8 +351,8 @@
             <p>&copy; 2026 ShootingCut&trade; LLC. All rights reserved.</p>
             <ul class="footer-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#product">Product</a></li>
-                <li><a href="#services">Services</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#modes">Edit Modes</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -1046,43 +360,13 @@
     </footer>
 
     <script>
-        // Scroll animations
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.1 });
-
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
-        });
-
-        // Mobile menu toggle
-        document.getElementById('mobileToggle').addEventListener('click', () => {
-            document.getElementById('navLinks').classList.toggle('open');
-        });
-
-        // Close mobile menu on link click
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('navLinks').classList.remove('open');
-            });
-        });
-
-        // Form handler
-        function handleSubmit(e) {
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            const mailtoLink = `mailto:admin@shootingcut.com?subject=Inquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
-            window.location.href = mailtoLink;
-        }
+        window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
+        document.getElementById('mobileToggle').addEventListener('click', () => { document.getElementById('navLinks').classList.toggle('open'); });
+        document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { document.getElementById('navLinks').classList.remove('open'); }); });
     </script>
 </body>
 </html>
