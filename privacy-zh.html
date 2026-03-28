@@ -63,7 +63,7 @@
 
     <div class="content">
         <h1>隐私政策</h1>
-        <p class="updated">最后更新：2026 年 3 月 22 日</p>
+        <p class="updated">最后更新：2026 年 3 月 28 日</p>
 
         <div class="highlight-box">
             <p>&#x1F512; <strong>隐私优先：</strong>ShootingCut 的所有视频与音频处理均<strong>在您的设备本地完成</strong>。您的媒体文件从不上传至我们的服务器。我们不会向任何第三方出售您的个人数据。</p>
@@ -85,7 +85,7 @@
         <ul>
             <li><strong>崩溃报告：</strong>通过 Apple 标准崩溃报告机制收集的崩溃日志和诊断数据，受您设备"分析与改进"设置的控制。</li>
             <li><strong>购买与订阅数据：</strong>由内购管理服务商 RevenueCat 管理的交易标识符和订阅状态。我们无法获取您的任何支付卡信息。</li>
-            <li><strong>应用统计数据：</strong>无法识别个人身份的匿名汇总使用统计（例如功能使用频率），收集行为受应用跟踪透明度（ATT）授权设置控制。</li>
+            <li><strong>应用统计数据：</strong>无法识别个人身份的匿名汇总使用统计（例如功能使用频率），收集行为受您设备"分析与改进"设置控制。</li>
         </ul>
 
         <h2>2. 设备权限</h2>
@@ -119,7 +119,7 @@
 
         </table>
 
-        <p>当您授权连接社交媒体账号时，认证流程由该平台的 SDK 完成。我们仅存储生成的访问令牌，且仅用于上传您明确选择的视频。我们不会访问您的社交媒体联系人、私信、帖子或其他个人资料信息。</p>
+        <p>当您授权连接社交媒体账号时，认证流程通过安全浏览器会话（ASWebAuthenticationSession）以 OAuth 2.0 协议完成。我们仅存储生成的访问令牌，且仅用于上传您明确选择的视频。我们不会访问您的社交媒体联系人、私信、帖子或其他个人资料信息。</p>
         <p>您可随时在应用设置中断开任意社交账号连接，操作完成后该账号对应的令牌将从钥匙串中删除。</p>
 
         <h2>5. 应用内购与订阅</h2>
@@ -131,8 +131,9 @@
             <li><strong>RevenueCat</strong> — 应用内购与订阅管理</li>
             <li><strong>Apple App Store Connect 分析</strong> — 匿名应用使用统计（受您设备分析设置控制）</li>
             <li><strong>Apple 崩溃报告</strong> — 崩溃诊断（受您设备分析设置控制）</li>
-            <li><strong>TikTok SDK、YouTube Data API、Facebook SDK</strong> — 社交分享（仅在您连接相关账号后激活）</li>
+            <li><strong>TikTok Content Posting API、YouTube Data API、Facebook Graph API</strong> — 通过 OAuth 2.0 实现社交分享（仅在您连接相关账号后激活）</li>
         </ul>
+        <p>我们要求所有第三方服务提供商为您的数据提供与本隐私政策同等级别的保护。</p>
 
         <h2>7. 数据共享与披露</h2>
         <p>我们<strong>不会</strong>出售、出租或交易您的个人信息。仅在以下有限情况下，我们可能共享信息：</p>
@@ -158,10 +159,24 @@
             <li><strong>访问权：</strong>请求了解我们或服务提供商持有的您的数据。</li>
             <li><strong>更正权：</strong>请求更正不准确的数据。</li>
             <li><strong>删除权：</strong>请求删除您的个人数据。</li>
-            <li><strong>拒绝分析：</strong>通过设备"设置 → 隐私与安全性 → 分析与改进"关闭数据收集，或通过应用跟踪透明度（ATT）提示选择拒绝。</li>
-            <li><strong>拒绝定向广告：</strong>通过设备"设置 → 隐私与安全性 → 跟踪"限制广告追踪。</li>
+            <li><strong>拒绝分析：</strong>通过设备"设置 → 隐私与安全性 → 分析与改进"关闭数据收集。</li>
         </ul>
         <p>如需行使上述任何权利，请联系 <a href="mailto:support@shootingcut.com">support@shootingcut.com</a>。我们将在 30 天内予以回复。</p>
+
+        <h2>11A. 特定地区的附加权利</h2>
+        <p><strong>欧盟/欧洲经济区居民（GDPR）：</strong></p>
+        <ul>
+            <li><strong>法律依据：</strong>我们基于合同履行（提供应用功能）、合法利益（改进服务）和您的同意（社交媒体连接）来处理您的数据。</li>
+            <li><strong>数据主体权利：</strong>除上述权利外，您还享有数据可携带权、限制处理权、反对处理权，以及向当地监管机构投诉的权利。</li>
+        </ul>
+        <p><strong>加州居民（CCPA）：</strong></p>
+        <ul>
+            <li><strong>知情权：</strong>您有权了解我们收集、使用和披露了哪些个人信息。</li>
+            <li><strong>删除权：</strong>您可以要求删除您的个人信息。</li>
+            <li><strong>不受歧视权：</strong>我们不会因您行使隐私权而对您区别对待。</li>
+            <li><strong>不出售个人信息：</strong>我们不会将您的个人信息出售给第三方。</li>
+        </ul>
+        <p>如需行使上述权利，请通过 <a href="mailto:support@shootingcut.com">support@shootingcut.com</a> 联系我们。</p>
 
         <h2>12. 安全措施</h2>
         <p>我们采用行业标准措施保护所持有的信息。社交媒体令牌存储于 iOS/macOS 系统钥匙串，该钥匙串经过加密且受设备硬件安全模块保护。但没有任何安全措施是完美的，使用本应用的风险由您自行承担。</p>
