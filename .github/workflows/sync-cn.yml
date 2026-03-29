@@ -1,0 +1,46 @@
+name: 同步中文内容到 shootingcut-cn
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'privacy-zh.html'
+      - 'terms-zh.html'
+      - 'support-zh.html'
+      - 'zh/index.html'
+
+jobs:
+  sync-cn:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出 shootingcut-web
+        uses: actions/checkout@v4
+        with:
+          path: shootingcut-web
+
+      - name: 检出 shootingcut-cn
+        uses: actions/checkout@v4
+        with:
+          repository: wangtao9090/shootingcut-cn
+          token: ${{ secrets.CN_REPO_TOKEN }}
+          path: shootingcut-cn
+
+      - name: 同步中文文件
+        run: |
+          cp shootingcut-web/privacy-zh.html shootingcut-cn/privacy.html
+          cp shootingcut-web/terms-zh.html   shootingcut-cn/terms.html
+          cp shootingcut-web/support-zh.html shootingcut-cn/support.html
+          cp shootingcut-web/zh/index.html   shootingcut-cn/index.html
+
+      - name: 提交并推送
+        run: |
+          cd shootingcut-cn
+          git config user.email "wangtao9090@gmail.com"
+          git config user.name "ShootingCut Bot"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "无变更，跳过"
+          else
+            git commit -m "自动同步中文内容 from shootingcut-web"
+            git push
+          fi
