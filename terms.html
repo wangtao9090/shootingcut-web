@@ -89,12 +89,16 @@
             <li><strong>Split Sync:</strong> Timer-synchronized dual-angle split-screen video composition.</li>
             <li><strong>Stage Mix:</strong> Multi-camera intelligent scene selection and automatic editing based on shooting/movement phases.</li>
             <li><strong>Subtitle Overlay:</strong> Real-time performance statistics (shot times, splits, total time) overlaid as subtitles on exported video.</li>
+            <li><strong>Person / Subject Tracking:</strong> Optional on-device AI-powered tracking that keeps a selected subject centered in the frame during export. All processing is performed locally using Apple's Vision framework; no video data or tracking results are transmitted off your device.</li>
+            <li><strong>iCloud Session Sync:</strong> Session names and lightweight metadata are optionally synced across your own Apple devices via iCloud Key-Value Storage. Video files are never synced through this mechanism.</li>
             <li><strong>Social Sharing:</strong> Optional upload of exported videos to TikTok, YouTube, and Facebook (requires separate authorization).</li>
         </ul>
         <p>Features may vary between platforms (iOS, iPadOS, macOS) and may change or be discontinued at any time. Premium features may require a subscription or one-time in-app purchase.</p>
 
         <h2>5. Your Content</h2>
-        <p>You retain all rights to the videos, audio, and other media you import into the App ("Your Content"). We do not claim ownership of Your Content. All processing (audio analysis, video editing, subtitle rendering) is performed locally on your device. Your Content is never uploaded to our servers.</p>
+        <p>You retain all rights to the videos, audio, and other media you import into the App ("Your Content"). We do not claim ownership of Your Content. All processing (audio analysis, video editing, subtitle rendering, person tracking) is performed locally on your device. Your Content is never uploaded to our servers.</p>
+        <p><strong>Photo Library &amp; iCloud Photos:</strong> On iOS and iPadOS, the App accesses your photo library to import and export videos. If a video you select is stored in iCloud Photos and has not yet been downloaded to your device, the operating system will download it on demand for local processing. The App does not independently control or initiate iCloud downloads; this is managed by Apple's Photos framework. Importing iCloud-stored videos may consume mobile data if you are not on Wi-Fi.</p>
+        <p><strong>macOS File Access &amp; iCloud Drive:</strong> On macOS, the App accesses video files from locations you choose, which may include iCloud Drive folders. Files are read and processed locally. The App does not upload files to iCloud or any other cloud service.</p>
         <p>By using the App's optional social sharing features, you authorize the App to upload your exported videos to the selected social platform on your behalf, subject to that platform's terms of service.</p>
         <p>You represent and warrant that:</p>
         <ul>

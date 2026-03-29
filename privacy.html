@@ -63,7 +63,7 @@
 
     <div class="content">
         <h1>Privacy Policy</h1>
-        <p class="updated">Last updated: March 28, 2026</p>
+        <p class="updated">Last updated: March 29, 2026</p>
 
         <div class="highlight-box">
             <p>&#x1F512; <strong>Privacy First:</strong> ShootingCut processes all video and audio data <strong>locally on your device</strong>. Your media files are never uploaded to our servers. We do not sell your personal data to any third party.</p>
@@ -92,11 +92,13 @@
         <p>The App may request the following device permissions:</p>
         <table>
             <tr><th>Permission</th><th>Purpose</th><th>Required?</th></tr>
-            <tr><td>Photo Library (Read)</td><td>Import videos from your photo library for editing</td><td>Required for import</td></tr>
-            <tr><td>Photo Library (Add)</td><td>Save exported videos back to your photo library</td><td>Required for export on iOS</td></tr>
-            <tr><td>File System Access</td><td>Import/export video files on macOS</td><td>Optional</td></tr>
+            <tr><td>Photo Library (Read)</td><td>Import videos from your photo library for editing. If a video is stored in iCloud Photos, the system will temporarily download it to your device for local processing; no copy is retained by the App after processing.</td><td>Required for import on iOS/iPadOS</td></tr>
+            <tr><td>Photo Library (Add)</td><td>Save exported videos back to your photo library</td><td>Required for export on iOS/iPadOS</td></tr>
+            <tr><td>File System Access (macOS)</td><td>Import/export video files from any location on macOS, including iCloud Drive folders. Files are read locally and never uploaded by the App.</td><td>Optional</td></tr>
+            <tr><td>iCloud Key-Value Storage</td><td>Sync session names and lightweight metadata (no video data) across your own Apple devices signed in to the same iCloud account.</td><td>Enabled if iCloud Drive is on in device Settings</td></tr>
         </table>
         <p>Permissions are requested only when needed. You can revoke any permission at any time via your device's Settings app. Revoking a permission may limit certain App functionality.</p>
+        <p><strong>iCloud Photos &amp; iCloud Drive:</strong> When you import a video that is stored in iCloud (not yet downloaded to your device), iOS/macOS will download the video to your local storage on demand for processing. The App itself does not initiate any independent upload or download to iCloud — this transfer is managed entirely by Apple's operating system and your iCloud account settings.</p>
 
         <h2>3. Local Processing — Your Media Stays on Your Device</h2>
         <p>All core App operations are performed entirely on your device:</p>
@@ -105,8 +107,22 @@
             <li>Video trimming, synchronization, and multi-angle editing</li>
             <li>Subtitle generation and overlay rendering</li>
             <li>Video export and composition</li>
+            <li>Person/subject tracking and automatic video reframing (see Section 3A below)</li>
         </ul>
         <p>Your video and audio files are <strong>never transmitted to our servers</strong> at any stage of this process. Exported videos are saved directly to your local storage or photo library.</p>
+
+        <h2>3A. Person / Subject Tracking — On-Device Vision Processing</h2>
+        <div class="highlight-box">
+            <p>&#x1F9E0; <strong>Fully On-Device:</strong> All person detection and tracking data is computed locally using Apple's Vision framework. No biometric data, images, or tracking results are ever uploaded to our servers or shared with any third party.</p>
+        </div>
+        <p>The App includes an optional person/subject tracking feature that automatically keeps the identified subject centered in the frame during video export. This feature works as follows:</p>
+        <ul>
+            <li><strong>Detection:</strong> Apple's on-device Vision framework analyzes video frames to locate human body positions (bounding boxes). No face recognition or identity extraction is performed.</li>
+            <li><strong>Tracking:</strong> The App uses <code>VNTrackObjectRequest</code> to follow the selected subject across frames, generating a sequence of crop-center keyframes stored transiently in memory.</li>
+            <li><strong>Use:</strong> Keyframe data is used solely to compute the crop rectangle for each frame during video export.</li>
+            <li><strong>Retention:</strong> Tracking data (bounding boxes and keyframes) exists only in RAM during the active session. It is not written to disk, not included in exported video metadata, and not retained after the session ends.</li>
+            <li><strong>No biometric profiling:</strong> The App does not identify, profile, or store information about any individual. Detection results are positional geometry only (coordinates and confidence scores).</li>
+        </ul>
 
         <h2>4. Social Media Integrations</h2>
         <p>The App offers optional sharing integrations with the following platforms. These integrations are entirely optional; you are not required to connect any social account to use the App's core features.</p>
@@ -145,6 +161,8 @@
 
         <h2>8. Data Retention &amp; Deletion</h2>
         <p>Because the App processes data locally on your device, you are in control of your data. Session data and App preferences are stored on your device and can be deleted by uninstalling the App. Social media OAuth tokens stored in your Keychain are deleted when you disconnect the respective account in App settings.</p>
+        <p><strong>iCloud Key-Value Storage:</strong> Session names and lightweight metadata synced via iCloud KVS are stored in your personal iCloud account and subject to Apple's iCloud data retention policies. You can delete this data by uninstalling the App (which clears the associated KVS keys) or by managing your iCloud data through your Apple ID settings.</p>
+        <p><strong>Person tracking data</strong> is transient and exists only in device RAM during an active session. It is automatically discarded when you close the session or exit the App — no action is required to delete it.</p>
         <p>To request deletion of any data held by our third-party service providers (e.g., RevenueCat analytics), please contact us at <a href="mailto:support@shootingcut.com">support@shootingcut.com</a>.</p>
 
         <h2>9. Children's Privacy</h2>
