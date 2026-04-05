@@ -248,6 +248,24 @@
         .demo-label { margin-top: 0.8rem; font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
         .demo-platform { font-size: 0.78rem; font-weight: 400; color: var(--text-secondary); margin-left: 0.3rem; }
         .demo-note { text-align: center; color: var(--text-secondary); font-size: 0.88rem; margin-top: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        /* ── Demo Feature Subsections ── */
+        .demo-feature { margin-bottom: 4rem; }
+        .demo-feature:last-child { margin-bottom: 0; }
+        .demo-feature-header { text-align: center; margin-bottom: 2rem; }
+        .demo-feature-icon { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+        .demo-feature-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .demo-feature-desc { color: var(--text-secondary); font-size: 0.95rem; max-width: 500px; margin: 0 auto; }
+        .demo-grid-2col { display: grid; grid-template-columns: 3fr 2fr; gap: 1.5rem; align-items: end; max-width: 900px; margin: 0 auto; }
+        .demo-placeholder { max-width: 900px; margin: 0 auto; }
+        .demo-placeholder-inner { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 2rem; border: 2px dashed rgba(148,163,184,0.2); border-radius: 16px; background: rgba(26,31,46,0.5); }
+        .demo-placeholder-icon { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.5; }
+        .demo-placeholder-inner p { color: var(--text-secondary); font-size: 1rem; font-weight: 500; }
+        @media (max-width: 768px) {
+            .demo-grid-2col { grid-template-columns: 1fr 1fr; gap: 1rem; }
+        }
+        @media (max-width: 480px) {
+            .demo-grid-2col { grid-template-columns: 1fr; max-width: 400px; }
+        }
         @media (max-width: 768px) {
             .demo-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
             .demo-grid .demo-card:first-child { grid-column: 1 / -1; }
@@ -341,8 +359,8 @@
     {
         "@context": "https://schema.org",
         "@type": "ItemList",
-        "name": "ShootingCut Portrait Tracking Demo — Export Ratio Comparison",
-        "description": "Same competitive shooting stage footage exported at four different aspect ratios using Portrait Tracking. Demonstrates automatic subject tracking that keeps the shooter centered.",
+        "name": "ShootingCut Feature Demos — Portrait Tracking, Stage Mix & Split Sync",
+        "description": "Demonstration of ShootingCut's three core features: Portrait Tracking (auto-reframing at any export ratio), Stage Mix (multi-camera auto-editing), and Split Sync (dual-camera synchronized comparison).",
         "itemListElement": [
             {
                 "@type": "VideoObject",
@@ -507,43 +525,77 @@
     </section>
 
 
-    <!-- Video Demo -->
+    <!-- Feature Demos -->
     <section id="demo">
         <div class="container">
             <div class="section-header fade-in">
                 <span class="section-label">See It in Action</span>
-                <h2 class="section-title">One Clip, Every Platform</h2>
+                <h2 class="section-title">Core Features Demo</h2>
                 <p class="section-subtitle">
-                    Same stage footage exported at different ratios with Portrait Tracking — the shooter stays centered in every frame.
+                    Three signature features that set Shooting Cut&trade; apart — each one built to solve a real problem competitive shooters face every match day.
                 </p>
             </div>
-            <div class="demo-grid fade-in">
-                <div class="demo-card">
-                    <div class="demo-video demo-landscape">
-                        <iframe src="https://www.youtube.com/embed/EO-yju9mCIk" title="ShootingCut Portrait Tracking 16:9 Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    </div>
-                    <div class="demo-label">16:9 <span class="demo-platform">Portrait Tracking</span></div>
+
+            <!-- Portrait Tracking -->
+            <div class="demo-feature fade-in" id="demo-portrait">
+                <div class="demo-feature-header">
+                    <span class="demo-feature-icon">🎯</span>
+                    <h3 class="demo-feature-title">Portrait Tracking</h3>
+                    <p class="demo-feature-desc">Switch export ratio and the shooter stays centered in every frame — one clip, every platform.</p>
                 </div>
-                <div class="demo-card">
-                    <div class="demo-video demo-landscape">
-                        <iframe src="https://www.youtube.com/embed/EHIiom5QjMU" title="ShootingCut StageMix 16:9 Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <div class="demo-grid-2col">
+                    <div class="demo-card">
+                        <div class="demo-video demo-landscape">
+                            <iframe src="https://www.youtube.com/embed/EO-yju9mCIk" title="ShootingCut Portrait Tracking 16:9 Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                        <div class="demo-label">16:9 <span class="demo-platform">Landscape</span></div>
                     </div>
-                    <div class="demo-label">16:9 <span class="demo-platform">StageMix</span></div>
-                </div>
-                <div class="demo-card">
-                    <div class="demo-video demo-portrait">
-                        <iframe src="https://www.youtube.com/embed/ZO5H3u1iSR8" title="ShootingCut Portrait Tracking 4:5 Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div class="demo-card">
+                        <div class="demo-video demo-portrait">
+                            <iframe src="https://www.youtube.com/embed/ZO5H3u1iSR8" title="ShootingCut Portrait Tracking 4:5 Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                        <div class="demo-label">4:5 <span class="demo-platform">Portrait</span></div>
                     </div>
-                    <div class="demo-label">4:5 <span class="demo-platform">Portrait Tracking</span></div>
-                </div>
-                <div class="demo-card">
-                    <div class="demo-video demo-portrait">
-                        <iframe src="https://www.youtube.com/embed/n6Uw2nGWOjs" title="ShootingCut StageMix 4:5 Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    </div>
-                    <div class="demo-label">4:5 <span class="demo-platform">StageMix</span></div>
                 </div>
             </div>
-            <p class="demo-note fade-in">Portrait Tracking keeps the shooter centered at any export ratio. StageMix combines multi-camera angles into one seamless video.</p>
+
+            <!-- Stage Mix -->
+            <div class="demo-feature fade-in" id="demo-stagemix">
+                <div class="demo-feature-header">
+                    <span class="demo-feature-icon">🎬</span>
+                    <h3 class="demo-feature-title">Stage Mix</h3>
+                    <p class="demo-feature-desc">Feed 3+ camera angles — the app auto-edits a cinematic highlight reel with intelligent cut timing.</p>
+                </div>
+                <div class="demo-grid-2col">
+                    <div class="demo-card">
+                        <div class="demo-video demo-landscape">
+                            <iframe src="https://www.youtube.com/embed/EHIiom5QjMU" title="ShootingCut StageMix 16:9 Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                        <div class="demo-label">16:9 <span class="demo-platform">Landscape</span></div>
+                    </div>
+                    <div class="demo-card">
+                        <div class="demo-video demo-portrait">
+                            <iframe src="https://www.youtube.com/embed/n6Uw2nGWOjs" title="ShootingCut StageMix 4:5 Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                        <div class="demo-label">4:5 <span class="demo-platform">Portrait</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Split Sync -->
+            <div class="demo-feature fade-in" id="demo-splitsync">
+                <div class="demo-feature-header">
+                    <span class="demo-feature-icon">⬛⬛</span>
+                    <h3 class="demo-feature-title">Split Sync</h3>
+                    <p class="demo-feature-desc">Two cameras, one timeline — auto-synced by the timer beep for side-by-side comparison.</p>
+                </div>
+                <div class="demo-placeholder">
+                    <div class="demo-placeholder-inner">
+                        <span class="demo-placeholder-icon">🎥</span>
+                        <p>Demo videos coming soon</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
