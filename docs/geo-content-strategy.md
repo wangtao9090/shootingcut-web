@@ -79,6 +79,40 @@ r/USPSA 一条 52 赞 / 29 评论的帖子下，Master 级选手对发视频求�
 → **本质**：射手要的不是"存成绩"，是"预测进步 / 对比对手"式分析。
 → 关键词：USPSA classifier tracker / path to GM / hit factor projection
 
+### 3.3-bis 国际成绩系统格局（2026-07-29 追加调研，结论重要）
+
+**起因**：核实芬兰用 ESS 还是 PractiScore。**答案是两个都不用。**
+
+**芬兰的实际情况**：
+- 主力是 **Pelias**（`pelias.ipscfin.org`）——IPSC Finland 协会**自建自营**的全流程系统，含赛历、成绩公示、本国/外国选手分开的注册入口、自己的手册与隐私政策。成绩表字段是芬兰本地化的（`Sarja` 组别 / `Seura` 俱乐部 / `Tulkattu` 已判读关卡数），与 PractiScore、ESS 都不同
+- 部分赛事用 **ShootNScoreIt（SSI）**——`shootnscoreit.com/event/22/…` 下有芬兰霰弹枪全国锦标赛、KSA Level 1 等
+
+**推论：「非 PractiScore 地区」不是一个统一市场，而是碎片化的。** 一个芬兰就有两套系统并行。我们目前支持的 ESS 41 地区，**需要核实是否包含芬兰**——若芬兰成绩实际落在 Pelias 和 SSI 上，芬兰射手打开 App 也导不进自己的成绩。
+
+**SSI 直连不可行**（实测）：
+- `shootnscoreit.com/event/`、`/api/` 均 404，且提示未登录无权访问
+- 没有公开的赛事列表页或 API
+- 想拉取只能靠登录态抓取，脆弱且有 ToS 风险
+
+**发现一条杠杆更大的路：WinMSS 文件格式**
+
+SSI 官方说明写明它可与 **WinMSS / ESS 双向互导**：
+> Export registration or stage and scoring for IPSC matches and import this into WinMSS or ESS... You can also import match data back into SSI from WinMSS or ESS using **WinMSS file format**.
+
+而 WinMSS 是 **IPSC 官方赛事计分程序**，各国向 `ipsc.org` 上报成绩也走它。**因此 WinMSS 格式实质上是整个 IPSC 世界的通用交换格式**——ESS、SSI、各国自建系统（含 Pelias，因为要上报）都得能导出它。支持一次，理论覆盖全部 IPSC 赛事，无需逐国接入。
+
+**⚠️ 但有个前提未验证，投入前必须先查**：
+**WinMSS 文件通常在主办方手里，选手未必能自己拿到。** 若只有赛事管理员可导出，这条路服务的是「俱乐部 / 主办方」场景，对个人选手无用——而我们的用户是选手。
+
+要验的具体问题：**普通参赛选手有没有渠道拿到自己参赛那场的 WinMSS 文件**（主办方是否公开发布、成绩页是否提供下载）。
+
+**方向优先级修正**（覆盖 §7 中原有的推测）：
+1. 先验「选手能否拿到 WinMSS 文件」——这一条决定后面所有投入是否成立
+2. 若能拿到 → 支持 WinMSS 导入，一次覆盖全 IPSC 世界，优先级高于继续铺 ESS 地区
+3. 若拿不到 → 国际成绩管理这条线整体降级，专注北美 PractiScore（那边痛点证据最强，见 §3.2 D/E）
+4. **各国自建系统（Pelias 类）逐个接入不划算**——一国一套，小市场投入产出不成比例
+5. SSI 直连放弃
+
 ### 3.3 如实报告：国际（ESS/HDP 地区）方向证据不足
 
 r/IPSC 搜 "video editing" 零结果；"ESS + IPSC results" 无射手讨论命中。唯一沾边的 ShotArchive 零评论，只能证明"开发者认为是痛点"，不代表群体共鸣。
