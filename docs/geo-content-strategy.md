@@ -106,6 +106,28 @@ SSI 官方说明写明它可与 **WinMSS / ESS 双向互导**：
 
 要验的具体问题：**普通参赛选手有没有渠道拿到自己参赛那场的 WinMSS 文件**（主办方是否公开发布、成绩页是否提供下载）。
 
+**WinMSS 的文件形态（已查实，是好消息）**：
+- **`winmss.mdb`** — Microsoft Access 2000 数据库，WinMSS 主库，含全部赛事数据（选手 / 关卡 / 成绩 / 命中分布都在表里）
+- **`winmss.cab`** — 导出备份用的压缩包，**比 mdb 小 15–20 倍**，是实际用于交换与上报的形态（WinMSS 菜单 `Match → Export/Backup`）
+- **不是 PDF，完全结构化**，无需 OCR。`.mdb` 是有成熟解析方案的老格式
+
+**已有第三方走通这条路（关键佐证）**：
+- **`scoring.services`** — 页面标题即「Import WinMSS or PractiScore match — full IPSC stats worldwide」
+- **`MakeReady`**（`makeready.info`）— 有专门的更新日志讲 `winmss.cab` 上传，说明该格式适合「海外 IPSC 赛事、没有 ShootingHouse URL 的 WinMSS 赛事、快速发布最终成绩」
+
+这同时验证了两点：格式可解析（已有人在解），且这些平台的用户确实拿得到 `winmss.cab`。
+
+**但措辞值得注意**：MakeReady 说的是「**national and international organizers** exporting WinMSS .cab files」——指向**主办方**。所以「选手个人能否拿到文件」这个前提**仍未解决**。
+
+**然而多出一条更实际的路径**：这些第三方平台**已经把 winmss 数据导入并公开展示**。若如此，选手不必自己拿文件——去 `scoring.services` 这类站点就能看到自己成绩。那我们的接入对象就从「解析 WinMSS 文件」变成「对接已聚合好数据的平台」，性质与成本完全不同。
+
+**下一步该查的（codex 从这里接）**：
+1. `scoring.services` 覆盖多少赛事 / 哪些地区，**芬兰的赛事在不在里面**
+2. 它有没有公开接口或可抓取的成绩页（对比 SSI 的无 API 情况）
+3. `MakeReady` 同样查一遍
+4. 若这些平台覆盖面够广 ⟹ 优先对接它们，而非自己解析 mdb/cab
+5. 若覆盖面窄 ⟹ 回到「选手能否自取 winmss.cab」这个问题
+
 **方向优先级修正**（覆盖 §7 中原有的推测）：
 1. 先验「选手能否拿到 WinMSS 文件」——这一条决定后面所有投入是否成立
 2. 若能拿到 → 支持 WinMSS 导入，一次覆盖全 IPSC 世界，优先级高于继续铺 ESS 地区
