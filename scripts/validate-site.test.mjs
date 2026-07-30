@@ -244,6 +244,26 @@ test("Split Sync guide explains POV and third-person review", async () => {
   }
 });
 
+test("Reframe guide answers fixed-crop and vertical publishing pain", async () => {
+  const source = await readFile(
+    path.join(
+      workspaceRoot,
+      "reframe-landscape-shooting-video-for-social-media",
+      "index.html",
+    ),
+    "utf8",
+  );
+
+  for (const phrase of [
+    "fixed center crop",
+    "YouTube Shorts, Instagram Reels, or Facebook Reels",
+    "Track follows the selected shooter",
+    "does not decide which targets",
+  ]) {
+    assert.ok(source.includes(phrase), `Reframe guide must include: ${phrase}`);
+  }
+});
+
 test("guide video embeds are accessible and match VideoObject metadata", async () => {
   const root = await copyCurrentSite();
 

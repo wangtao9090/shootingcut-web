@@ -522,7 +522,7 @@ Answer:
 Yes, when both recordings show the same run. Split Sync uses exactly two simultaneous inputs, proposes alignment from timer-beep and audio evidence, and still requires manual verification before export.
 ```
 
-- [ ] **Step 6: Validate and deploy**
+- [x] **Step 6: Validate and deploy**
 
 Run the full validation command set, then:
 
@@ -549,7 +549,7 @@ Expected: the visible FAQ and JSON-LD agree, the official video remains embedded
 - Consumes: P04 and the existing 16:9 versus tracked 4:5 official examples.
 - Produces: a vertical-video answer that explains what Track solves and what still needs user review.
 
-- [ ] **Step 1: Add a failing reframe-use-case test**
+- [x] **Step 1: Add a failing reframe-use-case test**
 
 Add:
 
@@ -575,7 +575,7 @@ test("Reframe guide answers fixed-crop and vertical publishing pain", async () =
 });
 ```
 
-- [ ] **Step 2: Run the focused test and verify failure**
+- [x] **Step 2: Run the focused test and verify failure**
 
 Run:
 
@@ -586,7 +586,7 @@ node --test --test-name-pattern="fixed-crop and vertical publishing" \
 
 Expected: FAIL because the current page starts with ratio ceilings instead of the observed crop problem.
 
-- [ ] **Step 3: Update the title, metadata, answer, and lede**
+- [x] **Step 3: Update the title, metadata, answer, and lede**
 
 Use this title:
 
@@ -612,11 +612,11 @@ Use this lede:
 A vertical crop has less horizontal room, so review whether the shooter and relevant action remain in frame and whether timing or score text remains readable. Track solves the moving-subject part; it does not decide which targets, props, or overlays matter to the final composition.
 ```
 
-- [ ] **Step 4: Add platform examples without implying unsupported direct upload**
+- [x] **Step 4: Add platform examples without implying unsupported direct upload**
 
 Add a section explaining that an exported vertical file can be prepared for YouTube Shorts, Instagram Reels, or Facebook Reels. State separately that direct upload to YouTube and Facebook is a Pro feature and that other publishing workflows begin with the exported file.
 
-- [ ] **Step 5: Add one visible FAQ and matching FAQPage item**
+- [x] **Step 5: Add one visible FAQ and matching FAQPage item**
 
 Question:
 
@@ -630,7 +630,7 @@ Answer:
 Track follows the selected shooter inside a supported crop. It does not decide which targets or overlays matter, so preview the complete stage and adjust the composition or overlay before export.
 ```
 
-- [ ] **Step 6: Synchronize Article, HowTo, and FAQ structured data**
+- [x] **Step 6: Synchronize Article, HowTo, and FAQ structured data**
 
 Update the Article description and only the HowTo/FAQ text whose visible counterpart changed. Preserve the verified ratio and resolution matrix.
 
