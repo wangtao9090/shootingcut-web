@@ -148,7 +148,7 @@ For social and video evidence:
 | 2026-07-30T10:05:00Z | General web | Agent Reach / Jina Reader | Available | Read-only page retrieval; not used as evidence of generative citation frequency. |
 | 2026-07-30T10:05:00Z | Facebook | OpenCLI connected Chrome bridge | Available | Three bounded public searches succeeded. Returned URLs can be profile or group URLs rather than durable post permalinks, and irrelevant results can appear. No cookies were read or exported by this audit. |
 | 2026-07-30T10:05:00Z | Reddit | OpenCLI connected Chrome bridge | Available | Read-only searches succeeded, but exact-query recall was uneven and broad wording produced unrelated results. |
-| 2026-07-30T10:05:00Z | YouTube | `yt-dlp` 2026.07.29 | Partially available | Flat title search succeeded without cookies. Full per-video extraction triggered YouTube's sign-in/anti-bot check, so upload dates and full metadata were not claimed from this sample. |
+| 2026-07-30T10:05:00Z | YouTube | `yt-dlp` 2026.07.29 plus public YouTube pages | Partially available | Flat title search and exact-ID duration lookup succeeded without cookies. Full `yt-dlp` extraction triggered YouTube's sign-in/anti-bot check; official titles, channels, thumbnails, and dates were instead verified through public YouTube OEmbed and watch-page data. |
 | 2026-07-30T10:05:00Z | Perplexity | Signed-out web session | Available | One run per fixed query; results are dated samples and do not establish a stable answer pattern. |
 | 2026-07-30T10:05:00Z | Exa | Free MCP endpoint | Rate-limited | Returned HTTP 429 on 2026-07-30. No large retry or API-key requirement was introduced. |
 
@@ -168,6 +168,20 @@ For social and video evidence:
 | 2026-07-30T10:05:00Z | YouTube | `IPSC full match video` | `https://www.youtube.com/watch?v=1p8f2Y7mDi4` | `POV IPSC Full Match Video 2021 Saskatchewan Provincial Championships` | Flat-search title only. |
 | 2026-07-30T10:05:00Z | YouTube | `IPSC full match video` | `https://www.youtube.com/watch?v=5nOXx6y301E` | `IPSC Match - 2017 Spring Shootout - 11 STAGES` | Flat-search title only. |
 | 2026-07-30T10:05:00Z | YouTube | `shooting match video editing` | — | The top five results interpreted `match` as an editing transition or unrelated sport, not practical shooting. | The phrase is too ambiguous for source discovery without a discipline term. |
+
+## Official guide-video evidence
+
+| Checked at (UTC) | Video | Public title | Channel | Upload date | Duration | Guide use |
+|---|---|---|---|---|---|---|
+| 2026-07-30T10:19:22Z | `https://www.youtube.com/watch?v=oxkMd8x90B0` | `ShootingCut in Action \| SplitSync SidebySide #practicalshooting #ipscshooting #shootingsports` | `WANG TAO` | 2026-04-09 | 28 seconds | Visible Split Sync Side by Side evidence on `/sync-two-shooting-videos-by-timer-beep/` |
+| 2026-07-30T10:19:22Z | `https://www.youtube.com/watch?v=EHIiom5QjMU` | `ShootingCut in Action \| StageMix 16x9 #ipscshooting #uspsa #practicalshooting #Shooting Cut` | `WANG TAO` | 2026-04-04 | 28 seconds | Visible Stage Mix evidence on `/edit-multi-camera-shooting-video/` |
+| 2026-07-30T10:19:22Z | `https://www.youtube.com/watch?v=EO-yju9mCIk` | `ShootingCut in Action \| sample 16:9 #ipscshooting #uspsa #practicalshooting #Shooting Cut` | `Shooting Cut` | 2026-04-04 | 28 seconds | Non-tracked landscape half of the comparison on `/reframe-landscape-shooting-video-for-social-media/` |
+| 2026-07-30T10:19:22Z | `https://www.youtube.com/shorts/ZO5H3u1iSR8` | `·ShootingCut in Action \| Sample 4x5 #ipscshooting #uspsa #practicalshooting #Shooting Cut` | `Shooting Cut` | 2026-04-04 | 28 seconds | Tracked 4:5 half of the comparison on `/reframe-landscape-shooting-video-for-social-media/` |
+
+The public YouTube OEmbed response supplied title, channel, and thumbnail; the
+public watch page supplied the exact publication date; `yt-dlp` flat exact-ID
+search or the visible player supplied duration. No browser cookie was exported
+or committed.
 
 ## English App Store parity
 
@@ -223,6 +237,9 @@ Each reviewed public route receives exactly one current state:
 
 | Review date | Route | Evidence state | Decision | Exact change or no-change reason |
 |---|---|---|---|---|
+| 2026-07-30 | `/sync-two-shooting-videos-by-timer-beep/` | `discovered but not crawled` | Media-evidence change | Added one visible official Split Sync Side by Side demonstration and matching `VideoObject` after the live page passed Google's fetch/index eligibility test. |
+| 2026-07-30 | `/edit-multi-camera-shooting-video/` | `discovered but not crawled` | Media-evidence change | Added one visible official Stage Mix demonstration and matching `VideoObject`; retained the requirement to review and override proposed cuts. |
+| 2026-07-30 | `/reframe-landscape-shooting-video-for-social-media/` | `discovered but not crawled` | Media-evidence change | Added the official non-tracked 16:9 and tracked 4:5 examples together so the visible evidence matches the page's output-boundary explanation. |
 
 ## Review schedule
 

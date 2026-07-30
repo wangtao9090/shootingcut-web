@@ -18,6 +18,14 @@ const pageOwnedSchemaTypes = new Set([
   "softwareapplication",
   "webpage",
 ]);
+const requiredGuideVideoIds = new Map([
+  ["sync-two-shooting-videos-by-timer-beep/index.html", ["oxkMd8x90B0"]],
+  ["edit-multi-camera-shooting-video/index.html", ["EHIiom5QjMU"]],
+  [
+    "reframe-landscape-shooting-video-for-social-media/index.html",
+    ["EO-yju9mCIk", "ZO5H3u1iSR8"],
+  ],
+]);
 const excludedDirectories = new Set([
   ".git",
   ".worktrees",
@@ -838,6 +846,7 @@ function validatePageOwnedJsonLdUrls(page, json, sourceIndex) {
 }
 
 function parseJsonLd(page) {
+  page.jsonLd = [];
   const scriptPattern =
     /<script\b((?:"[^"]*"|'[^']*'|[^'"<>])*)>/gi;
   const closingPattern = /<\/script\s*>/gi;
@@ -875,6 +884,7 @@ function parseJsonLd(page) {
       );
       try {
         const json = JSON.parse(jsonSource);
+        page.jsonLd.push(json);
         validatePageOwnedJsonLdUrls(page, json, scriptPattern.lastIndex);
       } catch (error) {
         addFailure(
@@ -887,6 +897,206 @@ function parseJsonLd(page) {
     }
 
     scriptPattern.lastIndex = closingPattern.lastIndex;
+  }
+}
+
+function collectJsonLdByType(value, expectedType, entries = []) {
+  if (Array.isArray(value)) {
+    for (const entry of value) {
+      collectJsonLdByType(entry, expectedType, entries);
+    }
+    return entries;
+  }
+  if (!value || typeof value !== "object") {
+    return entries;
+  }
+
+  const types = Array.isArray(value["@type"])
+    ? value["@type"]
+    : [value["@type"]];
+  if (
+    types.some(
+      (type) =>
+        typeof type === "string" &&
+        type.toLowerCase() === expectedType.toLowerCase(),
+    )
+  ) {
+    entries.push(value);
+  }
+
+  for (const child of Object.values(value)) {
+    collectJsonLdByType(child, expectedType, entries);
+  }
+  return entries;
+}
+
+function youtubeEmbedVideoId(value) {
+  let url;
+  try {
+    url = new URL(value);
+  } catch {
+    return null;
+  }
+  if (
+    url.protocol !== "https:" ||
+    url.hostname !== "www.youtube.com" ||
+    !url.pathname.startsWith("/embed/")
+  ) {
+    return null;
+  }
+  const videoId = url.pathname.slice("/embed/".length);
+  return /^[A-Za-z0-9_-]{11}$/.test(videoId) ? videoId : null;
+}
+
+function validateGuideVideos(page) {
+  const expectedIds = requiredGuideVideoIds.get(page.relativePath);
+  if (!expectedIds) {
+    return;
+  }
+
+  const expectedSet = new Set(expectedIds);
+  const embeddedIds = [];
+  for (const iframe of page.tags.filter((tag) => tag.name === "iframe")) {
+    const src = findAttribute(iframe, "src");
+    if (src?.value === undefined) {
+      continue;
+    }
+    const rawSrc = decodeHtmlAttribute(src.value).trim();
+    if (!/youtube\.com\/embed\//i.test(rawSrc)) {
+      continue;
+    }
+
+    let url;
+    try {
+      url = new URL(rawSrc);
+    } catch {
+      url = null;
+    }
+    const videoId = youtubeEmbedVideoId(rawSrc);
+    if (!videoId) {
+      addFailure(
+        page.relativePath,
+        page.source,
+        src.index,
+        "guide video iframe must use an HTTPS www.youtube.com/embed/{video-id} URL",
+      );
+      continue;
+    }
+    embeddedIds.push(videoId);
+
+    const title = findAttribute(iframe, "title");
+    if (!title?.value?.trim()) {
+      addFailure(
+        page.relativePath,
+        page.source,
+        iframe.index,
+        "guide video iframe must have a non-empty title",
+      );
+    }
+    const loading = findAttribute(iframe, "loading");
+    if (loading?.value?.toLowerCase() !== "lazy") {
+      addFailure(
+        page.relativePath,
+        page.source,
+        iframe.index,
+        'guide video iframe must use loading="lazy"',
+      );
+    }
+    if (!findAttribute(iframe, "allowfullscreen")) {
+      addFailure(
+        page.relativePath,
+        page.source,
+        iframe.index,
+        "guide video iframe must allow fullscreen playback",
+      );
+    }
+    if (url?.searchParams.has("autoplay")) {
+      addFailure(
+        page.relativePath,
+        page.source,
+        src.index,
+        "guide video iframe must not include an autoplay parameter",
+      );
+    }
+
+    const figureStart = page.source.lastIndexOf("<figure", iframe.index);
+    const previousFigureEnd = page.source.lastIndexOf(
+      "</figure",
+      iframe.index,
+    );
+    const figureEnd = page.source.indexOf("</figure", iframe.endIndex);
+    const captionIndex = page.source.indexOf(
+      "<figcaption",
+      iframe.endIndex,
+    );
+    if (
+      figureStart === -1 ||
+      figureStart < previousFigureEnd ||
+      figureEnd === -1 ||
+      captionIndex === -1 ||
+      captionIndex > figureEnd
+    ) {
+      addFailure(
+        page.relativePath,
+        page.source,
+        iframe.index,
+        "guide video iframe must have a visible adjacent figcaption",
+      );
+    }
+  }
+
+  for (const videoId of expectedIds) {
+    if (embeddedIds.filter((candidate) => candidate === videoId).length !== 1) {
+      addFailure(
+        page.relativePath,
+        page.source,
+        0,
+        `guide must visibly embed official video ${videoId} exactly once`,
+      );
+    }
+  }
+  for (const videoId of embeddedIds) {
+    if (!expectedSet.has(videoId)) {
+      addFailure(
+        page.relativePath,
+        page.source,
+        0,
+        `unexpected guide video ${videoId}`,
+      );
+    }
+  }
+
+  const videoObjects = (page.jsonLd ?? []).flatMap((json) =>
+    collectJsonLdByType(json, "VideoObject"),
+  );
+  for (const videoId of expectedIds) {
+    const matchingObjects = videoObjects.filter(
+      (videoObject) =>
+        youtubeEmbedVideoId(videoObject.embedUrl) === videoId &&
+        (videoObject.contentUrl ===
+          `https://www.youtube.com/watch?v=${videoId}` ||
+          videoObject.contentUrl ===
+            `https://www.youtube.com/shorts/${videoId}`),
+    );
+    if (matchingObjects.length !== 1) {
+      addFailure(
+        page.relativePath,
+        page.source,
+        0,
+        `official video ${videoId} must have exactly one matching VideoObject`,
+      );
+    }
+  }
+  for (const videoObject of videoObjects) {
+    const videoId = youtubeEmbedVideoId(videoObject.embedUrl);
+    if (!videoId || !embeddedIds.includes(videoId)) {
+      addFailure(
+        page.relativePath,
+        page.source,
+        0,
+        "every guide VideoObject must match a visibly embedded video",
+      );
+    }
   }
 }
 
@@ -2236,6 +2446,7 @@ async function main() {
 
   for (const page of pages.values()) {
     parseJsonLd(page);
+    validateGuideVideos(page);
     validateMarketingFacts(page);
     validatePrivacyBoundary(page);
     validateSupportBoundary(page);

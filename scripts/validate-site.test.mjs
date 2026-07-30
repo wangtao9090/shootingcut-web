@@ -53,6 +53,14 @@ const expectedGuideRoutes = [
   "/thailand-hdp-ess-match-results/",
   "/add-shot-times-and-scores-to-match-video/",
 ];
+const expectedGuideVideos = new Map([
+  ["sync-two-shooting-videos-by-timer-beep/index.html", ["oxkMd8x90B0"]],
+  ["edit-multi-camera-shooting-video/index.html", ["EHIiom5QjMU"]],
+  [
+    "reframe-landscape-shooting-video-for-social-media/index.html",
+    ["EO-yju9mCIk", "ZO5H3u1iSR8"],
+  ],
+]);
 const expectedPolicyUrls = [
   "https://shootingcut.com/faq.html",
   "https://shootingcut.com/privacy.html",
@@ -162,6 +170,74 @@ test("homepage visibly links every English guide exactly once", async () => {
       `${route} must resolve to a tracked guide`,
     );
   }
+});
+
+test("guide video embeds are accessible and match VideoObject metadata", async () => {
+  const root = await copyCurrentSite();
+
+  for (const [relativePath, videoIds] of expectedGuideVideos) {
+    const source = await readFile(path.join(root, relativePath), "utf8");
+
+    assert.ok(
+      countExact(source, "<figcaption>") >= videoIds.length,
+      `${relativePath} must visibly caption every guide video`,
+    );
+    for (const videoId of videoIds) {
+      const iframePattern = new RegExp(
+        `<iframe\\b(?=[^>]*\\bsrc="https://www\\.youtube\\.com/embed/${videoId}")(?=[^>]*\\btitle="[^"]+")(?=[^>]*\\bloading="lazy")(?=[^>]*\\ballowfullscreen(?:\\s|>|=))[^>]*>`,
+        "i",
+      );
+      assert.match(
+        source,
+        iframePattern,
+        `${relativePath} must visibly embed ${videoId} with accessible lazy-loading attributes`,
+      );
+      assert.ok(
+        source.includes(
+          `"contentUrl": "https://www.youtube.com/watch?v=${videoId}"`,
+        ) ||
+          source.includes(
+            `"contentUrl": "https://www.youtube.com/shorts/${videoId}"`,
+          ),
+        `${relativePath} must expose ${videoId} as VideoObject content`,
+      );
+      assert.ok(
+        source.includes(
+          `"embedUrl": "https://www.youtube.com/embed/${videoId}"`,
+        ),
+        `${relativePath} must match the visible ${videoId} embed in VideoObject`,
+      );
+    }
+    assert.doesNotMatch(
+      source,
+      /youtube\.com\/embed\/[^"']*[?&]autoplay(?:=|&|["'])/i,
+      `${relativePath} must not autoplay guide videos`,
+    );
+  }
+});
+
+test("guide video validation rejects unsafe embeds and mismatched metadata", async () => {
+  const root = await copyCurrentSite();
+  await replaceInFile(
+    root,
+    "sync-two-shooting-videos-by-timer-beep/index.html",
+    'src="https://www.youtube.com/embed/oxkMd8x90B0" title="Official Shooting Cut Split Sync Side by Side demonstration" loading="lazy"',
+    'src="https://www.youtube.com/embed/oxkMd8x90B0?autoplay=1" title="Official Shooting Cut Split Sync Side by Side demonstration"',
+  );
+  await replaceInFile(
+    root,
+    "sync-two-shooting-videos-by-timer-beep/index.html",
+    '"contentUrl": "https://www.youtube.com/watch?v=oxkMd8x90B0"',
+    '"contentUrl": "https://www.youtube.com/watch?v=EO-yju9mCIk"',
+  );
+
+  const result = runValidator(root);
+  assertRejected(result, /must use loading="lazy"/i);
+  assertRejected(result, /must not include an autoplay parameter/i);
+  assertRejected(
+    result,
+    /official video oxkMd8x90B0 must have exactly one matching VideoObject/i,
+  );
 });
 
 test("llms.txt exposes the complete reviewed product and route surface", async () => {
