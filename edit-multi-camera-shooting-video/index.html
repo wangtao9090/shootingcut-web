@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<!-- Shooting Cut core workflow guide -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit a Multi-Camera Shooting Video with Stage Mix | Shooting Cut</title>
+    <meta name="description" content="Use Shooting Cut Stage Mix for 2–3 simultaneous camera recordings, assign POV, Follow, or Static roles, review movement-aware switching, and override cuts.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0a0e17">
+
+    <link rel="canonical" href="https://shootingcut.com/edit-multi-camera-shooting-video/">
+    <link rel="alternate" hreflang="en" href="https://shootingcut.com/edit-multi-camera-shooting-video/">
+    <link rel="alternate" hreflang="zh-Hans" href="https://shootingcut.cn/edit-multi-camera-shooting-video/">
+    <link rel="alternate" hreflang="x-default" href="https://shootingcut.com/edit-multi-camera-shooting-video/">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shootingcut.com/edit-multi-camera-shooting-video/">
+    <meta property="og:title" content="Edit a Multi-Camera Shooting Video with Stage Mix">
+    <meta property="og:description" content="Build one reviewed edit from 2–3 simultaneous POV, Follow, or Static recordings with movement-aware switching and manual override.">
+    <meta property="og:image" content="https://shootingcut.com/og-image.svg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Shooting Cut">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "@id": "https://shootingcut.com/edit-multi-camera-shooting-video/#article",
+        "url": "https://shootingcut.com/edit-multi-camera-shooting-video/",
+        "mainEntityOfPage": "https://shootingcut.com/edit-multi-camera-shooting-video/",
+        "headline": "How to Edit a Multi-Camera Shooting Video with Stage Mix",
+        "description": "A guide to assigning POV, Follow, or Static roles to 2–3 simultaneous recordings, reviewing movement-aware switching, and manually overriding cuts.",
+        "datePublished": "2026-07-29",
+        "dateModified": "2026-07-29",
+        "image": "https://shootingcut.com/og-image.svg",
+        "author": {
+            "@type": "Organization",
+            "name": "ShootingCut LLC",
+            "url": "https://shootingcut.com/"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "ShootingCut LLC",
+            "url": "https://shootingcut.com/"
+        }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://shootingcut.com/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Competitive-shooting video editor",
+                "item": "https://shootingcut.com/competitive-shooting-video-editor/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Edit multi-camera shooting video",
+                "item": "https://shootingcut.com/edit-multi-camera-shooting-video/"
+            }
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "@id": "https://shootingcut.com/edit-multi-camera-shooting-video/#howto",
+        "url": "https://shootingcut.com/edit-multi-camera-shooting-video/",
+        "mainEntityOfPage": "https://shootingcut.com/edit-multi-camera-shooting-video/",
+        "name": "Edit 2–3 simultaneous shooting-camera recordings with Stage Mix",
+        "description": "Assign each recording a camera role, review the movement-aware edit, and manually override cuts before export.",
+        "step": [
+            {
+                "@type": "HowToStep",
+                "position": 1,
+                "name": "Choose 2–3 recordings of the same run",
+                "text": "Select two or three simultaneous camera recordings that cover the same stage run."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 2,
+                "name": "Assign camera roles",
+                "text": "Label every input as POV, Follow, or Static according to how that camera recorded the run."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 3,
+                "name": "Check input coverage",
+                "text": "Preview each recording and confirm its timing, usable section, and role before building the combined edit."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 4,
+                "name": "Generate movement-aware switching",
+                "text": "Let Stage Mix propose camera changes according to shooting and movement phases."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 5,
+                "name": "Review and override cuts",
+                "text": "Watch the full timeline and manually replace or adjust any proposed switch that does not fit the intended edit."
+            },
+            {
+                "@type": "HowToStep",
+                "position": 6,
+                "name": "Preview and export",
+                "text": "Review the final camera sequence, selected framing, subtitles, and score content before export."
+            }
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "@id": "https://shootingcut.com/edit-multi-camera-shooting-video/#faq",
+        "url": "https://shootingcut.com/edit-multi-camera-shooting-video/",
+        "mainEntityOfPage": "https://shootingcut.com/edit-multi-camera-shooting-video/",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How many recordings does Stage Mix use?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Stage Mix uses 2–3 simultaneous recordings of the same run. It is not an unlimited-camera workflow."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What do POV, Follow, and Static mean in Stage Mix?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "They are the three camera-role labels assigned to Stage Mix inputs. Label each recording according to how that camera captured the run before generating the edit."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I change the automatic camera switches?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Movement-aware switching proposes an edit, and manual override lets you replace or adjust cuts after reviewing the timeline."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is Stage Mix the same as Split Sync or Merge?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. Stage Mix switches among 2–3 simultaneous role-assigned recordings. Split Sync composes exactly two simultaneous views, while Merge joins sequential stage clips."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="/assets/content.css">
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Primary">
+            <a class="brand" href="/">Shooting Cut&trade;</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/competitive-shooting-video-editor/">Editing workflows</a>
+                <a href="/faq.html">FAQ</a>
+                <a href="/support.html">Support</a>
+                <a class="language-switch" href="https://shootingcut.cn/edit-multi-camera-shooting-video/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <ol>
+                <li><a href="/">Home</a></li>
+                <li><a href="/competitive-shooting-video-editor/">Editing workflows</a></li>
+                <li aria-current="page">Edit multi-camera shooting video</li>
+            </ol>
+        </nav>
+
+        <article class="content-article">
+            <header class="article-header">
+                <p class="eyebrow">2–3 cameras → one reviewed cut</p>
+                <h1>Edit a Multi-Camera Shooting Video with Stage Mix</h1>
+                <p class="answer">Use Stage Mix for 2–3 simultaneous camera recordings of the same run, with every input assigned a POV, Follow, or Static role before movement-aware switching and manual review.</p>
+                <p class="updated">Updated: 2026-07-29</p>
+                <p class="lede">Stage Mix proposes when the edit should change cameras during shooting and movement phases. It does not remove the editor from the process: review the full timeline and override any cut that does not show the run clearly.</p>
+            </header>
+
+            <section class="content-section" id="input-roles">
+                <span class="section-label">Exact input shape</span>
+                <h2>Assign a role to each of the 2–3 inputs</h2>
+                <div class="table-scroll">
+                    <table>
+                        <caption>Stage Mix camera-role setup</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Role label</th>
+                                <th scope="col">Use it when the recording is</th>
+                                <th scope="col">Review before switching</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">POV</th>
+                                <td>The shooter’s point-of-view recording</td>
+                                <td>Visibility, usable start/end, and motion</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Follow</th>
+                                <td>A camera following the shooter through the run</td>
+                                <td>Subject coverage and camera movement</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Static</th>
+                                <td>A camera kept in a fixed position</td>
+                                <td>Stage coverage and blocked views</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="fact-note"><strong>The input ceiling is 2–3 recordings.</strong> Stage Mix is not an unlimited multicamera mode and should not be described as accepting four or more inputs.</p>
+            </section>
+
+            <section class="content-section" id="steps">
+                <span class="section-label">Six-step workflow</span>
+                <h2>Generate a first cut, then direct the final edit</h2>
+                <ol>
+                    <li><strong>Choose 2–3 recordings of the same run.</strong> Select two or three simultaneous camera recordings that cover the same stage run.</li>
+                    <li><strong>Assign camera roles.</strong> Label every input as POV, Follow, or Static according to how that camera recorded the run.</li>
+                    <li><strong>Check input coverage.</strong> Preview each recording and confirm its timing, usable section, and role before building the combined edit.</li>
+                    <li><strong>Generate movement-aware switching.</strong> Let Stage Mix propose camera changes according to shooting and movement phases.</li>
+                    <li><strong>Review and override cuts.</strong> Watch the full timeline and manually replace or adjust any proposed switch that does not fit the intended edit.</li>
+                    <li><strong>Preview and export.</strong> Review the final camera sequence, selected framing, subtitles, and score content before export.</li>
+                </ol>
+            </section>
+
+            <section class="content-section" id="mode-comparison">
+                <span class="section-label">Choose by footage relationship</span>
+                <h2>Stage Mix, Split Sync, and Merge solve different edits</h2>
+                <p><strong>Stage Mix</strong> switches among 2–3 simultaneous POV, Follow, or Static recordings. Use it when the finished video should change camera angles during the run.</p>
+                <p><strong>Split Sync</strong> uses exactly two simultaneous recordings and presents them through Full Screen, two HUD layouts, or Side by Side. Use <a href="/sync-two-shooting-videos-by-timer-beep/">Split Sync</a> when a fixed two-view composition is the goal.</p>
+                <p><strong>Merge</strong> plays different Stage clips one after another. Use <a href="/merge-uspsa-stage-videos/">Merge</a> for a complete sequential match, not for simultaneous camera coverage.</p>
+            </section>
+
+            <section class="content-section" id="review-and-output">
+                <span class="section-label">Manual authority</span>
+                <h2>Review every proposed switch and the final framing</h2>
+                <p>Movement-aware switching is an editing aid. Preview transitions around movement, shooting positions, and moments where a camera loses a clear view. Manual override lets you keep another input on screen or move a cut when the proposed edit is not the best choice.</p>
+                <p>Stage Mix supports Reframe and Track for supported portrait or square crops. The <a href="/reframe-landscape-shooting-video-for-social-media/">Reframe guide</a> explains the verified ratio and resolution ceilings; do not assume every ratio combines with every resolution.</p>
+                <p>Stage Mix is a Pro feature. One subscription covers all your Apple devices, subject to App Store account and entitlement rules.</p>
+            </section>
+
+            <section class="content-section" id="frequently-asked-questions">
+                <span class="section-label">Quick answers</span>
+                <h2>Frequently asked questions</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>How many recordings does Stage Mix use?</summary>
+                        <p>Stage Mix uses 2–3 simultaneous recordings of the same run. It is not an unlimited-camera workflow.</p>
+                    </details>
+                    <details>
+                        <summary>What do POV, Follow, and Static mean in Stage Mix?</summary>
+                        <p>They are the three camera-role labels assigned to Stage Mix inputs. Label each recording according to how that camera captured the run before generating the edit.</p>
+                    </details>
+                    <details>
+                        <summary>Can I change the automatic camera switches?</summary>
+                        <p>Yes. Movement-aware switching proposes an edit, and manual override lets you replace or adjust cuts after reviewing the timeline.</p>
+                    </details>
+                    <details>
+                        <summary>Is Stage Mix the same as Split Sync or Merge?</summary>
+                        <p>No. Stage Mix switches among 2–3 simultaneous role-assigned recordings. Split Sync composes exactly two simultaneous views, while Merge joins sequential stage clips.</p>
+                    </details>
+                </div>
+            </section>
+
+            <aside class="closing-card" aria-labelledby="next-workflow">
+                <span class="section-label">Next check</span>
+                <h2 id="next-workflow">Review the audio events that support the edit</h2>
+                <p>If automatic gain control, neighboring shots, echo, or a weak timer beep changes the timeline, follow the <a href="/shot-detection-troubleshooting/">shot-detection troubleshooting checklist</a>.</p>
+                <a class="button-link" href="/competitive-shooting-video-editor/">Compare all editing modes</a>
+            </aside>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <nav aria-label="Footer">
+            <a href="/">Home</a>
+            <a href="/competitive-shooting-video-editor/">Editing workflows</a>
+            <a href="/faq.html">FAQ</a>
+            <a href="/privacy.html">Privacy</a>
+            <a href="/support.html">Support</a>
+        </nav>
+        <p>&copy; 2026 ShootingCut&trade; LLC. All rights reserved.</p>
+    </footer>
+</body>
+</html>
