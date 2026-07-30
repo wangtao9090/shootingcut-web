@@ -120,6 +120,12 @@ For social and video evidence:
 | 2026-07-30T09:58:54Z | `/merge-uspsa-stage-videos/` | Discovered, not indexed | Eligible for indexing; page fetch succeeded | Requested |
 | 2026-07-30T09:58:54Z | `/import-practiscore-ess-hdp-match-results/` | Discovered, not indexed | Eligible for indexing; page fetch succeeded | Requested |
 
+## Public Google site-query snapshot
+
+| Checked at (UTC) | Query | Returned sample | Current English URLs | Removed historical URLs | Interpretation and action |
+|---|---|---:|---|---|---|
+| 2026-07-30T11:32:30Z | `site:shootingcut.com` | 9 results | `/`, `/faq.html`, `/privacy.html`, `/terms.html`, `/support.html`, and `/import-practiscore-ess-hdp-match-results/` | `/zh/`, `/faq-zh.html`, and `/terms-zh.html`; all three returned 404 when checked | This bounded public result sample is not an authoritative index count. It shows that Google has found one new guide while its public result cache still contains pre-migration Chinese URLs. Keep the intentional 404 responses, do not restore or redirect the removed `.com` Chinese pages, and monitor Search Console recrawl and validation. |
+
 ## Query and citation samples
 
 | Checked at (UTC) | Surface | Market | Query ID | Site/page present | Cited URL | Factual error | Notes |
@@ -148,7 +154,7 @@ For social and video evidence:
 | 2026-07-30T10:05:00Z | General web | Agent Reach / Jina Reader | Available | Read-only page retrieval; not used as evidence of generative citation frequency. |
 | 2026-07-30T10:05:00Z | Facebook | OpenCLI connected Chrome bridge | Available | Three bounded public searches succeeded. Returned URLs can be profile or group URLs rather than durable post permalinks, and irrelevant results can appear. No cookies were read or exported by this audit. |
 | 2026-07-30T10:05:00Z | Reddit | OpenCLI connected Chrome bridge | Available | Read-only searches succeeded, but exact-query recall was uneven and broad wording produced unrelated results. |
-| 2026-07-30T10:05:00Z | YouTube | `yt-dlp` 2026.07.29 plus public YouTube pages | Partially available | Flat title search and exact-ID duration lookup succeeded without cookies. Full `yt-dlp` extraction triggered YouTube's sign-in/anti-bot check; official titles, channels, thumbnails, and dates were instead verified through public YouTube OEmbed and watch-page data. |
+| 2026-07-30T10:05:00Z | YouTube | Homebrew `yt-dlp` 2026.07.04 plus public YouTube pages | Partially available | Flat title search and exact-ID duration lookup succeeded without cookies. Full `yt-dlp` extraction triggered YouTube's sign-in/anti-bot check; official titles, channels, thumbnails, and dates were instead verified through public YouTube OEmbed and watch-page data. On 2026-07-30, Homebrew and the official `yt-dlp` GitHub release both reported 2026.07.04 as current. |
 | 2026-07-30T10:05:00Z | Perplexity | Signed-out web session | Available | One run per fixed query; results are dated samples and do not establish a stable answer pattern. |
 | 2026-07-30T10:05:00Z | Exa | Free MCP endpoint | Rate-limited | Returned HTTP 429 on 2026-07-30. No large retry or API-key requirement was introduced. |
 
