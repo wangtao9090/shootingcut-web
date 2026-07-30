@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Shot Times and Scores to Match Video | Shooting Cut</title>
-    <meta name="description" content="When a PractiScore result contains official per-shot timer records, align them to match footage by timer beep and use verified times, splits, shot count, and score data in video overlays.">
+    <meta name="description" content="Make match footage easier to understand by adding verified PractiScore shot times, splits, shot count, and scores aligned to the timer beep.">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#0a0e17">
 
@@ -16,7 +16,7 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://shootingcut.com/add-shot-times-and-scores-to-match-video/">
     <meta property="og:title" content="Add Official Shot Times and Scores to Match Video">
-    <meta property="og:description" content="Import a qualifying PractiScore record, align it by timer beep, verify the fields, preview the overlay, and export.">
+    <meta property="og:description" content="Make a stage run easier to understand with available official times, splits, shot count, and score data—without claiming bullet-hit localization.">
     <meta property="og:image" content="https://shootingcut.com/og-image.svg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -30,9 +30,9 @@
         "url": "https://shootingcut.com/add-shot-times-and-scores-to-match-video/",
         "mainEntityOfPage": "https://shootingcut.com/add-shot-times-and-scores-to-match-video/",
         "headline": "Add PractiScore Official Shot Times and Scores to Match Video",
-        "description": "How Shooting Cut uses an available PractiScore official per-shot timer record, timer-beep alignment, manual verification, and readable score-aware subtitles or overlays.",
+        "description": "How Shooting Cut makes a stage run easier to understand with an available PractiScore official per-shot timer record, verified alignment, and readable timing or score context without inferring bullet-hit locations.",
         "datePublished": "2026-07-29",
-        "dateModified": "2026-07-29",
+        "dateModified": "2026-07-30",
         "image": "https://shootingcut.com/og-image.svg",
         "author": {
             "@type": "Organization",
@@ -142,6 +142,14 @@
             },
             {
                 "@type": "Question",
+                "name": "Does Shooting Cut show where bullets hit the target?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. Shooting Cut can display available imported score and official timing data and can analyze timer and shot audio. It does not locate or place bullet hits on a target image."
+                }
+            },
+            {
+                "@type": "Question",
                 "name": "Which imported fields can Shooting Cut use in the video?",
                 "acceptedAnswer": {
                     "@type": "Answer",
@@ -199,8 +207,8 @@
             <header class="article-header">
                 <p class="eyebrow">Official record + timer beep → verified overlay</p>
                 <h1>Add Shot Times and Scores to Match Video</h1>
-                <p class="answer">When a PractiScore result contains official per-shot timer records, Shooting Cut can align them to the matching footage with the timer beep and use the available official times, splits, shot count, and score data in video subtitles or overlays.</p>
-                <p class="updated">Updated: 2026-07-29</p>
+                <p class="answer">Use Shooting Cut to make a stage video easier to understand by displaying verified shot times, splits, shot count, and score data from a PractiScore result that contains official per-shot timer records. Shooting Cut aligns that record to the footage by the timer beep; it does not infer bullet-hit locations.</p>
+                <p class="updated">Updated: 2026-07-30</p>
                 <p class="lede">The workflow starts with imported official data; the app does not invent missing fields. Select the corresponding stage video, verify the beep alignment, inspect the timing and score information, and preview the complete composition before export.</p>
             </header>
 
@@ -280,6 +288,10 @@
                     <details>
                         <summary>Does every PractiScore result include official per-shot records?</summary>
                         <p>No. This workflow is available only when the imported PractiScore result actually contains official timer and per-shot fields.</p>
+                    </details>
+                    <details>
+                        <summary>Does Shooting Cut show where bullets hit the target?</summary>
+                        <p>No. Shooting Cut can display available imported score and official timing data and can analyze timer and shot audio. It does not locate or place bullet hits on a target image.</p>
                     </details>
                     <details>
                         <summary>Which imported fields can Shooting Cut use in the video?</summary>

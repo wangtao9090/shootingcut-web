@@ -634,7 +634,7 @@ Track follows the selected shooter inside a supported crop. It does not decide w
 
 Update the Article description and only the HowTo/FAQ text whose visible counterpart changed. Preserve the verified ratio and resolution matrix.
 
-- [ ] **Step 7: Validate and deploy**
+- [x] **Step 7: Validate and deploy**
 
 Run the full validation command set, then:
 
@@ -661,7 +661,7 @@ Expected: the two existing official videos remain present, no direct Instagram u
 - Consumes: P06 and the observed request to make match footage understandable.
 - Produces: a performance-context answer with an explicit boundary between imported timing/score data and bullet-hit location.
 
-- [ ] **Step 1: Add a failing performance-context boundary test**
+- [x] **Step 1: Add a failing performance-context boundary test**
 
 Add:
 
@@ -687,7 +687,7 @@ test("timing guide explains performance context without hit localization", async
 });
 ```
 
-- [ ] **Step 2: Run the focused test and verify failure**
+- [x] **Step 2: Run the focused test and verify failure**
 
 Run:
 
@@ -698,7 +698,7 @@ node --test --test-name-pattern="without hit localization" \
 
 Expected: FAIL on the explicit viewer-outcome and hit-location boundary.
 
-- [ ] **Step 3: Update metadata and the opening answer**
+- [x] **Step 3: Update metadata and the opening answer**
 
 Use this meta description:
 
@@ -714,7 +714,7 @@ Make a stage video easier to understand by displaying verified shot times, split
 
 Keep the existing import, alignment, preview, and missing-field boundaries.
 
-- [ ] **Step 4: Add one visible FAQ and matching FAQPage item**
+- [x] **Step 4: Add one visible FAQ and matching FAQPage item**
 
 Question:
 

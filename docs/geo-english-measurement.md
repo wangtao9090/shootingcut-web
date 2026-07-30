@@ -272,6 +272,7 @@ Each reviewed public route receives exactly one current state:
 | 2026-07-30 | `/competitive-shooting-video-editor/` | `discovered but not crawled` | Pain-to-workflow change | Add an outcome map for P01/P02 before the existing verified mode table; preserve every input, Free/Pro, export, and privacy boundary. |
 | 2026-07-30 | `/sync-two-shooting-videos-by-timer-beep/` | `discovered but not crawled` | Two-view use-case change | Answer P03 with POV/third-person review language, footwork and stage-strategy context, an exact-two-input boundary, and manual sync verification. |
 | 2026-07-30 | `/reframe-landscape-shooting-video-for-social-media/` | `discovered but not crawled` | Vertical-crop use-case change | Answer P04 with fixed-crop pain, selected-shooter tracking, platform-format examples, and an explicit requirement to review targets and overlays. |
+| 2026-07-30 | `/add-shot-times-and-scores-to-match-video/` | `discovered but not crawled` | Performance-context change | Answer P06 by explaining how verified timing and score fields make a run understandable, while explicitly rejecting automatic bullet-hit localization. |
 
 ## Review schedule
 

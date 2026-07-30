@@ -264,6 +264,26 @@ test("Reframe guide answers fixed-crop and vertical publishing pain", async () =
   }
 });
 
+test("timing guide explains performance context without hit localization", async () => {
+  const source = await readFile(
+    path.join(
+      workspaceRoot,
+      "add-shot-times-and-scores-to-match-video",
+      "index.html",
+    ),
+    "utf8",
+  );
+
+  for (const phrase of [
+    "make a stage video easier to understand",
+    "does not infer bullet-hit locations",
+    "official per-shot timer records",
+    "verify the timer-beep alignment",
+  ]) {
+    assert.ok(source.includes(phrase), `timing guide must include: ${phrase}`);
+  }
+});
+
 test("guide video embeds are accessible and match VideoObject metadata", async () => {
   const root = await copyCurrentSite();
 
