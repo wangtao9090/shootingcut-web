@@ -63,12 +63,12 @@
 
     <div class="content">
         <h1>Terms of Use</h1>
-        <p class="updated">Last updated: March 22, 2026</p>
+        <p class="updated">Effective and last updated: 2026-07-29</p>
 
         <p>Please read these Terms of Use ("Terms") carefully before using the ShootingCut application ("App") available on iOS, iPadOS, and macOS. By downloading, installing, or using the App, you agree to be bound by these Terms. If you do not agree, please do not use the App.</p>
 
         <h2>1. Who We Are</h2>
-        <p>ShootingCut ("we", "our", or "us") develops and operates the ShootingCut App — an intelligent video analysis and editing tool designed for practical shooting sports (IPSC, USPSA, IDPA, and similar disciplines). The App uses FFT-based audio signal processing to detect timer beeps and gunshot events, enabling automatic video trimming, multi-angle synchronization, subtitle overlay, and video export.</p>
+        <p>ShootingCut ("we", "our", or "us") develops and operates the ShootingCut App — a broad competitive-shooting video editor for practical and action-shooting footage. It combines on-device audio analysis with trimming, sequential merging, synchronized and multi-camera editing, person tracking and reframing, performance subtitles, score-aware workflows, and export.</p>
 
         <h2>2. Eligibility</h2>
         <p>You must be at least 13 years of age (or the applicable minimum age in your jurisdiction) to use the App. By using the App, you represent and warrant that you meet this requirement. If you are under 18, you must have the permission of a parent or legal guardian to use the App.</p>
@@ -85,25 +85,26 @@
         </ul>
 
         <h2>4. App Features and Functionality</h2>
-        <p>ShootingCut provides the following core features:</p>
+        <p>The current App version is 1.1.3. Its core features include:</p>
         <ul>
-            <li><strong>Audio Analysis:</strong> FFT-based detection of electronic timer beeps (2500–3500 Hz) and gunshot pulses in your imported videos.</li>
-            <li><strong>Auto Trim:</strong> Automatic video trimming based on detected timer and last-shot timestamps.</li>
-            <li><strong>Merge:</strong> Linear concatenation of multiple video clips into a single video.</li>
-            <li><strong>Split Sync:</strong> Timer-synchronized dual-angle split-screen video composition.</li>
-            <li><strong>Stage Mix:</strong> Multi-camera intelligent scene selection and automatic editing based on shooting/movement phases.</li>
+            <li><strong>Audio Analysis:</strong> Detection of timer beeps and gunshot events from the audio track of imported video for editing and timing overlays.</li>
+            <li><strong>Auto Trim:</strong> Takes exactly 1 video and trims it around the stage run.</li>
+            <li><strong>Merge:</strong> Combines up to 20 clips sequentially into one video.</li>
+            <li><strong>Split Sync:</strong> Takes exactly 2 simultaneous views, aligns them by the timer beep, and composes a selected split or HUD layout.</li>
+            <li><strong>Stage Mix:</strong> Takes 2–3 inputs labeled POV, Follow, or Static, performs movement-aware camera switching, and allows manual override.</li>
             <li><strong>Subtitle Overlay:</strong> Real-time performance statistics (shot times, splits, total time) overlaid as subtitles on exported video.</li>
-            <li><strong>Person / Subject Tracking:</strong> Optional on-device AI-powered tracking that keeps a selected subject centered in the frame during export. All processing is performed locally using Apple's Vision framework; no video data or tracking results are transmitted off your device.</li>
-            <li><strong>iCloud Session Sync:</strong> Session names and lightweight metadata are optionally synced across your own Apple devices via iCloud Key-Value Storage. Video files are never synced through this mechanism.</li>
-            <li><strong>Social Sharing:</strong> Optional upload of exported videos to TikTok, YouTube, and Facebook (requires separate authorization).</li>
+            <li><strong>Person / Subject Tracking:</strong> Optional on-device tracking that keeps a selected subject framed during export.</li>
+            <li><strong>Score Import:</strong> Network-based import from supported match-result sources, with official per-shot timing available only where the source provides it.</li>
+            <li><strong>iCloud Metadata Sync:</strong> Lightweight aliases, perspectives, gun type, score associations, imported match records, and fields in those records can sync through the user’s iCloud KVS. Original media, PCM audio, and person-tracking paths do not use this mechanism.</li>
+            <li><strong>Social Sharing:</strong> Optional user-initiated upload of selected exports to YouTube or Facebook after separate authorization.</li>
         </ul>
-        <p>Features may vary between platforms (iOS, iPadOS, macOS) and may change or be discontinued at any time. Premium features may require a subscription or one-time in-app purchase.</p>
+        <p>Features may vary between iOS, iPadOS, and macOS and may change or be discontinued. Premium features require an eligible subscription; one subscription covers the subscriber’s Apple devices.</p>
 
         <h2>5. Your Content</h2>
-        <p>You retain all rights to the videos, audio, and other media you import into the App ("Your Content"). We do not claim ownership of Your Content. All processing (audio analysis, video editing, subtitle rendering, person tracking) is performed locally on your device. Your Content is never uploaded to our servers.</p>
-        <p><strong>Photo Library &amp; iCloud Photos:</strong> On iOS and iPadOS, the App accesses your photo library to import and export videos. If a video you select is stored in iCloud Photos and has not yet been downloaded to your device, the operating system will download it on demand for local processing. The App does not independently control or initiate iCloud downloads; this is managed by Apple's Photos framework. Importing iCloud-stored videos may consume mobile data if you are not on Wi-Fi.</p>
-        <p><strong>macOS File Access &amp; iCloud Drive:</strong> On macOS, the App accesses video files from locations you choose, which may include iCloud Drive folders. Files are read and processed locally. The App does not upload files to iCloud or any other cloud service.</p>
-        <p>By using the App's optional social sharing features, you authorize the App to upload your exported videos to the selected social platform on your behalf, subject to that platform's terms of service.</p>
+        <p>You retain all rights to the videos, audio, and other media you import into the App ("Your Content"). We do not claim ownership of Your Content. Core audio/video analysis, editing, rendering, and person tracking run on your device. Original footage is not uploaded to a ShootingCut media-processing server for those operations.</p>
+        <p><strong>Photo Library &amp; iCloud Photos:</strong> On iOS and iPadOS, the App uses Apple’s Photos interfaces to import and export video. If selected media exists only in iCloud Photos, Apple may download it on demand. Apple services and your settings govern the related transfer, caching, and synchronization, which can use the network.</p>
+        <p><strong>macOS File Access &amp; iCloud Drive:</strong> On macOS, the App reads or saves files you select, including iCloud Drive locations. Apple services and your settings govern iCloud Drive synchronization.</p>
+        <p>Score import uses the network. If you initiate a YouTube or Facebook upload, you authorize the App to send the selected export and metadata required by that destination, subject to the platform’s terms.</p>
         <p>You represent and warrant that:</p>
         <ul>
             <li>You own or have the necessary rights, licenses, and permissions to use and share Your Content through the App.</li>
@@ -123,7 +124,7 @@
         </ul>
 
         <h2>7. In-App Purchases and Subscriptions</h2>
-        <p>The App may offer premium features accessible via in-app purchases or auto-renewing subscriptions. All transactions are processed through Apple's App Store and are subject to Apple's Terms of Sale and refund policies.</p>
+        <p>The App offers premium features through auto-renewing subscriptions. Transactions are processed through Apple’s App Store and subscription entitlement is managed with RevenueCat. One subscription covers the subscriber’s Apple devices, subject to the App Store account and entitlement rules.</p>
         <ul>
             <li><strong>Billing:</strong> Subscription fees are billed to your Apple ID account at confirmation of purchase and at the start of each renewal period.</li>
             <li><strong>Auto-Renewal:</strong> Subscriptions automatically renew unless cancelled at least 24 hours before the end of the current period.</li>
@@ -134,8 +135,9 @@
         <p>Subscription management and purchase inquiries should be directed to Apple's App Store support. We do not process refunds directly.</p>
 
         <h2>8. Third-Party Services and Social Platform Integrations</h2>
-        <p>The App integrates with third-party platforms (TikTok, YouTube, Facebook) for optional video sharing. Your use of these integrations is subject to the respective platform's terms of service and privacy policies. We are not responsible for the content, practices, or policies of any third-party platform.</p>
-        <p>In-app purchases are managed by RevenueCat. By making purchases, you also agree to RevenueCat's terms of service.</p>
+        <p>When you use the relevant feature, the App interacts with third-party services for RevenueCat subscription verification, Apple iCloud KVS metadata sync, user-controlled CloudKit detection-improvement reports, score-source imports, and user-initiated YouTube or Facebook uploads. ShootingCut 1.1.3 does not offer TikTok video direct upload.</p>
+        <p>“Help Improve Gunshot Detection” is currently enabled by default and can be disabled in the App. While disabled, the App does not create new reports or retry its local pending queue. Disabling does not erase reports already submitted to CloudKit or clear the local retry queue. See the <a href="/privacy.html">Privacy Policy</a> for the fields involved and available controls.</p>
+        <p>Your use of Apple, RevenueCat, score providers, YouTube, or Facebook is also subject to the applicable provider’s terms and privacy policies.</p>
 
         <h2>9. Intellectual Property</h2>
         <p>The App and all its components — including but not limited to its design, code, audio analysis algorithms, user interface, graphics, documentation, and trademarks — are the exclusive intellectual property of ShootingCut and are protected by applicable copyright, trademark, patent, and trade secret laws. These Terms do not transfer any intellectual property rights to you.</p>
@@ -146,7 +148,7 @@
 
         <h2>11. Disclaimer of Warranties</h2>
         <p>THE APP IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR ACCURACY. WE DO NOT WARRANT THAT THE APP WILL BE UNINTERRUPTED, ERROR-FREE, SECURE, OR FREE FROM VIRUSES OR OTHER HARMFUL COMPONENTS.</p>
-        <p>The App's audio detection features (timer beep and gunshot detection) are provided as tools to assist your video editing workflow. Detection accuracy may vary depending on recording quality, background noise, and other factors. You are solely responsible for reviewing and confirming all detected events before finalizing your edits.</p>
+        <p>The App’s timer-beep and gunshot detection features assist the video-editing workflow. Detection accuracy can vary with recording quality, automatic gain control (AGC), neighboring gunshots, echo or reverb, weak timer beeps, and other conditions. You are responsible for reviewing and correcting detected events before finalizing an edit.</p>
 
         <h2>12. Limitation of Liability</h2>
         <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL SHOOTINGCUT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES ARISING OUT OF OR RELATED TO YOUR USE OF OR INABILITY TO USE THE APP, INCLUDING BUT NOT LIMITED TO LOSS OF DATA, LOSS OF PROFITS, LOSS OF GOODWILL, OR DAMAGE TO YOUR DEVICE OR PROPERTY, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
