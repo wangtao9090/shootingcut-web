@@ -504,3 +504,7 @@ GEO 不承诺排名或引用，应建立可重复的基线：
   执行，并在
   [`geo-english-measurement.md`](geo-english-measurement.md)
   记录英文索引、查询、引用与媒体证据。
+- 后续真实产品截图与录屏批次按
+  [`geo-english-media-brief.md`](geo-english-media-brief.md)
+  执行。该批次不是 Search Console 提交或英文页面收录的前置条件；Split
+  Sync、Stage Mix 与 Reframe 优先复用已经上线的官方视频。
