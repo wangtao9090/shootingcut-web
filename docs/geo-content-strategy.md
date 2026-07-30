@@ -501,4 +501,6 @@ GEO 不承诺排名或引用，应建立可重复的基线：
   保留；移除可见入口不等于删除两站的 alternate 元数据。
 - 后续按
   [`2026-07-30-shootingcut-english-geo-post-launch.md`](superpowers/plans/2026-07-30-shootingcut-english-geo-post-launch.md)
-  建立英文索引、查询、引用与媒体证据闭环。
+  执行，并在
+  [`geo-english-measurement.md`](geo-english-measurement.md)
+  记录英文索引、查询、引用与媒体证据。
