@@ -12,26 +12,30 @@ evidence.
 
 ## Priority order
 
-1. Auto Trim
+1. Complete mode-selection overview
 2. Merge
 3. PractiScore official timing overlay
-4. PractiScore, ESS, HDP, and IDPA result import
-5. On-device/privacy control
-6. Mode-selection overview
+4. macOS batch export
+5. PractiScore, ESS, HDP, and IDPA result import
+6. Auto Trim
+7. On-device/privacy control
 
 Split Sync, Stage Mix, and Reframe screenshots can follow later because their
-matching English guides already include official workflow videos.
+matching English guides already include official workflow videos. Real
+screenshots strengthen evidence, but they do not block pain-led copy,
+structured-data, or measurement updates.
 
 ## Required captures
 
 | Priority | Workflow | Required real-product state | Primary guide |
 |---:|---|---|---|
-| 1 | Auto Trim | One imported stage video with the timer marker, detected shots, proposed trim boundaries, and the manual event-correction controls visible | `/auto-trim-shooting-match-video/` |
+| 1 | Mode selection | Auto Trim, Merge, Split Sync, and Stage Mix together in the real mode-selection UI | `/competitive-shooting-video-editor/` |
 | 2 | Merge | Ordered Stage 1 through Stage N clips and the resulting Full Match output state | `/merge-uspsa-stage-videos/` |
 | 3 | Official timing | PractiScore official times and splits aligned to video subtitles from the timer anchor | `/add-shot-times-and-scores-to-match-video/` |
-| 4 | Result import | Source-selection UI covering PractiScore, ESS, HDP, and IDPA without exposing real participant data | `/import-practiscore-ess-hdp-match-results/` |
-| 5 | Privacy control | The real `Help Improve Gunshot Detection` control and its current default state in 1.1.3 | `/on-device-shooting-video-editor/` |
-| 6 | Mode selection | Auto Trim, Merge, Split Sync, and Stage Mix together in the real mode-selection UI | `/competitive-shooting-video-editor/` |
+| 4 | Batch export | Several prepared match edits in the macOS Pro batch queue, with separate output jobs visible | `/batch-export-match-videos/` |
+| 5 | Result import | Source-selection UI covering PractiScore, ESS, HDP, and IDPA without exposing real participant data | `/import-practiscore-ess-hdp-match-results/` |
+| 6 | Auto Trim | One imported stage video with the timer marker, detected shots, proposed trim boundaries, and the manual event-correction controls visible | `/auto-trim-shooting-match-video/` |
+| 7 | Privacy control | The real `Help Improve Gunshot Detection` control and its current default state in 1.1.3 | `/on-device-shooting-video-editor/` |
 
 ## Capture details by workflow
 
@@ -71,6 +75,20 @@ Capture:
 
 The caption must state that official per-shot timing is available when the
 PractiScore source provides it. Do not extend that claim to ESS, HDP, or IDPA.
+
+### Batch export
+
+Capture:
+
+- several prepared match edits in the macOS Pro batch queue;
+- separate output jobs rather than one combined timeline;
+- the selected output state without exposing local filenames or participant
+  data;
+- the completed separate exports when that state is visible.
+
+The caption must distinguish batch export from Merge: batch export renders
+separate prepared edits, while Merge combines sequential stages into one Full
+Match video.
 
 ### Result import
 
@@ -140,4 +158,3 @@ Every proposed public asset must be reviewed with:
 - The public derivative is legible at a narrow mobile width.
 - Alt text, caption, visible copy, and matching structured data agree.
 - The page validator and full site test suite pass after publication.
-

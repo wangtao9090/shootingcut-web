@@ -508,3 +508,62 @@ GEO 不承诺排名或引用，应建立可重复的基线：
   [`geo-english-media-brief.md`](geo-english-media-brief.md)
   执行。该批次不是 Search Console 提交或英文页面收录的前置条件；Split
   Sync、Stage Mix 与 Reframe 优先复用已经上线的官方视频。
+
+## 15. 2026-07-30 射手剪辑痛点复核
+
+本轮使用 Agent Reach、OpenCLI、yt-dlp 与公开网页重新检查 Reddit、
+Facebook、YouTube 和 Brian Enos Forum。它是一组定性语言样本，不是搜索量、
+市场占比或产品采用率统计。Shooting Cut 所有者账号的帖子和产品开发者推广
+帖均从独立痛点证据中排除。
+
+按直接用户陈述、跨来源重复和工作流可复核程度，痛点排序如下：
+
+1. **强证据：通用剪辑软件对基础比赛剪辑过重。** 用户只想完成裁剪、拼接、
+   分屏、画幅调整和导出，却面对复杂时间线与较长学习过程。
+2. **强证据：工作流被拆到多个 App。** 常见描述是先在相机 App 裁剪或追踪，
+   导出到手机，再进入第二个编辑器拼接、叠加并再次导出。
+3. **强证据：POV 与第三人称素材需要同步或同屏。** 两个视角能帮助复核脚步、
+   换弹、急停、移动和 stage strategy，但手工对齐会增加剪辑负担。
+4. **强至中等证据：横屏转竖屏容易损失主体或上下文。** 用户明确提到模糊
+   边框、固定裁切放大以及画面两侧被切掉。
+5. **中等证据：视频需要成绩与计时上下文。** Shot time、split、shot count、
+   stage result 和 score 能让观众理解表现；该需求不支持自动弹着点定位宣称。
+6. **中等证据：整场比赛长视频是实际发布结果。** YouTube 与 Facebook
+   公开样本反复出现 `Full Match`、`Every Stage`、`All Stages`、
+   `Every Shot` 与 `Full Match Recap`。
+7. **中等证据、工作流推断：多 stage 重复准备和渲染产生批处理需求。**
+   这一点适合解释 batch export，但不能写成未经测量的普遍用户比例。
+8. **弱主痛点、强信任理由：本地处理与隐私。** 本轮只有少量直接隐私抱怨；
+   因此它应作为重要信任证据，而不是替代完整剪辑结果的首页主标题。
+
+### 15.1 可复核来源与边界
+
+| 痛点 | 直接来源 | 能支持 | 不能支持 |
+|---|---|---|---|
+| 通用编辑器复杂、分屏和转画幅需求 | [Video editing software?](https://www.reddit.com/r/CompetitionShooting/comments/1qqqhbi/video_editing_software/) | 一名射手明确描述通用编辑器过重，并要求双视角与快速画幅切换 | 全部射手的工具偏好或市场份额 |
+| 简单工具比专业套件更快上手 | [Video editing tips](https://www.reddit.com/r/CompetitionShooting/comments/1cuuh84/video_editing_tips/) | 一名射手明确描述专业编辑器超出需求 | 某个工具对所有用户都更好 |
+| 多视角复盘价值 | [Mixed POV - tried it?](https://www.reddit.com/r/CompetitionShooting/comments/1o4mlbl/mixed_pov_tried_it/) | POV 与第三人称能显示单一视角遗漏的脚步和移动问题 | 自动技术评分或训练结果保证 |
+| 横屏转竖屏裁切问题 | [How do you get Insta360 GO 3S footage vertical for YouTube Shorts?](https://www.reddit.com/r/CompetitionShooting/comments/1racdre/how_do_you_get_insta360_go_3s_footage_vertical/) | 模糊边框、放大和两侧内容损失是直接陈述的问题 | Track 会自动保留所有靶、道具和字幕 |
+| 多 App 重复追踪与导出 | [Playing with new Insta360 X5](https://www.reddit.com/r/CompetitionShooting/comments/1q5573b/playing_with_new_insta360_x5_competition_with/) | 发帖者逐段追踪、导出，再用第二个工具合成 | 所有相机工作流都完全相同 |
+| 让观众理解命中与表现 | [How to edit USPSA match footage to show hits above target?](https://www.reddit.com/r/CompetitionShooting/comments/1s0ta4p/how_to_edit_uspsa_match_footage_to_show_hits/) | 结果、短视频画幅和手工叠加摩擦是真实表述 | Shooting Cut 能识别或放置靶上弹孔 |
+| 基础裁剪与拼接，不需要专业套件 | [Match Video Editing Software](https://brian-enos-forums.com/topic/304646-match-video-editing-software/) | 独立论坛用户明确要求简单 trim/splice 工作流 | 论坛样本代表搜索量 |
+| 整场比赛发布语言 | [Every Stage, Every Shot](https://www.youtube.com/watch?v=OnTLFiDnQIA)、[Full Match Recap](https://www.youtube.com/watch?v=id_XyMKyqlI) | `Full Match`、`Every Stage` 与 recap 是真实标题语言 | 标题结果代表所有上传者或自动章节需求 |
+
+Facebook 仍是重要的射击内容发布与发现渠道。本轮公开搜索继续出现
+`full and uncut POV Match Video with all the stage results`，但可复核结果
+多为个人主页而不是稳定帖子 permalink，泛查询又被普通视频剪辑群组占据。
+因此这里只用 Facebook 支持发布格式和措辞，不用它夸大痛点频率。
+
+### 15.2 对英文内容的直接含义
+
+- 站点主实体词保持 `competitive-shooting video editor`。
+- 首页首先回答如何从原始比赛素材得到完整成片，不从音频检测或字幕开始。
+- `/competitive-shooting-video-editor/` 负责解释“一套产品完成常见比赛剪辑
+  工作”，不公开点名比较其他产品。
+- Split Sync 使用 `POV and third-person views`、脚步、换弹和 stage
+  strategy 等复盘语言，同时保留 exactly 2 与人工校验边界。
+- Reframe 回答固定裁切、竖屏和主体跟随问题，不承诺自动保留所有靶和叠加层。
+- 成绩/时间页明确让表现“更容易理解”，并明确不定位弹着点。
+- Merge 页已经直接回答 `Full Match` 与 `Every Stage`，不为本轮研究重复
+  改写；Batch Export 只回答多个独立成片的重复渲染。
+- 隐私和设备端处理继续作为显著信任理由，但不抢占完整编辑器主定位。

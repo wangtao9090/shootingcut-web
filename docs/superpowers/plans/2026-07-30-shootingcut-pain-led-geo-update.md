@@ -66,7 +66,7 @@
 - Consumes: the 2026-07-30 Agent Reach/OpenCLI/yt-dlp research snapshot and the existing Q01–Q16 measurement contract.
 - Produces: a durable evidence hierarchy, a non-destructive P01–P08 query matrix, and a revised real-media capture order used by later tasks.
 
-- [ ] **Step 1: Add a dated pain-point research section**
+- [x] **Step 1: Add a dated pain-point research section**
 
 Add `## 15. 2026-07-30 射手剪辑痛点复核` to `docs/geo-content-strategy.md` with this ranked evidence model:
 
@@ -93,7 +93,7 @@ Include direct links to these sources and state each limitation:
 
 State explicitly that Shooting Cut owner posts and product-builder promotion posts were excluded from independent pain evidence.
 
-- [ ] **Step 2: Preserve Q01–Q16 and add a separate P01–P08 matrix**
+- [x] **Step 2: Preserve Q01–Q16 and add a separate P01–P08 matrix**
 
 Append this exact matrix to `docs/geo-english-measurement.md`:
 
@@ -110,7 +110,7 @@ Append this exact matrix to `docs/geo-english-measurement.md`:
 
 Document that P01–P08 begin at the pain-led deployment date and must not be backfilled into the earlier Q01–Q16 Week-0 sample.
 
-- [ ] **Step 3: Record explicit no-change decisions**
+- [x] **Step 3: Record explicit no-change decisions**
 
 Add these dated rows to the measurement decision table:
 
@@ -120,7 +120,7 @@ Add these dated rows to the measurement decision table:
 - `/thailand-hdp-ess-match-results/`: preserve because the new general editing research does not add a verified Thailand-specific editing pain.
 - `/shot-detection-troubleshooting/`: preserve as support intent, not a homepage-defining pain.
 
-- [ ] **Step 4: Reorder the real-media capture brief**
+- [x] **Step 4: Reorder the real-media capture brief**
 
 Change `docs/geo-english-media-brief.md` priority to:
 
@@ -134,7 +134,7 @@ Change `docs/geo-english-media-brief.md` priority to:
 
 Keep the existing official Split Sync, Stage Mix, and Reframe videos as sufficient first evidence. State that real screenshots improve evidence but do not block Tasks 2–7.
 
-- [ ] **Step 5: Validate and commit the documentation batch**
+- [x] **Step 5: Validate and commit the documentation batch**
 
 Run:
 

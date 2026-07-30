@@ -73,6 +73,23 @@ Use the query text exactly as written at week 0, 2, 4, and 8.
 | Q15 | `on-device shooting video editor` | Local processing | `/on-device-shooting-video-editor/` |
 | Q16 | `private shooting video editor for iPhone` | Privacy and device processing | `/on-device-shooting-video-editor/` |
 
+## Pain-language query matrix
+
+P01–P08 begin with the pain-led English deployment. They are separate from the
+original Q01–Q16 Week-0 baseline and must not be backfilled into that earlier
+sample.
+
+| ID | Pain-language query | Primary route |
+|---|---|---|
+| P01 | `simple video editor for shooting match footage` | `/competitive-shooting-video-editor/` |
+| P02 | `edit USPSA match footage without a complicated timeline` | `/competitive-shooting-video-editor/` |
+| P03 | `sync POV and third person shooting videos` | `/sync-two-shooting-videos-by-timer-beep/` |
+| P04 | `turn landscape shooting video into vertical video` | `/reframe-landscape-shooting-video-for-social-media/` |
+| P05 | `merge every stage into one full match video` | `/merge-uspsa-stage-videos/` |
+| P06 | `add shot times and stage results to shooting video` | `/add-shot-times-and-scores-to-match-video/` |
+| P07 | `batch export shooting match videos on Mac` | `/batch-export-match-videos/` |
+| P08 | `private on-device shooting video editor` | `/on-device-shooting-video-editor/` |
+
 ## Sampling rules
 
 For generative-answer sampling:
@@ -246,6 +263,11 @@ Each reviewed public route receives exactly one current state:
 | 2026-07-30 | `/sync-two-shooting-videos-by-timer-beep/` | `discovered but not crawled` | Media-evidence change | Added one visible official Split Sync Side by Side demonstration and matching `VideoObject` after the live page passed Google's fetch/index eligibility test. |
 | 2026-07-30 | `/edit-multi-camera-shooting-video/` | `discovered but not crawled` | Media-evidence change | Added one visible official Stage Mix demonstration and matching `VideoObject`; retained the requirement to review and override proposed cuts. |
 | 2026-07-30 | `/reframe-landscape-shooting-video-for-social-media/` | `discovered but not crawled` | Media-evidence change | Added the official non-tracked 16:9 and tracked 4:5 examples together so the visible evidence matches the page's output-boundary explanation. |
+| 2026-07-30 | `/merge-uspsa-stage-videos/` | `discovered but not crawled` | Preserve | The H1, opening answer, workflow, and publishing-language section already answer P05 with `Full Match`, `All Stages`, and `Every Stage` wording. |
+| 2026-07-30 | `/side-by-side-shooting-video-comparison/` | `discovered but not crawled` | Preserve | The page already explains POV/follow-camera review and the manual comparison boundary; strengthen its inbound context from Split Sync instead of rewriting it. |
+| 2026-07-30 | `/on-device-shooting-video-editor/` | `discovered but not crawled` | Preserve | Keep this as the detailed trust page. Privacy is important evidence but does not replace the primary editing outcome. |
+| 2026-07-30 | `/thailand-hdp-ess-match-results/` | `discovered but not crawled` | Preserve | The new general editing sample adds no verified Thailand-specific editing pain; retain the existing HDP/ESS result-preservation answer. |
+| 2026-07-30 | `/shot-detection-troubleshooting/` | `discovered but not crawled` | Preserve | Keep this as support intent for AGC, neighboring shots, echo, weak beeps, and manual corrections rather than a homepage-defining pain. |
 
 ## Review schedule
 
