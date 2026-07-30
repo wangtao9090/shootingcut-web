@@ -151,7 +151,7 @@ test("rejects visible Chinese encoded as HTML character references", async () =>
     root,
     "index.html",
     '<section class="hero" id="home">',
-    '<section class="hero" id="home"><p>&#x4e2d;&#x6587;</p>',
+    '<section class="hero" id="home"><p>&#x4e2d&#x6587</p>',
   );
   const result = runValidator(root);
   assertRejected(
@@ -160,13 +160,27 @@ test("rejects visible Chinese encoded as HTML character references", async () =>
   );
 });
 
-test("rejects a directly hidden language switch", async () => {
+test("rejects a language switch hidden with an important inline style", async () => {
   const root = await copyCurrentSite();
   await replaceInFile(
     root,
     "index.html",
     '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>',
-    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans" hidden>Chinese</a>',
+    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans" style="display:none!important">Chinese</a>',
+  );
+  const result = runValidator(root);
+  assertRejected(result, /index\.html:\d+ language switch must be visible/i);
+});
+
+test("rejects a language switch hidden by an ancestor", async () => {
+  const root = await copyCurrentSite();
+  const languageSwitch =
+    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>';
+  await replaceInFile(
+    root,
+    "index.html",
+    languageSwitch,
+    `<div style="visibility:hidden !important">${languageSwitch}</div>`,
   );
   const result = runValidator(root);
   assertRejected(result, /index\.html:\d+ language switch must be visible/i);
@@ -185,6 +199,25 @@ test("does not count a commented language switch as visible", async () => {
     result,
     /index\.html:\d+ expected exactly one visible zh-Hans language switch; found 0/i,
   );
+});
+
+test("does not count language switches inside script or style elements", async () => {
+  const languageSwitch =
+    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>';
+  for (const element of ["script", "style"]) {
+    const root = await copyCurrentSite();
+    await replaceInFile(
+      root,
+      "index.html",
+      languageSwitch,
+      `<${element}>${languageSwitch}</${element}>`,
+    );
+    const result = runValidator(root);
+    assertRejected(
+      result,
+      /index\.html:\d+ expected exactly one visible zh-Hans language switch; found 0/i,
+    );
+  }
 });
 
 test("rejects an absolute local-media privacy claim", async () => {
@@ -250,7 +283,7 @@ test("requires all real detection-improvement control labels", async () => {
     root,
     "privacy.html",
     " or simply “Improve”",
-    "",
+    "<!--\n or simply “Improve”\n-->",
   );
   const result = runValidator(root);
   assertRejected(
@@ -281,12 +314,11 @@ test("rejects stale and absolute claims split across source lines", async () => 
     "index.html",
     '<section class="hero" id="home">',
     `<section class="hero" id="home">
-      <p>No data
+      <p>No d&#x61;ta
       leaves your device.</p>
-      <p>Lifetime
-      access is included.</p>
-      <p>TikTok direct<span> </span>upload is supported.</p>
-      <p>Stage Mix supports
+      <p>Lifetime acc&#x65;ss is included.</p>
+      <p>Tik&#x54;ok direct<span> </span>upload is supported.</p>
+      <p>Stage M&#x69;x supports
       3+ inputs.</p>`,
   );
   const result = runValidator(root);
@@ -296,6 +328,33 @@ test("rejects stale and absolute claims split across source lines", async () => 
   assert.match(output, /stale purchase claim/i);
   assert.match(output, /TikTok direct-upload or integration claim/i);
   assert.match(output, /stale Stage Mix input-count claim/i);
+});
+
+test("does not let a legal negative sentence excuse an adjacent positive claim", async () => {
+  const root = await copyCurrentSite();
+  await replaceInFile(
+    root,
+    "privacy.html",
+    "ShootingCut 1.1.3 does not offer TikTok video direct upload.",
+    "ShootingCut 1.1.3 does not offer TikTok video direct upload. TikTok direct upload is supported.",
+  );
+  const result = runValidator(root);
+  assertRejected(
+    result,
+    /privacy\.html:\d+ TikTok direct-upload or integration claim/i,
+  );
+});
+
+test("ignores forbidden claims that are statically hidden", async () => {
+  const root = await copyCurrentSite();
+  await replaceInFile(
+    root,
+    "index.html",
+    '<section class="hero" id="home">',
+    '<section class="hero" id="home"><p hidden>No data leaves your device. Lifetime access. TikTok direct upload. Stage Mix supports 3+ inputs.</p>',
+  );
+  const result = runValidator(root);
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
 });
 
 test("requires robots.txt to reference only the English sitemap", async () => {
