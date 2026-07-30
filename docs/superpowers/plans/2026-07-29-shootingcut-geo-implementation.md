@@ -115,6 +115,7 @@ Create the same paths independently in both repositories:
 - `merge-uspsa-stage-videos/`
 - `batch-export-match-videos/`
 - `import-practiscore-ess-hdp-match-results/`
+- `thailand-hdp-ess-match-results/`
 - `add-shot-times-and-scores-to-match-video/`
 
 Requirements:
@@ -123,9 +124,10 @@ Requirements:
 2. Merge accepts up to 20 videos and is not multi-camera auto-sync.
 3. Batch export is macOS + Pro.
 4. The score-import guide explains PractiScore, ESS, and HDP/IDPA import paths, supported inputs, and limitations without implying universal automatic synchronization.
-5. The video-overlay guide explains that, when PractiScore official per-shot timing records are available, Shooting Cut can align them to footage using the timer beep and use the official times/splits, shot count, and score data in video subtitles.
-6. State clearly that ESS/HDP/IDPA provide score import but not PractiScore-style official per-shot anchoring.
-7. Do not claim progress prediction, WinMSS, arbitrary PDFs, or unsupported score-system coverage.
+5. The Thailand guide covers HDP and ESS Thailand together because their participant populations substantially overlap. Explain both import paths, how one shooter can keep results and videos from both systems in one archive, and the limitations of each source. Link it to the general import and video-overlay guides instead of duplicating them.
+6. The video-overlay guide explains that, when PractiScore official per-shot timing records are available, Shooting Cut can align them to footage using the timer beep and use the official times/splits, shot count, and score data in video subtitles.
+7. State clearly that ESS/HDP/IDPA provide score import but not PractiScore-style official per-shot anchoring.
+8. Do not claim progress prediction, WinMSS, arbitrary PDFs, or unsupported score-system coverage.
 
 ## Task 6: Complete machine-readable discovery and handoff
 
