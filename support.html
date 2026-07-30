@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Support — ShootingCut&trade;</title>
+    <link rel="canonical" href="https://shootingcut.com/support.html">
+    <link rel="alternate" hreflang="en" href="https://shootingcut.com/support.html">
+    <link rel="alternate" hreflang="zh-Hans" href="https://shootingcut.cn/support.html">
+    <link rel="alternate" hreflang="x-default" href="https://shootingcut.com/support.html">
+    <meta property="og:url" content="https://shootingcut.com/support.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -52,7 +57,7 @@
         <div class="nav-inner">
             <div class="logo"><a href="/">ShootingCut&trade;</a></div>
             <div class="nav-right">
-                <div class="lang-switch"><a href="/support-zh.html">中文</a></div>
+                <div class="lang-switch"><a href="https://shootingcut.cn/support.html" hreflang="zh-Hans" lang="zh-Hans">Chinese</a></div>
                 <div class="nav-back"><a href="/">&larr; Back to Home</a></div>
             </div>
         </div>
@@ -61,7 +66,7 @@
     <div class="content">
         <h1>Support</h1>
 
-        <p>Need help with ShootingCut? We're here to assist you. Please review the information below or reach out to us directly.</p>
+        <p>ShootingCut 1.1.3 is a broad competitive-shooting video editor for iPhone, iPad, and Mac. This support information was updated on 2026-07-29. If you need help, first confirm that the App and your operating system are current, then review the guidance below or contact us.</p>
 
         <div class="support-card">
             <h3>Email Support</h3>
@@ -70,29 +75,49 @@
 
         <div class="support-card">
             <h3>Bug Reports</h3>
-            <p>If you encounter a bug, please include your device model, OS version, app version, and a description of the issue. Screenshots or screen recordings are very helpful.</p>
+            <p>Include your device model, OS version, App version, editing mode, input count, media source, and reproducible steps. For timer or gunshot detection issues, also note whether the recording includes automatic gain control (AGC), neighboring gunshots, echo or reverb, or a weak timer beep. Screenshots, screen recordings, or a short sample you choose to share can help.</p>
         </div>
 
         <div class="support-card">
-            <h3>Feature Requests</h3>
-            <p>Have an idea to make ShootingCut better? We'd love to hear it. Send your suggestions to our support email and we'll consider them for future updates.</p>
+            <h3>Privacy Questions</h3>
+            <p>For questions about on-device processing, iCloud KVS, subscriptions, detection-improvement reports, score import, or platform uploads, read the <a href="/privacy.html">Privacy Policy</a> or contact our support email.</p>
         </div>
 
         <h2>Frequently Asked Questions</h2>
 
         <div class="support-card">
             <h3>Which devices are supported?</h3>
-            <p>ShootingCut supports macOS 26.0+, iPadOS 26.0+, and iOS 26.0+.</p>
+            <p>ShootingCut 1.1.3 supports macOS 26.0+, iPadOS 26.0+, and iOS 26.0+.</p>
         </div>
 
         <div class="support-card">
-            <h3>Is my video data uploaded to any server?</h3>
-            <p>No. All video and audio processing is performed locally on your device. Your media files never leave your device unless you explicitly choose to export or share them.</p>
+            <h3>How many inputs does each editing mode accept?</h3>
+            <p>Auto Trim takes exactly 1 video. Merge combines up to 20 clips sequentially. Split Sync aligns exactly 2 simultaneous views. Stage Mix takes 2–3 inputs labeled POV, Follow, or Static, performs movement-aware switching, and allows manual override.</p>
         </div>
 
         <div class="support-card">
-            <h3>What shooting sports are supported?</h3>
-            <p>ShootingCut is designed for practical shooting competitions including IPSC, USPSA, and IDPA.</p>
+            <h3>What can affect timer or gunshot detection?</h3>
+            <p>First confirm that the timer beep and gunshots are audible in the original track. Then review the analysis and adjust detection sensitivity, the timer marker, individual shots, the last-shot marker, or minimum split as needed. AGC, neighboring gunshots, echo or reverb, and weak timer beeps can affect detection, so verify all markers before export.</p>
+        </div>
+
+        <div class="support-card">
+            <h3>Does ShootingCut use the network?</h3>
+            <p>Core video/audio analysis, editing, export, and person tracking run on device, and original footage is not uploaded to a ShootingCut media-processing server. Score import, subscription verification, your Apple iCloud services, detection improvement that is enabled by default but can be disabled, and user-initiated YouTube or Facebook uploads use the network. See the <a href="/privacy.html">Privacy Policy</a> for details.</p>
+        </div>
+
+        <div class="support-card">
+            <h3>How do I disable detection-improvement reports?</h3>
+            <p>Turn off the inline editor control, which appears as “Improve Detection” or simply “Improve” depending on platform and layout; export settings use “Help Improve Gunshot Detection” as the full label. While disabled, no new reports are created and the local pending queue is not retried. Disabling does not erase reports already submitted or clear the existing local retry queue.</p>
+        </div>
+
+        <div class="support-card">
+            <h3>Do score import and social uploads require a connection?</h3>
+            <p>Yes. Importing from supported result sources uses the network. ShootingCut 1.1.3 also supports uploads you initiate to YouTube or Facebook. It does not currently offer TikTok video direct upload.</p>
+        </div>
+
+        <div class="support-card">
+            <h3>Does one subscription cover my devices?</h3>
+            <p>Yes. One subscription covers the subscriber’s Apple devices, subject to the App Store account and entitlement rules.</p>
         </div>
     </div>
 

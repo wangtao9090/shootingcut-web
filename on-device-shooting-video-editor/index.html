@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On-Device Shooting Video Editor and Data Flow | Shooting Cut</title>
+    <meta name="description" content="See which Shooting Cut video, audio, export, and person-tracking work runs on device, plus when iCloud, RevenueCat, CloudKit, score import, or uploads use the network.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0a0e17">
+
+    <link rel="canonical" href="https://shootingcut.com/on-device-shooting-video-editor/">
+    <link rel="alternate" hreflang="en" href="https://shootingcut.com/on-device-shooting-video-editor/">
+    <link rel="alternate" hreflang="zh-Hans" href="https://shootingcut.cn/on-device-shooting-video-editor/">
+    <link rel="alternate" hreflang="x-default" href="https://shootingcut.com/on-device-shooting-video-editor/">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://shootingcut.com/on-device-shooting-video-editor/">
+    <meta property="og:title" content="On-Device Shooting Video Editor and Data Flow">
+    <meta property="og:description" content="A precise guide to Shooting Cut 1.1.3 local media processing, iCloud metadata, subscriptions, optional detection reports, score import, and uploads.">
+    <meta property="og:image" content="https://shootingcut.com/og-image.svg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Shooting Cut">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "@id": "https://shootingcut.com/on-device-shooting-video-editor/#article",
+        "url": "https://shootingcut.com/on-device-shooting-video-editor/",
+        "mainEntityOfPage": "https://shootingcut.com/on-device-shooting-video-editor/",
+        "headline": "On-Device Shooting Video Editor: What Stays Local and What Uses the Network",
+        "description": "A precise explanation of Shooting Cut 1.1.3 on-device media processing, iCloud metadata, subscription verification, optional detection reports, score import, and user-initiated uploads.",
+        "datePublished": "2026-07-29",
+        "dateModified": "2026-07-29",
+        "image": "https://shootingcut.com/og-image.svg",
+        "author": {
+            "@type": "Organization",
+            "name": "ShootingCut LLC",
+            "url": "https://shootingcut.com/"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "ShootingCut LLC",
+            "url": "https://shootingcut.com/"
+        }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://shootingcut.com/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "On-device shooting video editor",
+                "item": "https://shootingcut.com/on-device-shooting-video-editor/"
+            }
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "@id": "https://shootingcut.com/on-device-shooting-video-editor/#faq",
+        "url": "https://shootingcut.com/on-device-shooting-video-editor/",
+        "mainEntityOfPage": "https://shootingcut.com/on-device-shooting-video-editor/",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Does Shooting Cut upload my original footage for editing?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. Core video and audio analysis, editing, export, and person tracking run on your Apple device, and original footage is not uploaded to a Shooting Cut media-processing server. Apple cloud services or an upload you initiate can still use the network."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does every Shooting Cut feature work without a network connection?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. Core media processing runs on device, while iCloud services, RevenueCat subscription verification, user-controlled CloudKit detection-improvement reports, score import, and user-initiated YouTube or Facebook uploads can use the network."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What does Shooting Cut sync between my Apple devices?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "iCloud KVS can sync aliases, perspectives, gun type, score associations, imported match records, shooter and match fields, and an eligible saved non-anonymous custom RevenueCat App User ID. It does not hold original media, PCM audio, person-tracking paths, or RevenueCat IDs beginning with $RCAnonymousID:."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I turn off detection-improvement reports?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Turn off “Improve Detection” or “Improve” in the inline editor, or “Help Improve Gunshot Detection” in export settings. While disabled, Shooting Cut creates no new reports and does not retry the local pending queue; it does not erase submitted reports or clear the existing local queue."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <link rel="stylesheet" href="/assets/content.css">
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Primary">
+            <a class="brand" href="/">Shooting Cut&trade;</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/faq.html">FAQ</a>
+                <a href="/privacy.html">Privacy</a>
+                <a href="/support.html">Support</a>
+                <a href="/competitive-shooting-video-editor/">Editing workflows</a>
+                <a class="language-switch" href="https://shootingcut.cn/on-device-shooting-video-editor/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <ol>
+                <li><a href="/">Home</a></li>
+                <li aria-current="page">On-device shooting video editor</li>
+            </ol>
+        </nav>
+
+        <article class="content-article">
+            <header class="article-header">
+                <p class="eyebrow">Local media work → chosen connections</p>
+                <h1>On-Device Shooting Video Editor: What Stays Local and What Uses the Network</h1>
+                <p class="answer">Shooting Cut keeps core video and audio analysis, editing, export, and person tracking on your Apple device, and original footage is not uploaded to a Shooting Cut media-processing server. Some features you choose still use Apple or third-party networks.</p>
+                <p class="updated">Updated: 2026-07-29</p>
+                <p class="policy-link">This page summarizes the current Shooting Cut 1.1.3 data flow. Read the <a href="/privacy.html">Privacy Policy</a> for the formal disclosure, controls, retention details, and contact information.</p>
+                <p class="lede">On-device core media processing does not mean every feature works without a network connection. iCloud services, subscription verification, optional detection-improvement reports, score import, and uploads you initiate can use the network.</p>
+            </header>
+
+            <section class="content-section" id="data-flow">
+                <span class="section-label">At a glance</span>
+                <h2>Local and network data flow</h2>
+                <div class="table-scroll">
+                    <table>
+                        <caption>Where Shooting Cut 1.1.3 processes data</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Feature</th>
+                                <th scope="col">Where it is handled</th>
+                                <th scope="col">Data involved</th>
+                                <th scope="col">What triggers it</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Core editing</th>
+                                <td><span class="flow-token">Your Apple device</span></td>
+                                <td>Video/audio analysis, trimming, merging, synchronization, multi-camera editing, export, and person-tracking paths</td>
+                                <td>Importing and editing media</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Photos and iCloud Photos</th>
+                                <td><span class="flow-token apple">Your device and Apple services according to your settings</span></td>
+                                <td>Media you select or save; Apple may download a cloud-only item</td>
+                                <td>Selecting cloud-backed media or saving to Photos</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">iCloud Drive</th>
+                                <td><span class="flow-token apple">Your device and Apple services according to your settings</span></td>
+                                <td>Files you select in an iCloud Drive location</td>
+                                <td>Opening from or saving to that location</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">iCloud KVS</th>
+                                <td><span class="flow-token apple">Apple iCloud under your account</span></td>
+                                <td>Lightweight app, match, score, and eligible subscription-recovery metadata</td>
+                                <td>iCloud availability and your device settings</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">RevenueCat</th>
+                                <td><span class="flow-token network">RevenueCat</span></td>
+                                <td>App/subscription identifiers, App Store transaction identifiers, and entitlement status</td>
+                                <td>Purchase verification and entitlement synchronization</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Detection improvement</th>
+                                <td><span class="flow-token apple">Apple CloudKit</span></td>
+                                <td>Limited pseudonymous derived detection fields, random identifiers, and correction events</td>
+                                <td>The user-controlled switch, currently enabled by default</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Score import</th>
+                                <td><span class="flow-token network">The selected result source and your device</span></td>
+                                <td>Match, stage, shooter, score, and available timing fields</td>
+                                <td>Importing supported results</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">YouTube or Facebook upload</th>
+                                <td><span class="flow-token network">The destination platform</span></td>
+                                <td>Selected exported video, access token, and required account/video metadata</td>
+                                <td>Choosing, authorizing, and confirming an upload</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="content-section" id="core-media">
+                <span class="section-label">On your Apple device</span>
+                <h2>Core media work runs on your device</h2>
+                <p>Shooting Cut performs timer-beep and gunshot analysis, video trimming, sequential merging, two-view synchronization, multi-camera editing, subtitle composition, export, and person tracking on your Apple device. It does not upload original video, original audio, or extracted PCM audio to a Shooting Cut media-processing server for those operations.</p>
+                <p>Your selected source and destination still matter. A cloud-only item in iCloud Photos may be downloaded by Apple before editing, and an export saved to Photos or iCloud Drive may synchronize according to Apple services and your settings.</p>
+            </section>
+
+            <section class="content-section" id="apple-services">
+                <span class="section-label">Apple-controlled transfers</span>
+                <h2>Photos, iCloud Photos, and iCloud Drive follow Apple settings</h2>
+                <p>On iPhone and iPad, Shooting Cut uses Apple Photos interfaces to select video and save an export. If selected media exists only in iCloud Photos, Apple may download it on demand. On Mac, Shooting Cut reads and saves the files you select, including files in iCloud Drive folders.</p>
+                <p>Apple controls those uploads, downloads, caches, and cross-device transfers under your Apple ID, permissions, and iCloud settings. They are separate from Shooting Cut's on-device media analysis.</p>
+            </section>
+
+            <section class="content-section" id="icloud-kvs">
+                <span class="section-label">Lightweight metadata</span>
+                <h2>What can sync through iCloud KVS</h2>
+                <p>Shooting Cut can use your iCloud key-value store (KVS) to sync lightweight metadata across your Apple devices. That metadata can include media aliases, camera perspectives, gun type, score associations, imported match records, shooter and match fields contained in those records, and an existing non-anonymous custom RevenueCat App User ID.</p>
+                <p>RevenueCat IDs beginning with <code>$RCAnonymousID:</code> are not backed up to KVS. Original media, extracted PCM audio, and person-tracking paths or keyframes are not placed in KVS.</p>
+            </section>
+
+            <section class="content-section" id="revenuecat">
+                <span class="section-label">Subscription identity</span>
+                <h2>RevenueCat and cross-device entitlement recovery</h2>
+                <p>RevenueCat receives app or subscription identifiers, App Store transaction identifiers, and entitlement status to verify purchases and synchronize access. It does not receive your payment-card details from Shooting Cut.</p>
+                <p>If KVS contains an existing saved non-anonymous custom RevenueCat App User ID, Shooting Cut can read that saved ID on another Apple device and use it to log in to RevenueCat. This helps recover the same entitlement identity across the subscriber's Apple devices. Anonymous RevenueCat IDs beginning with <code>$RCAnonymousID:</code> are excluded from that KVS backup.</p>
+            </section>
+
+            <section class="content-section" id="detection-improvement">
+                <span class="section-label">User-controlled reporting</span>
+                <h2>Detection-improvement reports</h2>
+                <p>“Help Improve Gunshot Detection” is user-controlled and is currently enabled by default. When enabled, Shooting Cut can send limited pseudonymous derived detection, timing, count, and spectral summary fields, random session and analysis identifiers, and correction events to Apple CloudKit.</p>
+                <p>These reports do not contain original audio, original video, extracted PCM samples, or the media file itself. The random identifiers make the reports pseudonymous; pseudonymous does not mean identifier-free.</p>
+                <p>In the inline editor, turn off the control labeled “Improve Detection” or “Improve,” depending on platform and layout. Export settings use the full label “Help Improve Gunshot Detection.” While disabled, Shooting Cut does not create new reports or retry the local pending queue. Disabling does not erase reports already submitted to CloudKit and does not clear the local retry queue already on the device. Re-enabling can allow queued reports to retry.</p>
+            </section>
+
+            <section class="content-section" id="connected-workflows">
+                <span class="section-label">Chosen network actions</span>
+                <h2>Score import and uploads use the network</h2>
+                <p>Importing results from supported sources such as PractiScore, ESS, and HDP/IDPA uses the network. The selected source receives an ordinary request, and Shooting Cut receives the match, stage, shooter, score, and available timing fields needed for the import.</p>
+                <p>Shooting Cut also supports uploads you initiate to YouTube or Facebook. Only after you choose a destination, authorize it, select an export, and confirm the upload does Shooting Cut send the selected exported video, an access token, and the account or video metadata required by that destination. Platform passwords are not provided to Shooting Cut.</p>
+            </section>
+
+            <section class="content-section" id="security-controls">
+                <span class="section-label">Controls, not guarantees</span>
+                <h2>Security without absolute promises</h2>
+                <p>Shooting Cut uses Apple platform controls appropriate to these workflows, including system permissions and Keychain storage for platform tokens. You can manage Photos and iCloud access in system settings, turn off detection improvement in the app, disconnect a platform account, and manage subscriptions through Apple.</p>
+                <p>No security measure can guarantee absolute security. Review the <a href="/privacy.html">Privacy Policy</a> and contact <a href="/support.html">support</a> if you have questions about a particular workflow.</p>
+            </section>
+
+            <section class="content-section" id="frequently-asked-questions">
+                <span class="section-label">Quick answers</span>
+                <h2>Frequently asked questions</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>Does Shooting Cut upload my original footage for editing?</summary>
+                        <p>No. Core video and audio analysis, editing, export, and person tracking run on your Apple device, and original footage is not uploaded to a Shooting Cut media-processing server. Apple cloud services or an upload you initiate can still use the network.</p>
+                    </details>
+                    <details>
+                        <summary>Does every Shooting Cut feature work without a network connection?</summary>
+                        <p>No. Core media processing runs on device, while iCloud services, RevenueCat subscription verification, user-controlled CloudKit detection-improvement reports, score import, and user-initiated YouTube or Facebook uploads can use the network.</p>
+                    </details>
+                    <details>
+                        <summary>What does Shooting Cut sync between my Apple devices?</summary>
+                        <p>iCloud KVS can sync aliases, perspectives, gun type, score associations, imported match records, shooter and match fields, and an eligible saved non-anonymous custom RevenueCat App User ID. It does not hold original media, PCM audio, person-tracking paths, or RevenueCat IDs beginning with $RCAnonymousID:.</p>
+                    </details>
+                    <details>
+                        <summary>How do I turn off detection-improvement reports?</summary>
+                        <p>Turn off “Improve Detection” or “Improve” in the inline editor, or “Help Improve Gunshot Detection” in export settings. While disabled, Shooting Cut creates no new reports and does not retry the local pending queue; it does not erase submitted reports or clear the existing local queue.</p>
+                    </details>
+                </div>
+            </section>
+
+            <aside class="closing-card" aria-labelledby="workflow-next">
+                <span class="section-label">Next answer</span>
+                <h2 id="workflow-next">Put the boundary in workflow context</h2>
+                <p>See how these local and connected capabilities fit into <a href="/competitive-shooting-video-editor/">the complete competitive-shooting editing workflow</a>, or read the <a href="/privacy.html">Privacy Policy</a> for the formal details.</p>
+            </aside>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <nav aria-label="Footer">
+            <a href="/">Home</a>
+            <a href="/faq.html">FAQ</a>
+            <a href="/privacy.html">Privacy</a>
+            <a href="/terms.html">Terms</a>
+            <a href="/support.html">Support</a>
+        </nav>
+        <p>&copy; 2026 ShootingCut&trade; LLC. All rights reserved.</p>
+    </footer>
+</body>
+</html>

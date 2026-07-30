@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy — ShootingCut&trade;</title>
+    <link rel="canonical" href="https://shootingcut.com/privacy.html">
+    <link rel="alternate" hreflang="en" href="https://shootingcut.com/privacy.html">
+    <link rel="alternate" hreflang="zh-Hans" href="https://shootingcut.cn/privacy.html">
+    <link rel="alternate" hreflang="x-default" href="https://shootingcut.com/privacy.html">
+    <meta property="og:url" content="https://shootingcut.com/privacy.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -55,7 +60,7 @@
         <div class="nav-inner">
             <div class="logo"><a href="/">ShootingCut&trade;</a></div>
             <div class="nav-right">
-                <div class="lang-switch"><a href="/privacy-zh.html">中文</a></div>
+                <div class="lang-switch"><a href="https://shootingcut.cn/privacy.html" hreflang="zh-Hans" lang="zh-Hans">Chinese</a></div>
                 <div class="nav-back"><a href="/">&larr; Back to Home</a></div>
             </div>
         </div>
@@ -63,148 +68,124 @@
 
     <div class="content">
         <h1>Privacy Policy</h1>
-        <p class="updated">Last updated: April 8, 2026</p>
+        <p class="updated">Last updated: 2026-07-29</p>
 
         <div class="highlight-box">
-            <p>&#x1F512; <strong>Privacy First:</strong> ShootingCut processes all video and audio data <strong>locally on your device</strong>. Your media files are never uploaded to our servers. We do not sell your personal data to any third party.</p>
+            <p>&#x1F512; <strong>Local media processing:</strong> In ShootingCut 1.1.3, core video and audio analysis, editing, export, and person tracking run on your device. Original footage is not uploaded to a ShootingCut media-processing server. Subscription verification, user-controlled detection improvement, score import, Apple iCloud services, and uploads you initiate use the network as described below.</p>
         </div>
 
-        <p>ShootingCut ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy describes how we handle information when you use the ShootingCut application ("App") on iOS, iPadOS, or macOS. By using the App, you agree to the practices described in this policy.</p>
+        <p>ShootingCut ("we", "our", or "us") provides a competitive-shooting video editor for iPhone, iPad, and Mac. This Privacy Policy explains how ShootingCut 1.1.3 handles media, app metadata, subscription information, optional detection-quality reports, score imports, and user-initiated platform uploads.</p>
 
-        <h2>1. Information We Collect</h2>
-        <p>We collect information in two categories: information you provide and information collected automatically.</p>
-
-        <p><strong>1.1 Information You Provide</strong></p>
+        <h2>1. Core Editing and Analysis Run on Device</h2>
+        <p>The following core operations run on your device:</p>
         <ul>
-            <li><strong>Video and Audio Files:</strong> Videos you import for editing and analysis. These files are processed entirely on your device and are never uploaded to our servers.</li>
-            <li><strong>Session Data:</strong> Session names and organizational metadata you create within the App, stored locally on your device.</li>
-            <li><strong>Social Media Credentials:</strong> If you choose to connect TikTok, YouTube, or Facebook for sharing, OAuth access tokens are stored securely in your device's system Keychain. We do not have access to your social media passwords.</li>
+            <li>Audio analysis for timer beeps and gunshots</li>
+            <li>Video trimming, sequential merging, synchronization, and multi-camera editing</li>
+            <li>Subtitle generation, composition, and export</li>
+            <li>Person detection, tracking, and video reframing using Apple frameworks</li>
         </ul>
+        <p>The App does not upload original video, original audio, or extracted PCM audio to a ShootingCut media-processing server to perform those operations. An exported video remains in the destination you select unless you separately start a platform upload.</p>
 
-        <p><strong>1.2 Information Collected Automatically</strong></p>
-        <ul>
-            <li><strong>Crash Reports:</strong> Crash logs and diagnostic data collected via Apple's standard crash reporting mechanism, subject to your device's Analytics &amp; Improvements settings.</li>
-            <li><strong>Purchase &amp; Subscription Data:</strong> Transaction identifiers and subscription status managed by RevenueCat, our in-app purchase management provider. No financial details (e.g., card numbers) are accessible to us.</li>
-            <li><strong>App Analytics:</strong> Anonymous, aggregated usage statistics (e.g., feature usage frequency) that cannot be used to identify you individually. Collection is subject to your device's Analytics &amp; Improvements settings.</li>
-            <li><strong>Detection Quality Data:</strong> Anonymous audio analysis parameters (numerical spectral characteristics such as frequency centroid, energy ratios, and timing metrics) collected via Apple CloudKit to improve detection accuracy. This data contains no original audio, no video content, no file names, no device identifiers, and no personally identifiable information. You can disable this at any time in the App's export settings ("Help Improve Detection Accuracy" toggle).</li>
-        </ul>
-
-        <h2>2. Device Permissions</h2>
-        <p>The App may request the following device permissions:</p>
+        <h2>2. Photos, iCloud Photos, and iCloud Drive</h2>
+        <p>Apple services and your settings control how cloud-backed media reaches your device and how selected destinations synchronize:</p>
         <table>
             <tr><th>Permission</th><th>Purpose</th><th>Required?</th></tr>
-            <tr><td>Photo Library (Read)</td><td>Import videos from your photo library for editing. If a video is stored in iCloud Photos, the system will temporarily download it to your device for local processing; no copy is retained by the App after processing.</td><td>Required for import on iOS/iPadOS</td></tr>
-            <tr><td>Photo Library (Add)</td><td>Save exported videos back to your photo library</td><td>Required for export on iOS/iPadOS</td></tr>
-            <tr><td>File System Access (macOS)</td><td>Import/export video files from any location on macOS, including iCloud Drive folders. Files are read locally and never uploaded by the App.</td><td>Optional</td></tr>
-            <tr><td>iCloud Key-Value Storage</td><td>Sync session names and lightweight metadata (no video data) across your own Apple devices signed in to the same iCloud account.</td><td>Enabled if iCloud Drive is on in device Settings</td></tr>
+            <tr><td>Photo Library (Read)</td><td>Select and import video. If an item exists only in iCloud Photos, Apple may download it to the device on demand.</td><td>Controlled by Photos permission and your iCloud settings</td></tr>
+            <tr><td>Photo Library (Add)</td><td>Save an export to your photo library.</td><td>Required only when you choose that destination</td></tr>
+            <tr><td>macOS File Access</td><td>Read or save a file you select, including a file in an iCloud Drive folder.</td><td>Controlled by your file selection and macOS permissions</td></tr>
+            <tr><td>iCloud Key-Value Storage</td><td>Sync lightweight editing and match metadata across devices signed in to your iCloud account.</td><td>Controlled by your Apple ID, iCloud, and device settings</td></tr>
+            <tr><td>CloudKit</td><td>Receive limited pseudonymous derived detection data when “Help Improve Gunshot Detection” is enabled.</td><td>Controlled by the in-app switch</td></tr>
         </table>
-        <p>Permissions are requested only when needed. You can revoke any permission at any time via your device's Settings app. Revoking a permission may limit certain App functionality.</p>
-        <p><strong>iCloud Photos &amp; iCloud Drive:</strong> When you import a video that is stored in iCloud (not yet downloaded to your device), iOS/macOS will download the video to your local storage on demand for processing. The App itself does not initiate any independent upload or download to iCloud — this transfer is managed entirely by Apple's operating system and your iCloud account settings.</p>
+        <p>Uploads, downloads, caching, and cross-device synchronization performed by iCloud Photos or iCloud Drive are governed by Apple services and your settings. Selecting cloud-backed media can therefore use the network even though ShootingCut performs its media analysis and editing on device.</p>
 
-        <h2>3. Local Processing — Your Media Stays on Your Device</h2>
-        <p>All core App operations are performed entirely on your device:</p>
+        <h2>3. iCloud Key-Value Metadata Sync</h2>
+        <p>The App can use your iCloud key-value store (KVS) to synchronize lightweight metadata across your Apple devices. That metadata can include:</p>
         <ul>
-            <li>Audio analysis (FFT-based timer beep and gunshot detection)</li>
-            <li>Video trimming, synchronization, and multi-angle editing</li>
-            <li>Subtitle generation and overlay rendering</li>
-            <li>Video export and composition</li>
-            <li>Person/subject tracking and automatic video reframing (see Section 3A below)</li>
+            <li>Media aliases, camera perspectives, and gun type</li>
+            <li>Score associations and imported match records</li>
+            <li>Shooter and match fields contained in imported records</li>
+            <li>A non-anonymous RevenueCat App User ID when an existing custom subscription-recovery ID is available. RevenueCat IDs beginning with <code>$RCAnonymousID:</code> are not placed in KVS.</li>
         </ul>
-        <p>Your video and audio files are <strong>never transmitted to our servers</strong> at any stage of this process. Exported videos are saved directly to your local storage or photo library.</p>
+        <p>Original media files, extracted PCM audio, and person-tracking paths or keyframes are not placed in KVS. KVS is hosted by Apple under your iCloud account and is governed by Apple’s terms, retention practices, and your iCloud settings.</p>
 
-        <h2>3A. Person / Subject Tracking — On-Device Vision Processing</h2>
-        <div class="highlight-box">
-            <p>&#x1F9E0; <strong>Fully On-Device:</strong> All person detection and tracking data is computed locally using Apple's Vision framework. No biometric data, images, or tracking results are ever uploaded to our servers or shared with any third party.</p>
-        </div>
-        <p>The App includes an optional person/subject tracking feature that automatically keeps the identified subject centered in the frame during video export. This feature works as follows:</p>
+        <h2>4. “Help Improve Gunshot Detection” Reports</h2>
+        <p>“Help Improve Gunshot Detection” is user-controlled and is currently enabled by default. When enabled, the App can send limited pseudonymous derived fields to Apple CloudKit to help improve detection quality. Reports can include:</p>
         <ul>
-            <li><strong>Detection:</strong> Apple's on-device Vision framework analyzes video frames to locate human body positions (bounding boxes). No face recognition or identity extraction is performed.</li>
-            <li><strong>Tracking:</strong> The App uses <code>VNTrackObjectRequest</code> to follow the selected subject across frames, generating a sequence of crop-center keyframes stored transiently in memory.</li>
-            <li><strong>Use:</strong> Keyframe data is used solely to compute the crop rectangle for each frame during video export.</li>
-            <li><strong>Retention:</strong> Tracking data (bounding boxes and keyframes) exists only in RAM during the active session. It is not written to disk, not included in exported video metadata, and not retained after the session ends.</li>
-            <li><strong>No biometric profiling:</strong> The App does not identify, profile, or store information about any individual. Detection results are positional geometry only (coordinates and confidence scores).</li>
+            <li>Derived detection, timing, count, and spectral summary fields</li>
+            <li>Random session and analysis identifiers</li>
+            <li>Correction events generated when a detection is adjusted</li>
         </ul>
+        <p>These reports do not contain original audio, original video, extracted PCM samples, or the media file itself. Random identifiers make the reports pseudonymous; they are not a promise that the reports contain no identifiers of any kind.</p>
+        <p><strong>How to control it:</strong> Turn off the inline editor control, which appears as “Improve Detection” or simply “Improve” depending on platform and layout; export settings use “Help Improve Gunshot Detection” as the full label. While the switch is off, the App does not create new reports or retry the local pending queue. Turning it off does not erase reports already submitted to CloudKit and does not clear the local retry queue already on the device. If you enable it again, queued reports may be retried.</p>
 
-        <h2>4. Social Media Integrations</h2>
-        <p>The App offers optional sharing integrations with the following platforms. These integrations are entirely optional; you are not required to connect any social account to use the App's core features.</p>
+        <h2>5. Score Import</h2>
+        <p>Importing results from supported sources such as PractiScore, ESS, and HDP/IDPA uses the network. The App requests the match, stage, shooter, score, and available official timing fields required for the import. The source receives ordinary network request information under its own policies. Imported match records and score associations can be stored locally and can participate in the iCloud KVS sync described in Section 3.</p>
 
+        <h2>6. Subscriptions and RevenueCat</h2>
+        <p>ShootingCut uses Apple’s App Store for subscriptions and <strong>RevenueCat</strong> to manage subscription entitlement. RevenueCat receives app or subscription identifiers, App Store transaction identifiers, and subscription status for purchase verification and entitlement synchronization. If KVS contains an existing non-anonymous custom RevenueCat App User ID, the App can read that saved ID and use it to log in to RevenueCat on another Apple device; RevenueCat anonymous IDs are excluded from this KVS backup. RevenueCat does not receive your payment-card details. One subscription covers the subscriber’s Apple devices. For more information, see the <a href="https://www.revenuecat.com/privacy" target="_blank">RevenueCat Privacy Policy</a>.</p>
+
+        <h2>7. User-Initiated YouTube and Facebook Uploads</h2>
+        <p>ShootingCut 1.1.3 supports uploads that you initiate to YouTube or Facebook. Only after you choose a platform, authorize it, select an export, and confirm the upload does the App send the selected exported video, an access token, and the account or video metadata required by the destination.</p>
         <table>
-            <tr><th>Platform</th><th>Data Accessed</th><th>Storage</th><th>Privacy Policy</th></tr>
-            <tr><td>TikTok</td><td>OAuth token for video upload only</td><td>Stored in device Keychain</td><td><a href="https://www.tiktok.com/legal/page/us/privacy-policy/en" target="_blank">TikTok Privacy Policy</a></td></tr>
-            <tr><td>YouTube</td><td>OAuth token for video upload only</td><td>Stored in device Keychain</td><td><a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy</a></td></tr>
-            <tr><td>Facebook</td><td>OAuth token for video sharing only</td><td>Stored in device Keychain</td><td><a href="https://www.facebook.com/policy.php" target="_blank">Facebook Privacy Policy</a></td></tr>
-
+            <tr><th>Platform</th><th>Data Sent When You Initiate an Upload</th><th>Policy</th></tr>
+            <tr><td>YouTube</td><td>Selected export, access token, and required account/video metadata</td><td><a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy</a></td></tr>
+            <tr><td>Facebook</td><td>Selected export, access token, and required account/video metadata</td><td><a href="https://www.facebook.com/policy.php" target="_blank">Facebook Privacy Policy</a></td></tr>
         </table>
+        <p>OAuth access tokens are stored in the device system Keychain; the App does not receive your platform password. You can disconnect an account in the App and use the destination platform’s controls to revoke authorization. ShootingCut 1.1.3 does not offer TikTok video direct upload.</p>
 
-        <p>When you authorize a social media connection, the platform's own authentication is handled via OAuth 2.0 protocol through a secure browser session (ASWebAuthenticationSession). We only store the resulting access token, and only for the purpose of uploading videos you explicitly select. We do not access your social media contacts, messages, posts, or profile information beyond what is required for video upload.</p>
-        <p>You can disconnect any social account at any time from within the App settings, which will delete the associated token from your Keychain.</p>
-
-        <h2>5. In-App Purchases &amp; Subscriptions</h2>
-        <p>The App may offer premium features through in-app purchases or subscriptions processed via Apple's App Store and managed by <strong>RevenueCat</strong>. RevenueCat receives your App Store transaction identifiers and subscription status to enable purchase verification. RevenueCat does not receive your payment card details. For more information, see the <a href="https://www.revenuecat.com/privacy" target="_blank">RevenueCat Privacy Policy</a>.</p>
-
-        <h2>6. Third-Party Service Providers</h2>
-        <p>We use the following third-party services, each subject to their own privacy policies:</p>
+        <h2>8. Service Providers and Disclosure</h2>
+        <p>Depending on the features you use, information can be handled by:</p>
         <ul>
-            <li><strong>RevenueCat</strong> — In-app purchase and subscription management</li>
-            <li><strong>Apple App Store Connect Analytics</strong> — Anonymous app usage analytics (controlled by your device's Analytics settings)</li>
-            <li><strong>Apple Crash Reporter</strong> — Crash diagnostics (controlled by your device's Analytics settings)</li>
-            <li><strong>Apple CloudKit</strong> — Anonymous detection quality telemetry (numerical spectral parameters only, no audio/video content, controllable via in-app toggle)</li>
-            <li><strong>TikTok Content Posting API, YouTube Data API, Facebook Graph API</strong> — Social sharing via OAuth 2.0 (only active if you connect these accounts)</li>
-        </ul>
-        <p>We require all third-party service providers to provide equivalent protection for your data as described in this Privacy Policy.</p>
-
-        <h2>7. Data Sharing &amp; Disclosure</h2>
-        <p>We do <strong>not</strong> sell, rent, or trade your personal information. We may share information only in the following limited circumstances:</p>
-        <ul>
-            <li><strong>Service Providers:</strong> With trusted service providers (listed above) who process data on our behalf, subject to strict data protection agreements.</li>
+            <li><strong>Apple Photos, iCloud Drive, and iCloud KVS:</strong> Cloud-backed media selected by you and metadata sync</li>
+            <li><strong>Apple CloudKit:</strong> Derived detection and correction fields while the optional improvement switch is enabled</li>
+            <li><strong>RevenueCat:</strong> Subscription verification and entitlement status</li>
+            <li><strong>Supported score providers:</strong> Match and result data you choose to import</li>
+            <li><strong>YouTube or Facebook:</strong> An exported video and required metadata when you initiate an upload</li>
             <li><strong>Legal Requirements:</strong> If required by applicable law, regulation, court order, or governmental authority.</li>
             <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets, where your information may be transferred as part of that transaction. We will notify you via the App or this policy before any such transfer occurs.</li>
         </ul>
+        <p>Apple may also provide crash diagnostics or App Store analytics according to your device settings and Apple’s policies. We do not sell or rent your personal information.</p>
 
-        <h2>8. Data Retention &amp; Deletion</h2>
-        <p>Because the App processes data locally on your device, you are in control of your data. Session data and App preferences are stored on your device and can be deleted by uninstalling the App. Social media OAuth tokens stored in your Keychain are deleted when you disconnect the respective account in App settings.</p>
-        <p><strong>iCloud Key-Value Storage:</strong> Session names and lightweight metadata synced via iCloud KVS are stored in your personal iCloud account and subject to Apple's iCloud data retention policies. You can delete this data by uninstalling the App (which clears the associated KVS keys) or by managing your iCloud data through your Apple ID settings.</p>
-        <p><strong>Person tracking data</strong> is transient and exists only in device RAM during an active session. It is automatically discarded when you close the session or exit the App — no action is required to delete it.</p>
-        <p>To request deletion of any data held by our third-party service providers (e.g., RevenueCat analytics), please contact us at <a href="mailto:support@shootingcut.com">support@shootingcut.com</a>.</p>
+        <h2>9. Retention and Deletion</h2>
+        <ul>
+            <li><strong>Local data:</strong> Manage or delete local media, projects, imported records, and preferences on your device.</li>
+            <li><strong>iCloud data:</strong> KVS metadata, including any saved custom RevenueCat App User ID, and Apple cloud-backed media are governed by your iCloud settings and Apple’s retention practices.</li>
+            <li><strong>Local report queue:</strong> Disabling detection improvement pauses retries but does not clear the existing local queue.</li>
+            <li><strong>Submitted reports:</strong> Disabling the switch does not automatically delete reports already submitted to CloudKit.</li>
+            <li><strong>Platform, score, and subscription data:</strong> RevenueCat, YouTube, Facebook, Apple, and score providers retain data under their own policies.</li>
+        </ul>
+        <p>Disconnecting a platform account removes its connection from the App; use the platform’s settings to revoke authorization. For questions or a request concerning information handled by ShootingCut, contact <a href="mailto:support@shootingcut.com">support@shootingcut.com</a>.</p>
 
-        <h2>9. Children's Privacy</h2>
+        <h2>10. Children’s Privacy</h2>
         <p>The App is not directed to children under 13 years of age (or the applicable minimum age in your jurisdiction). We do not knowingly collect personal information from children. If you believe we have inadvertently collected information from a child, please contact us immediately at <a href="mailto:support@shootingcut.com">support@shootingcut.com</a> and we will take steps to delete it.</p>
 
-        <h2>10. International Users</h2>
+        <h2>11. International Users</h2>
         <p>The App is available globally. If you are located outside the United States, please be aware that any information processed by third-party service providers may be transferred to and processed in the United States or other countries. By using the App, you consent to such transfers in accordance with this Privacy Policy.</p>
 
-        <h2>11. Your Privacy Rights</h2>
+        <h2>12. Your Choices and Privacy Rights</h2>
+        <p>You can:</p>
+        <ul>
+            <li>Turn off “Help Improve Gunshot Detection” in the App</li>
+            <li>Disconnect YouTube or Facebook and revoke access through the platform</li>
+            <li>Manage Photos, iCloud, and Apple analytics permissions in system settings</li>
+            <li>Manage subscriptions and iCloud data through your Apple ID settings</li>
+        </ul>
         <p>Depending on your location, you may have the following rights regarding your personal data:</p>
         <ul>
             <li><strong>Access:</strong> Request information about the data we or our service providers hold about you.</li>
             <li><strong>Correction:</strong> Request correction of inaccurate data.</li>
             <li><strong>Deletion:</strong> Request deletion of your personal data.</li>
-            <li><strong>Opt-out of Analytics:</strong> Disable analytics collection via your device's Settings &rarr; Privacy &amp; Security &rarr; Analytics &amp; Improvements.</li>
+            <li><strong>Restriction or objection:</strong> Restrict or object to certain processing where applicable.</li>
         </ul>
         <p>To exercise any of these rights, contact us at <a href="mailto:support@shootingcut.com">support@shootingcut.com</a>. We will respond within 30 days.</p>
 
-        <h2>11A. Additional Rights for Specific Regions</h2>
-        <p><strong>European Union / EEA Residents (GDPR):</strong></p>
-        <ul>
-            <li><strong>Legal Basis:</strong> We process your data based on contract performance (providing App functionality), legitimate interests (improving services), and your consent (social media connections).</li>
-            <li><strong>Data Subject Rights:</strong> In addition to the rights listed above, you have the right to data portability, the right to restrict processing, the right to object to processing, and the right to lodge a complaint with your local supervisory authority.</li>
-        </ul>
-        <p><strong>California Residents (CCPA):</strong></p>
-        <ul>
-            <li><strong>Right to Know:</strong> You have the right to know what personal information we collect, use, and disclose.</li>
-            <li><strong>Right to Delete:</strong> You may request deletion of your personal information.</li>
-            <li><strong>Right to Non-Discrimination:</strong> We will not discriminate against you for exercising your privacy rights.</li>
-            <li><strong>No Sale of Personal Information:</strong> We do not sell your personal information to third parties.</li>
-        </ul>
-        <p>To exercise any of these rights, contact us at <a href="mailto:support@shootingcut.com">support@shootingcut.com</a>.</p>
+        <h2>13. Security</h2>
+        <p>We use platform security controls appropriate to the features described above, including the iOS/macOS system Keychain for platform tokens. No security measure can guarantee absolute security.</p>
 
-        <h2>12. Security</h2>
-        <p>We implement industry-standard measures to protect the information we hold. Social media tokens are stored in the iOS/macOS system Keychain, which is encrypted and protected by the device's hardware security. However, no security measure is perfect; you use the App at your own risk.</p>
-
-        <h2>13. Changes to This Policy</h2>
+        <h2>14. Changes to This Policy</h2>
         <p>We may update this Privacy Policy from time to time. When we make material changes, we will update the "Last updated" date at the top of this page. We encourage you to review this policy periodically. Continued use of the App after changes constitutes acceptance of the updated policy.</p>
 
-        <h2>14. Contact Us</h2>
+        <h2>15. Contact Us</h2>
         <p>If you have any questions, concerns, or requests regarding this Privacy Policy, please contact us at:</p>
         <p><strong>ShootingCut</strong><br>
         Email: <a href="mailto:support@shootingcut.com">support@shootingcut.com</a><br>
