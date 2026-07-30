@@ -104,6 +104,21 @@ For social and video evidence:
 
 | Checked at (UTC) | Surface | Sitemap status | Discovered URLs | Indexed URLs | Errors | Evidence note |
 |---|---|---|---:|---:|---|---|
+| 2026-07-30T09:58:54Z | Google Search Console | Success; resubmitted 2026-07-30 | 10 (before Google rereads the 18-route sitemap) | 8 | 5 pages not indexed; 1 historical structured-data parse error | Domain property verified. Previous sitemap read was 2026-07-27. The parse error belongs to removed `/faq-zh.html`, which now returns 404; fix validation started 2026-07-30. |
+| 2026-07-30T09:58:54Z | Bing Webmaster Tools | Authorization pending | — | — | Bing account not yet authorized | Google sign-in reached the consent screen. No account identity or sitemap data was submitted pending explicit user approval of the Bing OAuth disclosure. |
+
+## Google URL inspection sample
+
+| Checked at (UTC) | Route | Stored index state | Live test | Indexing request |
+|---|---|---|---|---|
+| 2026-07-30T09:58:54Z | `/` | Indexed | Eligible for indexing; page fetch succeeded | Not needed |
+| 2026-07-30T09:58:54Z | `/competitive-shooting-video-editor/` | Discovered, not indexed | Eligible for indexing; page fetch succeeded | Requested |
+| 2026-07-30T09:58:54Z | `/auto-trim-shooting-match-video/` | Discovered, not indexed | Eligible for indexing; page fetch succeeded | Requested |
+| 2026-07-30T09:58:54Z | `/sync-two-shooting-videos-by-timer-beep/` | Discovered, not indexed | Eligible for indexing; page fetch succeeded | Requested |
+| 2026-07-30T09:58:54Z | `/edit-multi-camera-shooting-video/` | Discovered, not indexed | Eligible for indexing; page fetch succeeded | Requested |
+| 2026-07-30T09:58:54Z | `/reframe-landscape-shooting-video-for-social-media/` | Discovered, not indexed | Eligible for indexing; page fetch succeeded | Requested |
+| 2026-07-30T09:58:54Z | `/merge-uspsa-stage-videos/` | Discovered, not indexed | Eligible for indexing; page fetch succeeded | Requested |
+| 2026-07-30T09:58:54Z | `/import-practiscore-ess-hdp-match-results/` | Discovered, not indexed | Eligible for indexing; page fetch succeeded | Requested |
 
 ## Query and citation samples
 
@@ -180,4 +195,3 @@ Each reviewed public route receives exactly one current state:
 
 | Deployed at (UTC) | Commit | Validate site | GitHub Pages | Production check | Notes |
 |---|---|---|---|---|---|
-
