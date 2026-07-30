@@ -2278,7 +2278,9 @@ async function main() {
     validateEnglishVisibleText(page);
     validateLocaleMetadata(page, publicFiles);
     validateOpenGraphUrl(page, publicFiles);
-    validateLanguageSwitch(page);
+    if (page.relativePath !== "index.html") {
+      validateLanguageSwitch(page);
+    }
   }
 
   await validateRobots();

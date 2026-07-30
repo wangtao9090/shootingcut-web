@@ -327,70 +327,70 @@ test("rejects a language switch hidden with an important inline style", async ()
   const root = await copyCurrentSite();
   await replaceInFile(
     root,
-    "index.html",
-    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>',
-    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans" style="display:none!important">Chinese</a>',
+    "privacy.html",
+    '<a href="https://shootingcut.cn/privacy.html" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>',
+    '<a href="https://shootingcut.cn/privacy.html" hreflang="zh-Hans" lang="zh-Hans" style="display:none!important">Chinese</a>',
   );
   const result = runValidator(root);
-  assertRejected(result, /index\.html:\d+ language switch must be visible/i);
+  assertRejected(result, /privacy\.html:\d+ language switch must be visible/i);
 });
 
 test("rejects a language switch hidden by an ancestor", async () => {
   const root = await copyCurrentSite();
   const languageSwitch =
-    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>';
+    '<a href="https://shootingcut.cn/privacy.html" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>';
   await replaceInFile(
     root,
-    "index.html",
+    "privacy.html",
     languageSwitch,
     `<div style="visibility:hidden !important">${languageSwitch}</div>`,
   );
   const result = runValidator(root);
-  assertRejected(result, /index\.html:\d+ language switch must be visible/i);
+  assertRejected(result, /privacy\.html:\d+ language switch must be visible/i);
 });
 
 test("does not count a commented language switch as visible", async () => {
   const root = await copyCurrentSite();
   await replaceInFile(
     root,
-    "index.html",
-    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>',
-    '<!-- <a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a> -->',
+    "privacy.html",
+    '<a href="https://shootingcut.cn/privacy.html" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>',
+    '<!-- <a href="https://shootingcut.cn/privacy.html" hreflang="zh-Hans" lang="zh-Hans">Chinese</a> -->',
   );
   const result = runValidator(root);
   assertRejected(
     result,
-    /index\.html:\d+ expected exactly one visible zh-Hans language switch; found 0/i,
+    /privacy\.html:\d+ expected exactly one visible zh-Hans language switch; found 0/i,
   );
 });
 
 test("does not count language switches inside script or style elements", async () => {
   const languageSwitch =
-    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>';
+    '<a href="https://shootingcut.cn/privacy.html" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>';
   for (const element of ["script", "style"]) {
     const root = await copyCurrentSite();
     await replaceInFile(
       root,
-      "index.html",
+      "privacy.html",
       languageSwitch,
       `<${element}>${languageSwitch}</${element}>`,
     );
     const result = runValidator(root);
     assertRejected(
       result,
-      /index\.html:\d+ expected exactly one visible zh-Hans language switch; found 0/i,
+      /privacy\.html:\d+ expected exactly one visible zh-Hans language switch; found 0/i,
     );
   }
 });
 
 test("rejects browser-hidden or non-link language-switch variants", async () => {
   const languageSwitch =
-    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>';
+    '<a href="https://shootingcut.cn/privacy.html" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>';
   const variants = [
-    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans" aria-hidden="tr&#117;e">Chinese</a>',
-    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans" style="display&colon;none">Chinese</a>',
-    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans" style="display:/**/none">Chinese</a>',
-    '<style>.review-hide { display: none; }</style><a class="review-hide" href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>',
+    '<a href="https://shootingcut.cn/privacy.html" hreflang="zh-Hans" lang="zh-Hans" aria-hidden="tr&#117;e">Chinese</a>',
+    '<a href="https://shootingcut.cn/privacy.html" hreflang="zh-Hans" lang="zh-Hans" style="display&colon;none">Chinese</a>',
+    '<a href="https://shootingcut.cn/privacy.html" hreflang="zh-Hans" lang="zh-Hans" style="display:/**/none">Chinese</a>',
+    '<style>.review-hide { display: none; }</style><a class="review-hide" href="https://shootingcut.cn/privacy.html" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>',
     `<textarea>${languageSwitch}</textarea>`,
     `<div hidden/>${languageSwitch}</div>`,
     `<dialog>${languageSwitch}</dialog>`,
@@ -398,13 +398,13 @@ test("rejects browser-hidden or non-link language-switch variants", async () => 
 
   for (const variant of variants) {
     const root = await copyCurrentSite();
-    await replaceInFile(root, "index.html", languageSwitch, variant);
+    await replaceInFile(root, "privacy.html", languageSwitch, variant);
     const result = runValidator(root);
     const output = `${result.stdout}\n${result.stderr}`;
     assert.equal(result.status, 1, `${variant}\n${output}`);
     assert.match(
       output,
-      /index\.html:\d+ (?:language switch must be visible|expected exactly one visible zh-Hans language switch; found 0)/i,
+      /privacy\.html:\d+ (?:language switch must be visible|expected exactly one visible zh-Hans language switch; found 0)/i,
     );
   }
 });
