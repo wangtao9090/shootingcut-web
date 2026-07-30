@@ -12,11 +12,14 @@ const validatorPath = path.join(workspaceRoot, "scripts", "validate-site.mjs");
 const temporaryRoots = new Set();
 const publicEntries = [
   ".github",
+  "assets",
   "CNAME",
+  "competitive-shooting-video-editor",
   "faq.html",
   "index.html",
   "oauth",
   "og-image.svg",
+  "on-device-shooting-video-editor",
   "privacy.html",
   "robots.txt",
   "sitemap.xml",
