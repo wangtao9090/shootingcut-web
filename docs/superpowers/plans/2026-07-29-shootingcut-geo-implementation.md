@@ -114,6 +114,7 @@ Create the same paths independently in both repositories:
 - `side-by-side-shooting-video-comparison/`
 - `merge-uspsa-stage-videos/`
 - `batch-export-match-videos/`
+- `import-practiscore-ess-hdp-match-results/`
 - `add-shot-times-and-scores-to-match-video/`
 
 Requirements:
@@ -121,8 +122,10 @@ Requirements:
 1. Side by Side is a Split Sync layout, not a separate mode.
 2. Merge accepts up to 20 videos and is not multi-camera auto-sync.
 3. Batch export is macOS + Pro.
-4. PractiScore supports official per-shot anchoring; distinguish this from ESS/HDP/IDPA score import.
-5. Do not claim progress prediction, WinMSS, arbitrary PDFs, or unsupported score-system coverage.
+4. The score-import guide explains PractiScore, ESS, and HDP/IDPA import paths, supported inputs, and limitations without implying universal automatic synchronization.
+5. The video-overlay guide explains that, when PractiScore official per-shot timing records are available, Shooting Cut can align them to footage using the timer beep and use the official times/splits, shot count, and score data in video subtitles.
+6. State clearly that ESS/HDP/IDPA provide score import but not PractiScore-style official per-shot anchoring.
+7. Do not claim progress prediction, WinMSS, arbitrary PDFs, or unsupported score-system coverage.
 
 ## Task 6: Complete machine-readable discovery and handoff
 
