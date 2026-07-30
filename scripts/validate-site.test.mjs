@@ -106,6 +106,33 @@ test("rejects a page-owned JSON-LD URL on the wrong domain", async () => {
   assertRejected(result, /index\.html:\d+ SoftwareApplication url must be exactly/i);
 });
 
+test("accepts a same-route object mainEntityOfPage reference", async () => {
+  const root = await copyCurrentSite();
+  await replaceInFile(
+    root,
+    "index.html",
+    '"url": "https://shootingcut.com/",',
+    '"url": "https://shootingcut.com/",\n        "mainEntityOfPage": {"@id": "https://shootingcut.com/"},',
+  );
+  const result = runValidator(root);
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+});
+
+test("rejects an object mainEntityOfPage reference on the wrong domain", async () => {
+  const root = await copyCurrentSite();
+  await replaceInFile(
+    root,
+    "index.html",
+    '"url": "https://shootingcut.com/",',
+    '"url": "https://shootingcut.com/",\n        "mainEntityOfPage": {"@id": "https://shootingcut.cn/"},',
+  );
+  const result = runValidator(root);
+  assertRejected(
+    result,
+    /index\.html:\d+ SoftwareApplication mainEntityOfPage\.@id must be exactly/i,
+  );
+});
+
 test("rejects duplicate HTML ids", async () => {
   const root = await copyCurrentSite();
   await replaceInFile(
@@ -116,6 +143,48 @@ test("rejects duplicate HTML ids", async () => {
   );
   const result = runValidator(root);
   assertRejected(result, /index\.html:\d+ duplicate id="home"/i);
+});
+
+test("rejects visible Chinese encoded as HTML character references", async () => {
+  const root = await copyCurrentSite();
+  await replaceInFile(
+    root,
+    "index.html",
+    '<section class="hero" id="home">',
+    '<section class="hero" id="home"><p>&#x4e2d;&#x6587;</p>',
+  );
+  const result = runValidator(root);
+  assertRejected(
+    result,
+    /index\.html:\d+ English public pages must not contain visible Chinese text/i,
+  );
+});
+
+test("rejects a directly hidden language switch", async () => {
+  const root = await copyCurrentSite();
+  await replaceInFile(
+    root,
+    "index.html",
+    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>',
+    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans" hidden>Chinese</a>',
+  );
+  const result = runValidator(root);
+  assertRejected(result, /index\.html:\d+ language switch must be visible/i);
+});
+
+test("does not count a commented language switch as visible", async () => {
+  const root = await copyCurrentSite();
+  await replaceInFile(
+    root,
+    "index.html",
+    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>',
+    '<!-- <a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a> -->',
+  );
+  const result = runValidator(root);
+  assertRejected(
+    result,
+    /index\.html:\d+ expected exactly one visible zh-Hans language switch; found 0/i,
+  );
 });
 
 test("rejects an absolute local-media privacy claim", async () => {
@@ -158,6 +227,75 @@ test("requires the current default state of the detection-improvement switch", a
     result,
     /privacy\.html:\d+ must state that detection improvement is currently enabled by default/i,
   );
+});
+
+test("requires the custom RevenueCat App User ID KVS boundary", async () => {
+  const root = await copyCurrentSite();
+  await replaceInFile(
+    root,
+    "privacy.html",
+    "A non-anonymous RevenueCat App User ID",
+    "A RevenueCat identifier",
+  );
+  const result = runValidator(root);
+  assertRejected(
+    result,
+    /privacy\.html:\d+ must disclose the custom RevenueCat App User ID KVS boundary/i,
+  );
+});
+
+test("requires all real detection-improvement control labels", async () => {
+  const root = await copyCurrentSite();
+  await replaceInFile(
+    root,
+    "privacy.html",
+    " or simply “Improve”",
+    "",
+  );
+  const result = runValidator(root);
+  assertRejected(
+    result,
+    /privacy\.html:\d+ must list the actual detection-improvement control labels/i,
+  );
+});
+
+test("requires support to list all real detection-improvement control labels", async () => {
+  const root = await copyCurrentSite();
+  await replaceInFile(
+    root,
+    "support.html",
+    " or simply “Improve”",
+    "",
+  );
+  const result = runValidator(root);
+  assertRejected(
+    result,
+    /support\.html:\d+ support must list the actual detection-improvement control labels/i,
+  );
+});
+
+test("rejects stale and absolute claims split across source lines", async () => {
+  const root = await copyCurrentSite();
+  await replaceInFile(
+    root,
+    "index.html",
+    '<section class="hero" id="home">',
+    `<section class="hero" id="home">
+      <p>No data
+      leaves your device.</p>
+      <p>Lifetime
+      access is included.</p>
+      <p>TikTok direct<span> </span>upload is supported.</p>
+      <p>Stage Mix supports
+      3+ inputs.</p>`,
+  );
+  const result = runValidator(root);
+  const output = `${result.stdout}\n${result.stderr}`;
+  assert.equal(result.status, 1, output);
+  assert.match(output, /absolute privacy claim/i);
+  assert.match(output, /stale purchase claim/i);
+  assert.match(output, /TikTok direct-upload or integration claim/i);
+  assert.match(output, /stale Stage Mix input-count claim/i);
 });
 
 test("requires robots.txt to reference only the English sitemap", async () => {

@@ -104,6 +104,7 @@
             <li>Media aliases, camera perspectives, and gun type</li>
             <li>Score associations and imported match records</li>
             <li>Shooter and match fields contained in imported records</li>
+            <li>A non-anonymous RevenueCat App User ID when an existing custom subscription-recovery ID is available. RevenueCat IDs beginning with <code>$RCAnonymousID:</code> are not placed in KVS.</li>
         </ul>
         <p>Original media files, extracted PCM audio, and person-tracking paths or keyframes are not placed in KVS. KVS is hosted by Apple under your iCloud account and is governed by Apple’s terms, retention practices, and your iCloud settings.</p>
 
@@ -115,13 +116,13 @@
             <li>Correction events generated when a detection is adjusted</li>
         </ul>
         <p>These reports do not contain original audio, original video, extracted PCM samples, or the media file itself. Random identifiers make the reports pseudonymous; they are not a promise that the reports contain no identifiers of any kind.</p>
-        <p><strong>How to control it:</strong> Turn off “Help Improve Gunshot Detection” in the editor or export interface; on some compact interfaces the label is shortened to “Improve Detection.” While the switch is off, the App does not create new reports or retry the local pending queue. Turning it off does not erase reports already submitted to CloudKit and does not clear the local retry queue already on the device. If you enable it again, queued reports may be retried.</p>
+        <p><strong>How to control it:</strong> Turn off the inline editor control, which appears as “Improve Detection” or simply “Improve” depending on platform and layout; export settings use “Help Improve Gunshot Detection” as the full label. While the switch is off, the App does not create new reports or retry the local pending queue. Turning it off does not erase reports already submitted to CloudKit and does not clear the local retry queue already on the device. If you enable it again, queued reports may be retried.</p>
 
         <h2>5. Score Import</h2>
         <p>Importing results from supported sources such as PractiScore, ESS, and HDP/IDPA uses the network. The App requests the match, stage, shooter, score, and available official timing fields required for the import. The source receives ordinary network request information under its own policies. Imported match records and score associations can be stored locally and can participate in the iCloud KVS sync described in Section 3.</p>
 
         <h2>6. Subscriptions and RevenueCat</h2>
-        <p>ShootingCut uses Apple’s App Store for subscriptions and <strong>RevenueCat</strong> to manage subscription entitlement. RevenueCat receives app or subscription identifiers, App Store transaction identifiers, and subscription status for purchase verification and entitlement synchronization. RevenueCat does not receive your payment-card details. One subscription covers the subscriber’s Apple devices. For more information, see the <a href="https://www.revenuecat.com/privacy" target="_blank">RevenueCat Privacy Policy</a>.</p>
+        <p>ShootingCut uses Apple’s App Store for subscriptions and <strong>RevenueCat</strong> to manage subscription entitlement. RevenueCat receives app or subscription identifiers, App Store transaction identifiers, and subscription status for purchase verification and entitlement synchronization. If KVS contains an existing non-anonymous custom RevenueCat App User ID, the App can read that saved ID and use it to log in to RevenueCat on another Apple device; RevenueCat anonymous IDs are excluded from this KVS backup. RevenueCat does not receive your payment-card details. One subscription covers the subscriber’s Apple devices. For more information, see the <a href="https://www.revenuecat.com/privacy" target="_blank">RevenueCat Privacy Policy</a>.</p>
 
         <h2>7. User-Initiated YouTube and Facebook Uploads</h2>
         <p>ShootingCut 1.1.3 supports uploads that you initiate to YouTube or Facebook. Only after you choose a platform, authorize it, select an export, and confirm the upload does the App send the selected exported video, an access token, and the account or video metadata required by the destination.</p>
@@ -148,7 +149,7 @@
         <h2>9. Retention and Deletion</h2>
         <ul>
             <li><strong>Local data:</strong> Manage or delete local media, projects, imported records, and preferences on your device.</li>
-            <li><strong>iCloud data:</strong> KVS metadata and Apple cloud-backed media are governed by your iCloud settings and Apple’s retention practices.</li>
+            <li><strong>iCloud data:</strong> KVS metadata, including any saved custom RevenueCat App User ID, and Apple cloud-backed media are governed by your iCloud settings and Apple’s retention practices.</li>
             <li><strong>Local report queue:</strong> Disabling detection improvement pauses retries but does not clear the existing local queue.</li>
             <li><strong>Submitted reports:</strong> Disabling the switch does not automatically delete reports already submitted to CloudKit.</li>
             <li><strong>Platform, score, and subscription data:</strong> RevenueCat, YouTube, Facebook, Apple, and score providers retain data under their own policies.</li>
