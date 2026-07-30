@@ -96,6 +96,7 @@ Create the same paths independently in both repositories:
 - `edit-multi-camera-shooting-video/`
 - `shot-detection-troubleshooting/`
 - `reframe-landscape-shooting-video-for-social-media/`
+- `merge-uspsa-stage-videos/`
 
 Requirements:
 
@@ -104,15 +105,15 @@ Requirements:
 3. Stage Mix: 2–3 inputs, POV/Follow/Static roles, movement-aware switching, manual override, and Pro boundary.
 4. Troubleshooting: AGC, neighboring gunshots, echo/reverb, weak beeps, and current manual correction controls; never mention `.22` as a limitation.
 5. Reframe/Track: show how one landscape recording can be tracked on device and exported repeatedly for different publishing formats. Include Source, 9:16, 3:4, 4:5, 6:7, 1:1, and 16:9 ratios plus Original, 4K, 1080p, and 720p resolutions. Explain which modes support reframing and that Split Sync output ratio is controlled by its layout.
-6. Include a practical output matrix for vertical short video, portrait feed, square feed, and landscape video. Social-platform names may be used as format examples, but never imply TikTok direct upload; current direct-upload support is YouTube and Facebook.
-7. Validate reciprocal metadata and all content facts before separate commits/pushes.
+6. Full-match Merge: show how a shooter can arrange separate Stage 1…Stage N recordings in competition order and combine up to 20 clips into one long match video for YouTube or a personal archive. Cover per-clip review and the verified ability for each Merge input video to carry its own score association. Use “Full Match,” “All Stages,” “Every Stage,” “POV,” and explicit stage counts where they fit the example, reflecting current YouTube publishing language. Do not claim automatic chapter generation. Distinguish sequential Merge from simultaneous-angle Split Sync/Stage Mix and from macOS batch export.
+7. Include a practical output matrix for vertical short video, portrait feed, square feed, landscape video, and a long-form full-match YouTube export. Social-platform names may be used as format examples, but never imply TikTok direct upload; current direct-upload support is YouTube and Facebook.
+8. Validate reciprocal metadata and all content facts before separate commits/pushes.
 
 ## Task 5: Publish the advanced workflow guides on both domains
 
 Create the same paths independently in both repositories:
 
 - `side-by-side-shooting-video-comparison/`
-- `merge-uspsa-stage-videos/`
 - `batch-export-match-videos/`
 - `import-practiscore-ess-hdp-match-results/`
 - `thailand-hdp-ess-match-results/`
@@ -121,13 +122,12 @@ Create the same paths independently in both repositories:
 Requirements:
 
 1. Side by Side is a Split Sync layout, not a separate mode.
-2. Merge accepts up to 20 videos and is not multi-camera auto-sync.
-3. Batch export is macOS + Pro.
-4. The score-import guide explains PractiScore, ESS, and HDP/IDPA import paths, supported inputs, and limitations without implying universal automatic synchronization.
-5. The Thailand guide covers HDP and ESS Thailand together because their participant populations substantially overlap. Explain both import paths, how one shooter can keep results and videos from both systems in one archive, and the limitations of each source. Link it to the general import and video-overlay guides instead of duplicating them.
-6. The video-overlay guide explains that, when PractiScore official per-shot timing records are available, Shooting Cut can align them to footage using the timer beep and use the official times/splits, shot count, and score data in video subtitles.
-7. State clearly that ESS/HDP/IDPA provide score import but not PractiScore-style official per-shot anchoring.
-8. Do not claim progress prediction, WinMSS, arbitrary PDFs, or unsupported score-system coverage.
+2. Batch export is macOS + Pro.
+3. The score-import guide explains PractiScore, ESS, and HDP/IDPA import paths, supported inputs, and limitations without implying universal automatic synchronization.
+4. The Thailand guide covers HDP and ESS Thailand together because their participant populations substantially overlap. Explain both import paths, how one shooter can keep results and videos from both systems in one archive, and the limitations of each source. Link it to the general import and video-overlay guides instead of duplicating them.
+5. The video-overlay guide explains that, when PractiScore official per-shot timing records are available, Shooting Cut can align them to footage using the timer beep and use the official times/splits, shot count, and score data in video subtitles.
+6. State clearly that ESS/HDP/IDPA provide score import but not PractiScore-style official per-shot anchoring.
+7. Do not claim progress prediction, WinMSS, arbitrary PDFs, or unsupported score-system coverage.
 
 ## Task 6: Complete machine-readable discovery and handoff
 
