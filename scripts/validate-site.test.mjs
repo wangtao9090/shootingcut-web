@@ -220,6 +220,32 @@ test("does not count language switches inside script or style elements", async (
   }
 });
 
+test("rejects browser-hidden or non-link language-switch variants", async () => {
+  const languageSwitch =
+    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>';
+  const variants = [
+    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans" aria-hidden="tr&#117;e">Chinese</a>',
+    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans" style="display&colon;none">Chinese</a>',
+    '<a href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans" style="display:/**/none">Chinese</a>',
+    '<style>.review-hide { display: none; }</style><a class="review-hide" href="https://shootingcut.cn/" hreflang="zh-Hans" lang="zh-Hans">Chinese</a>',
+    `<textarea>${languageSwitch}</textarea>`,
+    `<div hidden/>${languageSwitch}</div>`,
+    `<dialog>${languageSwitch}</dialog>`,
+  ];
+
+  for (const variant of variants) {
+    const root = await copyCurrentSite();
+    await replaceInFile(root, "index.html", languageSwitch, variant);
+    const result = runValidator(root);
+    const output = `${result.stdout}\n${result.stderr}`;
+    assert.equal(result.status, 1, `${variant}\n${output}`);
+    assert.match(
+      output,
+      /index\.html:\d+ (?:language switch must be visible|expected exactly one visible zh-Hans language switch; found 0)/i,
+    );
+  }
+});
+
 test("rejects an absolute local-media privacy claim", async () => {
   const root = await copyCurrentSite();
   await replaceInFile(
@@ -292,6 +318,26 @@ test("requires all real detection-improvement control labels", async () => {
   );
 });
 
+test("does not let hidden CSS or an unclosed comment satisfy required labels", async () => {
+  for (const replacement of [
+    '<style>.review-hide { display: none; }</style><span class="review-hide"> or simply “Improve”</span>',
+    '<!--\n or simply “Improve”',
+  ]) {
+    const root = await copyCurrentSite();
+    await replaceInFile(
+      root,
+      "privacy.html",
+      " or simply “Improve”",
+      replacement,
+    );
+    const result = runValidator(root);
+    assertRejected(
+      result,
+      /privacy\.html:\d+ must list the actual detection-improvement control labels/i,
+    );
+  }
+});
+
 test("requires support to list all real detection-improvement control labels", async () => {
   const root = await copyCurrentSite();
   await replaceInFile(
@@ -343,6 +389,81 @@ test("does not let a legal negative sentence excuse an adjacent positive claim",
     result,
     /privacy\.html:\d+ TikTok direct-upload or integration claim/i,
   );
+});
+
+test("does not let a negative clause excuse a contradictory clause", async () => {
+  const legalSentence =
+    "ShootingCut 1.1.3 does not offer TikTok video direct upload.";
+  const variants = [
+    "TikTok direct upload is supported, but ShootingCut does not currently offer TikTok video direct upload.",
+    "ShootingCut does not currently offer TikTok video direct upload — however, TikTok direct upload is supported.",
+  ];
+
+  for (const variant of variants) {
+    const root = await copyCurrentSite();
+    await replaceInFile(root, "privacy.html", legalSentence, variant);
+    const result = runValidator(root);
+    assertRejected(
+      result,
+      /privacy\.html:\d+ TikTok direct-upload or integration claim/i,
+    );
+  }
+});
+
+test("scans facts that remain visually rendered inside inert or aria-hidden content", async () => {
+  for (const attribute of ["inert", 'aria-hidden="true"']) {
+    const root = await copyCurrentSite();
+    await replaceInFile(
+      root,
+      "index.html",
+      '<section class="hero" id="home">',
+      `<section class="hero" id="home"><p ${attribute}>No data leaves your device. TikTok direct upload is supported.</p>`,
+    );
+    const result = runValidator(root);
+    const output = `${result.stdout}\n${result.stderr}`;
+    assert.equal(result.status, 1, output);
+    assert.match(output, /absolute privacy claim/i);
+    assert.match(output, /TikTok direct-upload or integration claim/i);
+  }
+});
+
+test("follows browser comment and optional paragraph-closing semantics", async () => {
+  const variants = [
+    '<section class="hero" id="home"><!-- <script> --><p>TikTok direct upload is supported.</p>',
+    '<section class="hero" id="home"><p>Tik<!-- marker --!>Tok direct upload is supported.</p>',
+    '<section class="hero" id="home"><p hidden>Hidden filler<p>TikTok direct upload is supported.</p>',
+  ];
+
+  for (const variant of variants) {
+    const root = await copyCurrentSite();
+    await replaceInFile(
+      root,
+      "index.html",
+      '<section class="hero" id="home">',
+      variant,
+    );
+    const result = runValidator(root);
+    assertRejected(
+      result,
+      /index\.html:\d+ TikTok direct-upload or integration claim/i,
+    );
+  }
+});
+
+test("rejects protected facts split across adjacent visible blocks", async () => {
+  const root = await copyCurrentSite();
+  await replaceInFile(
+    root,
+    "index.html",
+    '<section class="hero" id="home">',
+    '<section class="hero" id="home"><p>No data</p><p>leaves your device.</p><p>TikTok direct</p><p>upload is supported.</p><p>Stage Mix supports</p><p>3+ inputs.</p>',
+  );
+  const result = runValidator(root);
+  const output = `${result.stdout}\n${result.stderr}`;
+  assert.equal(result.status, 1, output);
+  assert.match(output, /absolute privacy claim/i);
+  assert.match(output, /TikTok direct-upload or integration claim/i);
+  assert.match(output, /stale Stage Mix input-count claim/i);
 });
 
 test("ignores forbidden claims that are statically hidden", async () => {
