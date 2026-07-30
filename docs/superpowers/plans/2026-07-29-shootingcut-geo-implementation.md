@@ -16,7 +16,12 @@
 - Use “one subscription covers all your Apple devices,” never “one purchase,” “lifetime,” or a one-time-purchase promise.
 - Free facts: Auto Trim and score import are free. Free Auto Trim exports include the Shooting Cut watermark and logo intro card.
 - Pro facts safe to publish: removes the Shooting Cut watermark, enables custom intro cards, unlocks Split Sync and Stage Mix, and enables macOS batch export. Do not state a Free/Pro boundary for single-platform social upload until product code and App Store copy agree.
-- Supported export resolutions are Original, 4K, 1080p, and 720p. Supported ratios are Source, 9:16, 3:4, 4:5, 6:7, 1:1, and 16:9.
+- General export choices are Original, 4K, 1080p, and 720p, filtered by the
+  source and workflow ceiling. Supported ratio choices are Source, 9:16, 3:4,
+  4:5, 6:7, 1:1, and 16:9. Track-driven 9:16/3:4/4:5/6:7/1:1 reframes render
+  with a 1080-pixel short edge and may be downscaled to 720p; they are not 4K
+  tracked exports. Source does not crop, 16:9 is not a tracked ratio, and Split
+  Sync uses its layout-defined canvas with a 1080-pixel short edge.
 - Score facts: PractiScore official per-shot anchoring is supported. ESS, PractiScore, and HDP/IDPA score import paths exist; ESS has 41 configured regions. Do not claim arbitrary PDF support or promise WinMSS support.
 - Troubleshooting may discuss AGC, neighboring gunshots, echo/reverb, weak timer beeps, detection sensitivity, timer-marker adjustment, adding/removing shots, setting the last shot, and minimum-split adjustment. Do not mention `.22` as a limitation.
 - Privacy wording must distinguish:
@@ -104,7 +109,16 @@ Requirements:
 2. Split Sync: exactly two inputs, timer-beep alignment, four layouts, and Pro boundary.
 3. Stage Mix: 2–3 inputs, POV/Follow/Static roles, movement-aware switching, manual override, and Pro boundary.
 4. Troubleshooting: AGC, neighboring gunshots, echo/reverb, weak beeps, and current manual correction controls; never mention `.22` as a limitation.
-5. Reframe/Track: show how one landscape recording can be tracked on device and exported repeatedly for different publishing formats. Include Source, 9:16, 3:4, 4:5, 6:7, 1:1, and 16:9 ratios plus Original, 4K, 1080p, and 720p resolutions. Explain which modes support reframing and that Split Sync output ratio is controlled by its layout.
+5. Reframe/Track: show how one landscape recording can be tracked on device and
+   exported repeatedly for different publishing formats. Include Source,
+   9:16, 3:4, 4:5, 6:7, 1:1, and 16:9, but distinguish Source and non-tracked
+   16:9 from the tracked crop ratios. Explain that Original, 4K, 1080p, and
+   720p are general export choices filtered by the actual workflow ceiling:
+   track-driven crops use a 1080-pixel short edge and can be downscaled to
+   720p, so 4K is not a tracked-reframe output. Explain which modes support
+   reframing, and that Split Sync output is controlled by its layout and also
+   uses a 1080-pixel short edge. Never imply that every ratio can be combined
+   with every resolution.
 6. Full-match Merge: show how a shooter can arrange separate Stage 1…Stage N recordings in competition order and combine up to 20 clips into one long match video for YouTube or a personal archive. Cover per-clip review and the verified ability for each Merge input video to carry its own score association. Use “Full Match,” “All Stages,” “Every Stage,” “POV,” and explicit stage counts where they fit the example, reflecting current YouTube publishing language. Do not claim automatic chapter generation. Distinguish sequential Merge from simultaneous-angle Split Sync/Stage Mix and from macOS batch export.
 7. Include a practical output matrix for vertical short video, portrait feed, square feed, landscape video, and a long-form full-match YouTube export. Social-platform names may be used as format examples, but never imply TikTok direct upload; current direct-upload support is YouTube and Facebook.
 8. Validate reciprocal metadata and all content facts before separate commits/pushes.
