@@ -60,8 +60,8 @@
             "Core audio/video analysis and person tracking run on device",
             "Raw footage is not uploaded to a Shooting Cut media-processing server for editing or analysis",
             "No cross-app advertising tracking; see https://shootingcut.com/privacy.html for iCloud, subscription, telemetry, score import, and user-initiated upload details",
-            "Direct upload to YouTube and Facebook",
-            "Portrait Tracking with smart reframing: switch Export Ratio and Track a person to keep them centered at any output ratio (9:16, 1:1, 16:9)",
+            "User-initiated direct upload to YouTube and Facebook",
+            "Reframe and Track in Auto Trim, Merge, and Stage Mix support cropped 9:16, 3:4, 4:5, 6:7, and 1:1 outputs; Source keeps the source frame, and 16:9 is a separate non-tracked ratio",
             "Smart audio analysis for automatic shot and timer detection",
             "Auto Trim: exactly 1 video; Auto Trim and score import are free; free Auto Trim exports include the Shooting Cut watermark and logo intro card",
             "Performance Subtitles overlay with live stopwatch (split times, shot count, running time)",
@@ -69,7 +69,7 @@
             "Split Sync: exactly 2 videos",
             "Stage Mix: 2–3 videos labeled POV, Follow, or Static, with automatic movement-aware switching and manual override",
             "Pro removes the Shooting Cut watermark, enables custom intro cards, unlocks Split Sync and Stage Mix, and enables macOS batch export",
-            "One subscription covers all your Apple devices"
+            "One subscription covers all of the subscriber's Apple devices"
         ],
         "screenshot": "https://shootingcut.com/og-image.svg",
         "applicationSubCategory": "Sports Video Analysis"
@@ -128,7 +128,7 @@
                 "name": "What platforms does Shooting Cut support?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Shooting Cut is available on Mac (macOS 26.0+), iPad (iPadOS 26.0+), and iPhone (iOS 26.0+). Auto Trim and score import are free. Pro removes the Shooting Cut watermark, enables custom intro cards, unlocks Split Sync and Stage Mix, and enables macOS batch export. One subscription covers all your Apple devices."
+                    "text": "Shooting Cut is available on Mac (macOS 26.0+), iPad (iPadOS 26.0+), and iPhone (iOS 26.0+). Auto Trim and score import are free. Pro removes the Shooting Cut watermark, enables custom intro cards, unlocks Split Sync and Stage Mix, and enables macOS batch export. One subscription covers all of the subscriber's Apple devices."
                 }
             },
             {
@@ -303,6 +303,164 @@
         .mode-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.55; }
         .mode-card .mode-videos { font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.75rem; opacity: 0.7; }
 
+        /* ── Workflow Guide Hub ── */
+        .guide-hub {
+            overflow: hidden;
+            border-top: 1px solid rgba(96, 165, 250, 0.1);
+            border-bottom: 1px solid rgba(96, 165, 250, 0.1);
+            background:
+                linear-gradient(135deg, rgba(59, 130, 246, 0.055), transparent 38%),
+                linear-gradient(315deg, rgba(139, 92, 246, 0.045), transparent 34%),
+                var(--bg-secondary);
+        }
+
+        .guide-hub-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .guide-lane {
+            --guide-accent: var(--accent-light);
+            min-width: 0;
+            padding: 1.5rem;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 16px;
+            background: rgba(10, 14, 23, 0.64);
+            box-shadow: 0 20px 54px rgba(0, 0, 0, 0.16);
+        }
+
+        .guide-lane[data-stage="core"] {
+            --guide-accent: var(--green);
+        }
+
+        .guide-lane[data-stage="advanced"] {
+            --guide-accent: var(--orange);
+        }
+
+        .guide-lane-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .guide-lane-label {
+            flex: 0 0 auto;
+            color: var(--guide-accent);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .guide-signal {
+            width: 100%;
+            height: 2px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--guide-accent) 0 0.3rem,
+                transparent 0.3rem 0.78rem
+            );
+            opacity: 0.62;
+        }
+
+        .guide-lane h3 {
+            margin-bottom: 0.55rem;
+            font-size: 1.25rem;
+            line-height: 1.25;
+        }
+
+        .guide-lane-summary {
+            min-height: 4.5rem;
+            margin-bottom: 1.25rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .guide-list {
+            display: grid;
+            gap: 0.75rem;
+            list-style: none;
+        }
+
+        .guide-link {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 0.9rem;
+            align-items: center;
+            min-width: 0;
+            padding: 1rem;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 12px;
+            background: rgba(26, 31, 46, 0.72);
+            color: var(--text-primary);
+            text-decoration: none;
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease,
+                background-color 0.2s ease;
+        }
+
+        .guide-link:hover {
+            transform: translateY(-2px);
+            border-color: rgba(96, 165, 250, 0.32);
+            border-color: color-mix(in srgb, var(--guide-accent) 44%, transparent);
+            background: rgba(26, 31, 46, 0.98);
+        }
+
+        .guide-link:focus-visible {
+            border-color: var(--guide-accent);
+            outline: 3px solid var(--orange);
+            outline-offset: 3px;
+        }
+
+        .guide-link-copy {
+            display: grid;
+            gap: 0.28rem;
+            min-width: 0;
+        }
+
+        .guide-link-title {
+            font-size: 0.92rem;
+            font-weight: 700;
+            line-height: 1.35;
+        }
+
+        .guide-link-description {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+
+        .guide-link-arrow {
+            color: var(--guide-accent);
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 960px) {
+            .guide-hub-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .guide-lane-summary {
+                min-height: 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .guide-link {
+                transition: none;
+            }
+
+            .guide-link:hover {
+                transform: none;
+            }
+        }
+
         /* ── Platforms Section ── */
         .platforms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
         .platform-card { background: var(--bg-card); border: 1px solid rgba(148,163,184,0.08); border-radius: 16px; padding: 2rem; text-align: center; transition: all 0.3s; }
@@ -382,14 +540,14 @@
     {
         "@context": "https://schema.org",
         "@type": "ItemList",
-        "name": "ShootingCut Feature Demos — Portrait Tracking, Stage Mix & Split Sync",
-        "description": "Demonstrations of person-tracking reframing, Stage Mix for 2–3 videos labeled POV, Follow, or Static, and Split Sync for exactly 2 videos.",
+        "name": "ShootingCut Feature Demos — Reframe Formats, Stage Mix & Split Sync",
+        "description": "Demonstrations of a non-tracked 16:9 landscape format, a 4:5 person-tracked crop, Stage Mix for 2–3 videos labeled POV, Follow, or Static, and Split Sync for exactly 2 videos.",
         "itemListElement": [
             {
                 "@type": "VideoObject",
                 "position": 1,
-                "name": "ShootingCut in Action — 16:9 Landscape Export",
-                "description": "Competitive shooting match video exported in 16:9 landscape ratio with Portrait Tracking keeping the shooter centered. Ideal for YouTube.",
+                "name": "ShootingCut in Action — 16:9 Landscape Format",
+                "description": "A competitive-shooting match video exported as a non-tracked 16:9 landscape format. This format is separate from the supported Track crop ratios.",
                 "thumbnailUrl": "https://i.ytimg.com/vi/EO-yju9mCIk/hqdefault.jpg",
                 "uploadDate": "2026-04-04",
                 "contentUrl": "https://www.youtube.com/watch?v=EO-yju9mCIk",
@@ -533,7 +691,7 @@
                 <div class="feature-card fade-in">
                     <div class="feature-icon">📱</div>
                     <h3>Native on All Apple Devices</h3>
-                    <p>One subscription covers all your Apple devices. Use the desktop workflow on Mac or the purpose-built touch experience on iPhone and iPad.</p>
+                    <p>One subscription covers all of the subscriber's Apple devices. Use the desktop workflow on Mac or the purpose-built touch experience on iPhone and iPad.</p>
                 </div>
                 <div class="feature-card fade-in">
                     <div class="feature-icon">🔒</div>
@@ -542,13 +700,13 @@
                 </div>
                 <div class="feature-card fade-in">
                     <div class="feature-icon">🚀</div>
-                    <h3>One-Tap Multi-Platform Share</h3>
-                    <p>Share your wins. Export and upload polished clips directly to YouTube and Facebook from the app, or save a finished video for your own publishing workflow.</p>
+                    <h3>Export and User-Initiated Sharing</h3>
+                    <p>Export a finished video to your device, or start an upload to YouTube or Facebook from the app. Other publishing workflows begin with the exported file.</p>
                 </div>
                 <div class="feature-card fade-in">
                     <div class="feature-icon">🎯</div>
-                    <h3>Portrait Tracking — Shooter Always Centered</h3>
-                    <p>Switch your export ratio to 9:16, 1:1, or 16:9, then tap Track to keep the shooter centered. Create vertical, square, and landscape versions from the same footage.</p>
+                    <h3>Reframe and Track for Multiple Formats</h3>
+                    <p>In Auto Trim, Merge, or Stage Mix, choose a tracked crop of 9:16, 3:4, 4:5, 6:7, or 1:1. Source keeps the source frame, while 16:9 is a separate non-tracked option.</p>
                 </div>
                 <div class="feature-card fade-in">
                     <div class="feature-icon">🎞️</div>
@@ -565,6 +723,171 @@
     </section>
 
 
+    <!-- Guide Hub -->
+    <section id="guides" class="guide-hub" aria-labelledby="guides-title">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Workflow Guides</span>
+                <h2 class="section-title" id="guides-title">Choose the Workflow That Matches Your Footage</h2>
+                <p class="section-subtitle">
+                    Start with the product and processing boundaries, then open the guide for the exact edit, result source, or export you need.
+                </p>
+            </div>
+
+            <div class="guide-hub-grid">
+                <div class="guide-lane" data-stage="start" role="group" aria-labelledby="guide-start-title">
+                    <div class="guide-lane-header">
+                        <span class="guide-lane-label">Start here</span>
+                        <span class="guide-signal" aria-hidden="true"></span>
+                    </div>
+                    <h3 id="guide-start-title">Understand the editor</h3>
+                    <p class="guide-lane-summary">Choose a mode and understand which work stays on device before starting an edit.</p>
+                    <ul class="guide-list">
+                        <li>
+                            <a class="guide-link" href="/competitive-shooting-video-editor/">
+                                <span class="guide-link-copy">
+                                    <span class="guide-link-title">Compare all four editing modes</span>
+                                    <span class="guide-link-description">Match Auto Trim, Merge, Split Sync, or Stage Mix to the number and relationship of your recordings.</span>
+                                </span>
+                                <span class="guide-link-arrow" aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="guide-link" href="/on-device-shooting-video-editor/">
+                                <span class="guide-link-copy">
+                                    <span class="guide-link-title">Understand on-device processing</span>
+                                    <span class="guide-link-description">See what runs locally and where iCloud, subscriptions, improvement data, imports, and uploads use the network.</span>
+                                </span>
+                                <span class="guide-link-arrow" aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="guide-lane" data-stage="core" role="group" aria-labelledby="guide-core-title">
+                    <div class="guide-lane-header">
+                        <span class="guide-lane-label">Core editing</span>
+                        <span class="guide-signal" aria-hidden="true"></span>
+                    </div>
+                    <h3 id="guide-core-title">Build and review the cut</h3>
+                    <p class="guide-lane-summary">Open the workflow that matches one recording, simultaneous cameras, or sequential stages.</p>
+                    <ul class="guide-list">
+                        <li>
+                            <a class="guide-link" href="/auto-trim-shooting-match-video/">
+                                <span class="guide-link-copy">
+                                    <span class="guide-link-title">Auto Trim one stage recording</span>
+                                    <span class="guide-link-description">Analyze exactly one video, adjust the proposed trim and events, then review the export.</span>
+                                </span>
+                                <span class="guide-link-arrow" aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="guide-link" href="/sync-two-shooting-videos-by-timer-beep/">
+                                <span class="guide-link-copy">
+                                    <span class="guide-link-title">Sync exactly two camera views</span>
+                                    <span class="guide-link-description">Align two simultaneous recordings by timer-beep evidence and choose a Split Sync layout.</span>
+                                </span>
+                                <span class="guide-link-arrow" aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="guide-link" href="/edit-multi-camera-shooting-video/">
+                                <span class="guide-link-copy">
+                                    <span class="guide-link-title">Edit 2–3 views with Stage Mix</span>
+                                    <span class="guide-link-description">Assign POV, Follow, or Static roles, review movement-aware switching, and override cuts.</span>
+                                </span>
+                                <span class="guide-link-arrow" aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="guide-link" href="/shot-detection-troubleshooting/">
+                                <span class="guide-link-copy">
+                                    <span class="guide-link-title">Troubleshoot timer and shot detection</span>
+                                    <span class="guide-link-description">Review the timer marker, AGC, neighboring shots, echo, weak beeps, and manual corrections.</span>
+                                </span>
+                                <span class="guide-link-arrow" aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="guide-link" href="/reframe-landscape-shooting-video-for-social-media/">
+                                <span class="guide-link-copy">
+                                    <span class="guide-link-title">Reframe one recording for multiple formats</span>
+                                    <span class="guide-link-description">Separate Source and non-tracked 16:9 from supported person-tracked crop ratios and export ceilings.</span>
+                                </span>
+                                <span class="guide-link-arrow" aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="guide-link" href="/merge-uspsa-stage-videos/">
+                                <span class="guide-link-copy">
+                                    <span class="guide-link-title">Build one Full Match video</span>
+                                    <span class="guide-link-description">Arrange up to 20 sequential stage clips and preserve each clip's score association.</span>
+                                </span>
+                                <span class="guide-link-arrow" aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="guide-lane" data-stage="advanced" role="group" aria-labelledby="guide-advanced-title">
+                    <div class="guide-lane-header">
+                        <span class="guide-lane-label">Advanced workflows</span>
+                        <span class="guide-signal" aria-hidden="true"></span>
+                    </div>
+                    <h3 id="guide-advanced-title">Finish specialized workflows</h3>
+                    <p class="guide-lane-summary">Use focused guides for comparison, batch output, imported results, and official timing overlays.</p>
+                    <ul class="guide-list">
+                        <li>
+                            <a class="guide-link" href="/side-by-side-shooting-video-comparison/">
+                                <span class="guide-link-copy">
+                                    <span class="guide-link-title">Compare two runs Side by Side</span>
+                                    <span class="guide-link-description">Use the Pro Side by Side layout with exactly two synchronized recordings.</span>
+                                </span>
+                                <span class="guide-link-arrow" aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="guide-link" href="/batch-export-match-videos/">
+                                <span class="guide-link-copy">
+                                    <span class="guide-link-title">Batch export match videos on Mac</span>
+                                    <span class="guide-link-description">Create multiple separate exports with the macOS Pro batch workflow.</span>
+                                </span>
+                                <span class="guide-link-arrow" aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="guide-link" href="/import-practiscore-ess-hdp-match-results/">
+                                <span class="guide-link-copy">
+                                    <span class="guide-link-title">Import supported match results</span>
+                                    <span class="guide-link-description">Bring in PractiScore, ESS, HDP, or IDPA results and associate them with local match video.</span>
+                                </span>
+                                <span class="guide-link-arrow" aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="guide-link" href="/thailand-hdp-ess-match-results/">
+                                <span class="guide-link-copy">
+                                    <span class="guide-link-title">Import HDP and ESS results in Thailand</span>
+                                    <span class="guide-link-description">Import accessible Thailand results and keep the imported record with your own match archive.</span>
+                                </span>
+                                <span class="guide-link-arrow" aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="guide-link" href="/add-shot-times-and-scores-to-match-video/">
+                                <span class="guide-link-copy">
+                                    <span class="guide-link-title">Add official shot times and scores</span>
+                                    <span class="guide-link-description">Align available PractiScore official per-shot records to the timer beep and review the overlay.</span>
+                                </span>
+                                <span class="guide-link-arrow" aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Feature Demos -->
     <section id="demo">
         <div class="container">
@@ -576,17 +899,17 @@
                 </p>
             </div>
 
-            <!-- Portrait Tracking -->
+            <!-- Reframe Formats -->
             <div class="demo-feature fade-in" id="demo-portrait">
                 <div class="demo-feature-header">
                     <span class="demo-feature-icon">🎯</span>
-                    <h3 class="demo-feature-title">Portrait Tracking</h3>
-                    <p class="demo-feature-desc">Switch export ratio and the shooter stays centered in every frame — one clip, every platform.</p>
+                    <h3 class="demo-feature-title">Reframe Formats</h3>
+                    <p class="demo-feature-desc">The 16:9 example is a non-tracked landscape format; the 4:5 example uses Track. Supported Track crop ratios are 9:16, 3:4, 4:5, 6:7, and 1:1.</p>
                 </div>
                 <div class="demo-grid-2col">
                     <div class="demo-card">
                         <div class="demo-video demo-landscape">
-                            <iframe src="https://www.youtube.com/embed/EO-yju9mCIk" title="ShootingCut Portrait Tracking 16:9 Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/EO-yju9mCIk" title="ShootingCut 16:9 Landscape Format Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
                         <div class="demo-label">16:9 <span class="demo-platform">Landscape</span></div>
                     </div>
@@ -736,7 +1059,7 @@
         <span class="section-label">Download</span>
         <h2 class="section-title">Ready to Level Up Your Review Game?</h2>
         <p class="section-subtitle">
-            Download Shooting Cut today on the App Store. Auto Trim and score import are free. Pro removes the Shooting Cut watermark, enables custom intro cards, unlocks Split Sync and Stage Mix, and enables macOS batch export. One subscription covers all your Apple devices.
+            Download Shooting Cut today on the App Store. Auto Trim and score import are free. Pro removes the Shooting Cut watermark, enables custom intro cards, unlocks Split Sync and Stage Mix, and enables macOS batch export. One subscription covers all of the subscriber's Apple devices.
         </p>
         <a href="https://apps.apple.com/app/shooting-cut/id6761160281" class="appstore-btn" target="_blank" style="margin: 0 auto; display: inline-flex;">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:22px;height:22px;fill:white;"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
@@ -798,7 +1121,7 @@
                 <details class="faq-item">
                     <summary class="faq-question">Is Shooting Cut free?</summary>
                     <div class="faq-answer">
-                        <p>Shooting Cut is free to download. Auto Trim and score import are free. Free Auto Trim exports include the Shooting Cut watermark and logo intro card. Pro removes the Shooting Cut watermark, enables custom intro cards, unlocks Split Sync and Stage Mix, and enables macOS batch export. One subscription covers all your Apple devices. No account or sign-up is required.</p>
+                        <p>Shooting Cut is free to download. Auto Trim and score import are free. Free Auto Trim exports include the Shooting Cut watermark and logo intro card. Pro removes the Shooting Cut watermark, enables custom intro cards, unlocks Split Sync and Stage Mix, and enables macOS batch export. One subscription covers all of the subscriber's Apple devices. No account or sign-up is required.</p>
                     </div>
                 </details>
                 <details class="faq-item">

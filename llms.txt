@@ -1,0 +1,82 @@
+# Shooting Cut
+
+> Canonical English site: https://shootingcut.com/
+> Simplified Chinese site: https://shootingcut.cn/
+> Current product version: 1.1.3
+
+Shooting Cut is a competitive-shooting video editor for iPhone, iPad, and Mac. It combines on-device timer and shot analysis with trimming, sequential full-match assembly, two-view synchronization, 2–3-camera editing, score-aware overlays, person-tracked reframing, and export. Timer and gunshot analysis is one editing capability within the broader editor.
+
+This file supplements the public HTML pages and XML sitemap. Product facts, limits, and routes should be verified against those canonical sources.
+
+## Platforms and editing modes
+
+- Requires iOS 26.0+, iPadOS 26.0+, or macOS 26.0+.
+- Auto Trim accepts exactly 1 video.
+- Merge combines up to 20 sequential clips into one long video.
+- Split Sync accepts exactly 2 simultaneous views and offers Full Screen, Dual View: Center HUD, Dual View: Top HUD, and Side by Side layouts.
+- Stage Mix accepts 2–3 simultaneous inputs labeled POV, Follow, or Static, uses movement-aware switching, and allows manual override.
+
+## Free, Pro, subscription, and upload facts
+
+- Auto Trim and score import are free.
+- Free Auto Trim exports include the Shooting Cut watermark and logo intro card.
+- Pro removes the Shooting Cut watermark, enables custom intro cards, unlocks Split Sync and Stage Mix, and enables macOS batch export.
+- One subscription covers all of the subscriber's Apple devices, subject to App Store account and entitlement rules.
+- Direct upload is limited to user-initiated YouTube and Facebook uploads.
+
+## Results, official shot times, and overlays
+
+- Supported result-import families are PractiScore, ESS, HDP, and IDPA.
+- When a PractiScore result includes official per-shot timer records, Shooting Cut can align them to footage using the timer beep and use official times, splits, shot count, and score data in video subtitles.
+- ESS, HDP, and IDPA support score import but do not provide the same PractiScore-style official per-shot timing anchor.
+- Result import depends on the source remaining available at import time. Imported records can remain associated with the shooter's own local match-video archive.
+
+## Reframe, Track, and export boundaries
+
+- Auto Trim, Merge, and Stage Mix support Reframe and Track. Auto Trim and Merge also support manual crop.
+- Track supports cropped 9:16, 3:4, 4:5, 6:7, and 1:1 outputs.
+- Source keeps the source frame. Non-tracked 16:9 is separate from the Track crop ratios.
+- General export choices can include Original, 4K, 1080p, and 720p, filtered by source and workflow ceilings.
+- Tracked crops use a 1080-pixel short edge and can be downscaled to 720p.
+- Split Sync output is controlled by the selected product layout and uses a 1080-pixel short edge.
+
+## On-device processing and connected features
+
+- Core video/audio analysis, editing, export, and person tracking run on the user's Apple device.
+- Original footage is not uploaded to a Shooting Cut media-processing server for those core workflows.
+- Apple Photos, iCloud Photos, and iCloud Drive follow Apple services and the user's settings.
+- iCloud key-value storage can sync lightweight app metadata such as media aliases, camera views, firearm types, score associations, and imported match fields, plus an existing non-anonymous custom RevenueCat App User ID. Values beginning with `$RCAnonymousID:` are excluded. Original media, PCM audio, and person-tracking paths do not use that store.
+- RevenueCat receives subscription identifiers and entitlement status.
+- Help Improve Gunshot Detection is user-controlled and currently enabled by default. When enabled, limited pseudonymous derived detection and correction fields can be sent to Apple CloudKit; original audio, original video, and PCM are excluded.
+- Score import and user-initiated YouTube or Facebook uploads use the network.
+
+## Start here
+
+- [Competitive-shooting video editor](https://shootingcut.com/competitive-shooting-video-editor/): choose among Auto Trim, Merge, Split Sync, and Stage Mix, with score, Reframe, Free, and Pro boundaries.
+- [On-device shooting video editor](https://shootingcut.com/on-device-shooting-video-editor/): review local processing and the iCloud, subscription, improvement-data, import, and upload boundaries.
+
+## Core workflow guides
+
+- [Auto Trim one shooting match video](https://shootingcut.com/auto-trim-shooting-match-video/): analyze and trim exactly one stage recording, then verify timer, shot, trim, score, and subtitle details.
+- [Sync two shooting videos by timer beep](https://shootingcut.com/sync-two-shooting-videos-by-timer-beep/): align exactly two simultaneous views and choose a Split Sync layout.
+- [Edit a multi-camera shooting video](https://shootingcut.com/edit-multi-camera-shooting-video/): use Stage Mix with 2–3 POV, Follow, or Static inputs and review the proposed camera switches.
+- [Shot-detection troubleshooting](https://shootingcut.com/shot-detection-troubleshooting/): review AGC, neighboring shots, echo or reverb, weak timer beeps, and manual correction controls.
+- [Reframe landscape shooting video for social formats](https://shootingcut.com/reframe-landscape-shooting-video-for-social-media/): separate Source and non-tracked 16:9 from supported Track crop ratios and workflow export ceilings.
+- [Merge USPSA stage videos](https://shootingcut.com/merge-uspsa-stage-videos/): arrange Stage 1 through Stage N and combine up to 20 clips into one Full Match video.
+
+## Advanced workflow guides
+
+- [Side-by-side shooting video comparison](https://shootingcut.com/side-by-side-shooting-video-comparison/): use the Pro Side by Side Split Sync layout with exactly two recordings.
+- [Batch export match videos](https://shootingcut.com/batch-export-match-videos/): create multiple separate exports with macOS Pro.
+- [Import PractiScore, ESS, HDP, and IDPA match results](https://shootingcut.com/import-practiscore-ess-hdp-match-results/): import supported results while the source remains available and associate them with local match video.
+- [Thailand HDP and ESS match results](https://shootingcut.com/thailand-hdp-ess-match-results/): import accessible Thailand results and keep the imported record with the shooter's own archive.
+- [Add official shot times and scores to match video](https://shootingcut.com/add-shot-times-and-scores-to-match-video/): align available PractiScore official per-shot records to footage and review the overlay before export.
+
+## Policies and discovery
+
+- [FAQ](https://shootingcut.com/faq.html)
+- [Privacy Policy](https://shootingcut.com/privacy.html)
+- [Support](https://shootingcut.com/support.html)
+- [Terms of Service](https://shootingcut.com/terms.html)
+- [XML sitemap](https://shootingcut.com/sitemap.xml)
+- [Chinese site](https://shootingcut.cn/)
