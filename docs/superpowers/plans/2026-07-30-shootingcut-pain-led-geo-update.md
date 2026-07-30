@@ -728,7 +728,7 @@ Answer:
 No. Shooting Cut can display available imported score and official timing data and can analyze timer and shot audio. It does not locate or place bullet hits on a target image.
 ```
 
-- [ ] **Step 5: Synchronize structured data, validate, and deploy**
+- [x] **Step 5: Synchronize structured data, validate, and deploy**
 
 Update the Article and FAQ descriptions that mirror changed visible text. Run the full validation command set, then:
 
@@ -755,7 +755,7 @@ Expected: P06 has one accurate answer, the page does not imply automatic visual 
 - Consumes: P07 and the medium-strength repeated-work inference.
 - Produces: a cautious batch-export explanation that does not confuse separate outputs with Merge.
 
-- [ ] **Step 1: Add a failing batch-workflow test**
+- [x] **Step 1: Add a failing batch-workflow test**
 
 Add:
 
@@ -777,7 +777,7 @@ test("batch export guide explains repeated multi-stage rendering", async () => {
 });
 ```
 
-- [ ] **Step 2: Run the focused test and verify failure**
+- [x] **Step 2: Run the focused test and verify failure**
 
 Run:
 
@@ -788,7 +788,7 @@ node --test --test-name-pattern="repeated multi-stage rendering" \
 
 Expected: FAIL on the new repeated-work language.
 
-- [ ] **Step 3: Update metadata and the opening answer**
+- [x] **Step 3: Update metadata and the opening answer**
 
 Use this meta description:
 
@@ -802,7 +802,7 @@ Use this answer:
 Use Shooting Cut Pro on macOS to render several prepared match edits as separate output files instead of starting each export one by one. Every job still follows its editing mode, ratio, resolution, layout, and tracking limits.
 ```
 
-- [ ] **Step 4: Add the multi-stage workflow explanation**
+- [x] **Step 4: Add the multi-stage workflow explanation**
 
 Add an H2:
 

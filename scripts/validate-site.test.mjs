@@ -284,6 +284,22 @@ test("timing guide explains performance context without hit localization", async
   }
 });
 
+test("batch export guide explains repeated multi-stage rendering", async () => {
+  const source = await readFile(
+    path.join(workspaceRoot, "batch-export-match-videos", "index.html"),
+    "utf8",
+  );
+
+  for (const phrase of [
+    "instead of starting each export one by one",
+    "several prepared match edits",
+    "separate output files",
+    "does not combine stages",
+  ]) {
+    assert.ok(source.includes(phrase), `batch guide must include: ${phrase}`);
+  }
+});
+
 test("guide video embeds are accessible and match VideoObject metadata", async () => {
   const root = await copyCurrentSite();
 
