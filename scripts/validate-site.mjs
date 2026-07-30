@@ -1233,84 +1233,31 @@ function validateLocaleMetadata(page, publicFiles) {
   }
 }
 
-function validateLanguageSwitch(page) {
-  const expectedUrl = `${chineseOrigin}${currentRoute(page.relativePath)}`;
+function validateNoVisibleLanguageSwitch(page) {
   const switches = page.tags
     .filter((tag) => tag.name === "a")
     .map((tag) => ({
       tag,
-      href: findAttribute(tag, "href"),
       hreflang: findAttribute(tag, "hreflang"),
-      lang: findAttribute(tag, "lang"),
     }))
     .filter(
       ({ hreflang }) =>
         hreflang?.value?.trim().toLowerCase() === "zh-hans",
     );
 
-  if (switches.length !== 1) {
-    addFailure(
-      page.relativePath,
-      page.source,
-      switches[1]?.tag.index ?? switches[0]?.tag.index ?? 0,
-      `expected exactly one visible zh-Hans language switch; found ${switches.length}`,
-    );
-    return;
-  }
-
-  const languageSwitch = switches[0];
-  if (
-    tagMakesControlUnavailable(languageSwitch.tag) ||
-    hasUnavailableAncestor(page.source, languageSwitch.tag.index) ||
-    stylesheetHidesLanguageSwitch(page.source, languageSwitch.tag)
-  ) {
+  for (const languageSwitch of switches) {
+    if (
+      tagMakesControlUnavailable(languageSwitch.tag) ||
+      hasUnavailableAncestor(page.source, languageSwitch.tag.index) ||
+      stylesheetHidesLanguageSwitch(page.source, languageSwitch.tag)
+    ) {
+      continue;
+    }
     addFailure(
       page.relativePath,
       page.source,
       languageSwitch.tag.index,
-      "language switch must be visible",
-    );
-  }
-
-  const href = languageSwitch.href?.value
-    ? decodeHtmlAttribute(languageSwitch.href.value).trim()
-    : "";
-  const lang = languageSwitch.lang?.value
-    ? decodeHtmlAttribute(languageSwitch.lang.value).trim().toLowerCase()
-    : "";
-  if (href !== expectedUrl) {
-    addFailure(
-      page.relativePath,
-      page.source,
-      languageSwitch.href?.index ?? languageSwitch.tag.index,
-      `visible language switch must point to "${expectedUrl}"`,
-    );
-  }
-  if (lang !== "zh-hans") {
-    addFailure(
-      page.relativePath,
-      page.source,
-      languageSwitch.lang?.index ?? languageSwitch.tag.index,
-      'visible Chinese language switch must use lang="zh-Hans"',
-    );
-  }
-
-  const closingAnchor = page.source.indexOf("</a>", languageSwitch.tag.endIndex);
-  const label =
-    closingAnchor === -1
-      ? ""
-      : collectVisibleTextBlocks(
-          page.source.slice(languageSwitch.tag.endIndex, closingAnchor),
-        )
-          .map((block) => block.text)
-          .join(" ")
-          .trim();
-  if (label !== "Chinese") {
-    addFailure(
-      page.relativePath,
-      page.source,
-      languageSwitch.tag.endIndex,
-      'visible Chinese language switch must use the English label "Chinese"',
+      "English public pages must not expose a visible zh-Hans language switch",
     );
   }
 }
@@ -2278,9 +2225,7 @@ async function main() {
     validateEnglishVisibleText(page);
     validateLocaleMetadata(page, publicFiles);
     validateOpenGraphUrl(page, publicFiles);
-    if (page.relativePath !== "index.html") {
-      validateLanguageSwitch(page);
-    }
+    validateNoVisibleLanguageSwitch(page);
   }
 
   await validateRobots();

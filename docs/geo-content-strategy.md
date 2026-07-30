@@ -489,3 +489,16 @@ GEO 不承诺排名或引用，应建立可重复的基线：
 - App 1.1.3 的非 `GLOBAL_VERSION` 中文隐私链接仍指向已经移除的
   `.com/privacy-zh.html`；下一版 App 必须按第 4.1 节迁移到
   `.cn/privacy.html`。这项产品仓库变更不包含在本次网站发布中。
+
+## 14. 2026-07-30 英文优先决策
+
+- 当前阶段只保障 `shootingcut.com`、英文查询和已上线的非中国区 App Store
+  市场；`shootingcut.cn`、中文查询、中国区 App Store 与 `.cn` HTTPS
+  不作为英文 GEO 后续工作的阻塞项。
+- `.com` 的所有可见导航保持纯英文：主页以及 13 条指南、FAQ、隐私、支持和
+  条款页面不再显示 `Chinese` 切换入口。
+- canonical、HTML `hreflang` 与 sitemap alternate 仍作为机器可读的语言关系
+  保留；移除可见入口不等于删除两站的 alternate 元数据。
+- 后续按
+  [`2026-07-30-shootingcut-english-geo-post-launch.md`](superpowers/plans/2026-07-30-shootingcut-english-geo-post-launch.md)
+  建立英文索引、查询、引用与媒体证据闭环。

@@ -143,13 +143,6 @@ summary:focus-visible {
     color: var(--text-primary);
 }
 
-.nav-links .language-switch {
-    padding: 0.34rem 0.7rem;
-    border: 1px solid var(--border-strong);
-    border-radius: 999px;
-    color: var(--accent-light);
-}
-
 main {
     width: min(calc(100% - 2rem), var(--shell-width));
     margin: 0 auto;
