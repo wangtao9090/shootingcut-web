@@ -124,16 +124,64 @@ For social and video evidence:
 
 | Checked at (UTC) | Surface | Market | Query ID | Site/page present | Cited URL | Factual error | Notes |
 |---|---|---|---|---|---|---|---|
+| 2026-07-30T10:05:00Z | Perplexity | English query; signed-out session | Q01 | No | — | — | One sample; another shooting-specific editor and general editors were recommended. |
+| 2026-07-30T10:05:00Z | Perplexity | English query; signed-out session | Q02 | No | — | — | One sample; not a stable answer pattern. |
+| 2026-07-30T10:05:00Z | Perplexity | English query; signed-out session | Q03 | Yes | `https://shootingcut.com/faq.html` | None observed | Described Shooting Cut as a smart video editor with Auto Trim, two-camera sync, multi-camera Stage Mix, and score overlays—not as a caption-only tool. |
+| 2026-07-30T10:05:00Z | Perplexity | English query; signed-out session | Q04 | No | — | — | One sample; not a stable answer pattern. |
+| 2026-07-30T10:05:00Z | Perplexity | English query; signed-out session | Q05 | Yes | No Shooting Cut URL observed | None observed | Named Shooting Cut as an auto-trim example; one sample and no direct product citation. |
+| 2026-07-30T10:05:00Z | Perplexity | English query; signed-out session | Q06 | No | — | — | One sample; not a stable answer pattern. |
+| 2026-07-30T10:05:00Z | Perplexity | English query; signed-out session | Q07 | No | — | — | One sample; not a stable answer pattern. |
+| 2026-07-30T10:05:00Z | Perplexity | English query; signed-out session | Q08 | No | — | — | One sample; not a stable answer pattern. |
+| 2026-07-30T10:05:00Z | Perplexity | English query; signed-out session | Q09 | No | — | — | One sample; not a stable answer pattern. |
+| 2026-07-30T10:05:00Z | Perplexity | English query; signed-out session | Q10 | No | — | — | One sample; not a stable answer pattern. |
+| 2026-07-30T10:05:00Z | Perplexity | English query; signed-out session | Q11 | No | — | — | One sample; not a stable answer pattern. |
+| 2026-07-30T10:05:00Z | Perplexity | English query; signed-out session | Q12 | No | — | — | One sample; not a stable answer pattern. |
+| 2026-07-30T10:05:00Z | Perplexity | English query; signed-out session | Q13 | No | — | — | One sample; not a stable answer pattern. |
+| 2026-07-30T10:05:00Z | Perplexity | English query; signed-out session | Q14 | No | — | — | One sample; not a stable answer pattern. |
+| 2026-07-30T10:05:00Z | Perplexity | English query; signed-out session | Q15 | No | — | — | One sample; not a stable answer pattern. |
+| 2026-07-30T10:05:00Z | Perplexity | English query; signed-out session | Q16 | No | — | — | One sample; not a stable answer pattern. |
 
 ## Research-channel status
 
 | Checked at (UTC) | Channel | Backend | State | Evidence limitation |
 |---|---|---|---|---|
+| 2026-07-30T10:05:00Z | General web | Agent Reach / Jina Reader | Available | Read-only page retrieval; not used as evidence of generative citation frequency. |
+| 2026-07-30T10:05:00Z | Facebook | OpenCLI connected Chrome bridge | Available | Three bounded public searches succeeded. Returned URLs can be profile or group URLs rather than durable post permalinks, and irrelevant results can appear. No cookies were read or exported by this audit. |
+| 2026-07-30T10:05:00Z | Reddit | OpenCLI connected Chrome bridge | Available | Read-only searches succeeded, but exact-query recall was uneven and broad wording produced unrelated results. |
+| 2026-07-30T10:05:00Z | YouTube | `yt-dlp` 2026.07.29 | Partially available | Flat title search succeeded without cookies. Full per-video extraction triggered YouTube's sign-in/anti-bot check, so upload dates and full metadata were not claimed from this sample. |
+| 2026-07-30T10:05:00Z | Perplexity | Signed-out web session | Available | One run per fixed query; results are dated samples and do not establish a stable answer pattern. |
+| 2026-07-30T10:05:00Z | Exa | Free MCP endpoint | Rate-limited | Returned HTTP 429 on 2026-07-30. No large retry or API-key requirement was introduced. |
+
+## Week-0 public source-language sample
+
+| Checked at (UTC) | Channel | Query | Public result | Directly observed wording | Limitation |
+|---|---|---|---|---|---|
+| 2026-07-30T10:05:00Z | Facebook | `USPSA match video` | `https://www.facebook.com/jerome.gonzales.37` | A public result used `uspsa match` followed by a match date. | OpenCLI returned a profile URL, not a durable post permalink; the second result was irrelevant. |
+| 2026-07-30T10:05:00Z | Facebook | `IPSC full match video` | `https://www.facebook.com/hauser.benjamin` | A public result said `full and uncut POV Match Video with all the stage results`. | Profile URL only; one result cannot establish broader demand. |
+| 2026-07-30T10:05:00Z | Facebook | `shooting match video editing` | — | No query-specific practical-shooting editing wording was observed in the bounded results. | Results were dominated by generic editing groups, advertising, and a repeated IPSC post. |
+| 2026-07-30T10:05:00Z | Reddit | `USPSA match video` | — | No result returned for the exact bounded query. | Search availability does not guarantee recall. |
+| 2026-07-30T10:05:00Z | Reddit | `IPSC full match video` | `https://www.reddit.com/r/canadaguns/comments/2clqx8/2014_ipsc_canadian_nationals_videos/` | The post labels one compilation `Full video (3rd person) all 16 stages`. | Historical single-post evidence. |
+| 2026-07-30T10:05:00Z | Reddit | `USPSA video editing` | `https://www.reddit.com/r/CompetitionShooting/comments/1s0ta4p/how_to_edit_uspsa_match_footage_to_show_hits/` | The author asks how to show shot results above targets and fit the result to a YouTube Short or Instagram Reel. | A specific workflow request, not a market-size claim. |
+| 2026-07-30T10:05:00Z | Reddit | `USPSA video editing` | `https://www.reddit.com/r/CompetitionShooting/comments/1q5573b/playing_with_new_insta360_x5_competition_with/` | The author describes creating multiple tracked clips first, then assembling the final video in a second editor. | One user's two-step workflow. |
+| 2026-07-30T10:05:00Z | YouTube | `USPSA full match video` | `https://www.youtube.com/watch?v=6XODCvacHcA` | `USPSA Revolver Division Full Match Video 06/14/2025` | Flat-search title only; upload date metadata was not fetched. |
+| 2026-07-30T10:05:00Z | YouTube | `USPSA full match video` | `https://www.youtube.com/watch?v=xvpUAiehwxI` | `USPSA Racegun Nats 2025 Full Match video` | Flat-search title only. |
+| 2026-07-30T10:05:00Z | YouTube | `IPSC full match video` | `https://www.youtube.com/watch?v=1p8f2Y7mDi4` | `POV IPSC Full Match Video 2021 Saskatchewan Provincial Championships` | Flat-search title only. |
+| 2026-07-30T10:05:00Z | YouTube | `IPSC full match video` | `https://www.youtube.com/watch?v=5nOXx6y301E` | `IPSC Match - 2017 Spring Shootout - 11 STAGES` | Flat-search title only. |
+| 2026-07-30T10:05:00Z | YouTube | `shooting match video editing` | — | The top five results interpreted `match` as an editing transition or unrelated sport, not practical shooting. | The phrase is too ambiguous for source discovery without a discipline term. |
 
 ## English App Store parity
 
 | Checked at (UTC) | Field | App Store value | Website value | State | Action |
 |---|---|---|---|---|---|
+| 2026-07-30T10:07:22Z | App ID | `6761160281` | English App Store links use `id6761160281` | Pass | None |
+| 2026-07-30T10:07:22Z | Product name | `Shooting Cut` | Canonical product name is `Shooting Cut` | Pass | None |
+| 2026-07-30T10:07:22Z | Version | `1.1.3` | `1.1.3` | Pass | None |
+| 2026-07-30T10:07:22Z | Current-version release date | `2026-07-29T18:40:40Z` | Not published as a product claim | No conflict | Keep the release date in this measurement record rather than adding volatile copy sitewide. |
+| 2026-07-30T10:07:22Z | Minimum OS requirement | `26.0` in the US iOS lookup result | iOS 26.0+, iPadOS 26.0+, and macOS 26.0+ | Pass | None; the platform-specific website values also match the verified product source. |
+| 2026-07-30T10:07:22Z | English App Store destination | `https://apps.apple.com/us/app/shooting-cut/id6761160281` | Locale-neutral `https://apps.apple.com/app/shooting-cut/id6761160281` | Pass | Keep the locale-neutral public link so English users reach their applicable storefront. |
+| 2026-07-30T10:07:22Z | Free/Pro wording | Auto Trim and score import are free; Pro removes the watermark and adds custom intro cards, multi-camera modes, social upload, and batch export | Same after the 2026-07-30 correction | Corrected | Added the missing Pro qualifier for direct platform upload to the homepage, FAQ, editor overview, support page, and `llms.txt`. |
+| 2026-07-30T10:07:22Z | One-subscription device scope | Not stated in the US description | One subscription covers the subscriber's Apple devices, subject to App Store account and entitlement rules | Product-source verified; no App Store conflict | None |
+| 2026-07-30T10:07:22Z | Direct upload destinations | YouTube and Facebook (Pro) | YouTube and Facebook (Pro) | Corrected | Added an exact entitlement boundary and regression validation; TikTok direct upload remains explicitly unsupported. |
 
 Fields to check:
 

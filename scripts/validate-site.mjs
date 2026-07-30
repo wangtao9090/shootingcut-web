@@ -1554,6 +1554,13 @@ const requiredSupportBoundaryRules = [
   },
 ];
 
+const requiredProUploadBoundaryPages = new Set([
+  "index.html",
+  "faq.html",
+  "competitive-shooting-video-editor/index.html",
+  "support.html",
+]);
+
 function validatePrivacyBoundary(page) {
   if (page.relativePath !== "privacy.html") {
     return;
@@ -1577,6 +1584,26 @@ function validateSupportBoundary(page) {
     if (!rule.pattern.test(visibleText)) {
       addFailure(page.relativePath, page.source, 0, rule.message);
     }
+  }
+}
+
+function validateProUploadBoundary(page) {
+  if (!requiredProUploadBoundaryPages.has(page.relativePath)) {
+    return;
+  }
+
+  const visibleText = visibleTextForRequirements(page.source);
+  if (
+    !/\bDirect upload to YouTube and Facebook is a Pro feature\./i.test(
+      visibleText,
+    )
+  ) {
+    addFailure(
+      page.relativePath,
+      page.source,
+      0,
+      "must state that direct YouTube and Facebook upload is a Pro feature",
+    );
   }
 }
 
@@ -2212,6 +2239,7 @@ async function main() {
     validateMarketingFacts(page);
     validatePrivacyBoundary(page);
     validateSupportBoundary(page);
+    validateProUploadBoundary(page);
   }
   for (const page of pages.values()) {
     validateLocalLinks(page, pages, publicFiles);

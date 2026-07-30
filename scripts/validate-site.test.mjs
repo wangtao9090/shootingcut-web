@@ -182,7 +182,7 @@ test("llms.txt exposes the complete reviewed product and route surface", async (
     "Auto Trim and score import are free.",
     "Free Auto Trim exports include the Shooting Cut watermark and logo intro card.",
     "One subscription covers all of the subscriber's Apple devices",
-    "user-initiated YouTube and Facebook uploads",
+    "Direct upload to YouTube and Facebook is a Pro feature.",
     "PractiScore result includes official per-shot timer records",
     "ESS, HDP, and IDPA support score import but do not provide the same PractiScore-style official per-shot timing anchor.",
     "Track supports cropped 9:16, 3:4, 4:5, 6:7, and 1:1 outputs.",
@@ -225,6 +225,27 @@ test("llms.txt exposes the complete reviewed product and route surface", async (
     assert.doesNotMatch(llms, forbidden);
   }
   assert.doesNotMatch(sitemap, /llms\.txt/i);
+});
+
+test("English product facts identify direct platform upload as Pro", async () => {
+  const root = await copyCurrentSite();
+  const requiredFact =
+    "Direct upload to YouTube and Facebook is a Pro feature.";
+  const requiredFiles = [
+    "index.html",
+    "faq.html",
+    "competitive-shooting-video-editor/index.html",
+    "support.html",
+    "llms.txt",
+  ];
+
+  for (const relativePath of requiredFiles) {
+    const source = await readFile(path.join(root, relativePath), "utf8");
+    assert.ok(
+      source.includes(requiredFact),
+      `${relativePath} must state the verified Pro upload boundary`,
+    );
+  }
 });
 
 test("accepts the precise privacy boundary and legitimate external JSON-LD URLs", async () => {

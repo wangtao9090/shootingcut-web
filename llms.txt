@@ -20,9 +20,9 @@ This file supplements the public HTML pages and XML sitemap. Product facts, limi
 
 - Auto Trim and score import are free.
 - Free Auto Trim exports include the Shooting Cut watermark and logo intro card.
-- Pro removes the Shooting Cut watermark, enables custom intro cards, unlocks Split Sync and Stage Mix, and enables macOS batch export.
+- Pro removes the Shooting Cut watermark, enables custom intro cards, unlocks Split Sync and Stage Mix, enables direct upload to YouTube and Facebook, and enables macOS batch export.
 - One subscription covers all of the subscriber's Apple devices, subject to App Store account and entitlement rules.
-- Direct upload is limited to user-initiated YouTube and Facebook uploads.
+- Direct upload to YouTube and Facebook is a Pro feature.
 
 ## Results, official shot times, and overlays
 
