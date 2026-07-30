@@ -467,11 +467,25 @@ GEO 不承诺排名或引用，应建立可重复的基线：
   查询措辞和跨赛事 ESS 历史可用性快照。除非有纵向样本，不公开姓名重叠
   百分比；Facebook 关注者数字只作为带日期的渠道快照。
 
-## 13. 发布前待填
+## 13. 2026-07-30 发布结果
 
-- 英文最终分支/merge commit：`TBD`
-- 中文最终分支/merge commit：`TBD`
-- 英文最终 Actions/Pages run：`TBD`
-- 中文最终 Actions/Pages run：`TBD`
-- `shootingcut.cn` DNS/证书/HTTPS 结果：`TBD`
-- 全部生产 URL 与旧 `.com/zh` 404 复核：`TBD`
+- 英文 merge commit：
+  `dda86076f5e20c58fba8024029a8dc1473a62b4f`。
+- 中文 merge commit：
+  `c01fbf486d42eea3a189587f67436450323cdd13`。
+- 英文 `Validate site` Actions `30522589533` 与 Pages
+  `30522588648` 均成功，Pages deployment SHA 与英文 merge commit 一致。
+- 中文 `Validate site` Actions `30522589063` 与 Pages
+  `30522588412` 均成功，Pages deployment SHA 与中文 merge commit 一致。
+- 生产检查：英文 sitemap 的 18/18 URL 均通过正常 HTTPS 返回 200；
+  中文 sitemap 的 18/18 URL 已部署并通过 HTTP/忽略证书验证的 HTTPS 返回
+  200。两站首页各有 13 条唯一指南链接，`llms.txt` 与泰国专题均已上线。
+- 已按产品决策移除旧 `.com/zh/`、`*-zh.html` 及中文仓库重复路径；抽查
+  `.com/zh/`、`.com/privacy-zh.html`、`.com/faq-zh.html` 和中文站对应旧
+  路径均返回 404。
+- `shootingcut.cn` DNS/证书/HTTPS 尚未完成：GitHub Pages 仍报告
+  `https_enforced=false`，正常 HTTPS 校验因证书 SAN 不匹配失败，HTTP
+  当前返回 200。完成第 10 节域名验证和 DNS 顺序后才能关闭此项。
+- App 1.1.3 的非 `GLOBAL_VERSION` 中文隐私链接仍指向已经移除的
+  `.com/privacy-zh.html`；下一版 App 必须按第 4.1 节迁移到
+  `.cn/privacy.html`。这项产品仓库变更不包含在本次网站发布中。
