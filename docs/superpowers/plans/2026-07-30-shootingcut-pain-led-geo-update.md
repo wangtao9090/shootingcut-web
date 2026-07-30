@@ -812,7 +812,7 @@ Queue prepared stage edits without rebuilding each export
 
 Explain that the user completes timing, cuts, results, framing, and tracking first, then queues the prepared edits. Repeat the existing boundary: batch export creates separate files and does not combine stages; Merge creates one Full Match video.
 
-- [ ] **Step 5: Validate and deploy**
+- [x] **Step 5: Validate and deploy**
 
 Run the full validation command set, then:
 
@@ -837,7 +837,7 @@ Expected: P07 maps to one accurate page and the Merge-versus-batch distinction r
 - Consumes: deployed Tasks 1–7 and their GitHub Pages SHAs.
 - Produces: a dated technical baseline, query-to-page observations, and evidence-gated follow-up decisions.
 
-- [ ] **Step 1: Run the complete repository acceptance suite**
+- [x] **Step 1: Run the complete repository acceptance suite**
 
 Run:
 
@@ -851,7 +851,7 @@ git diff --check
 
 Expected: every command exits 0.
 
-- [ ] **Step 2: Check all public routes through a local HTTP server**
+- [x] **Step 2: Check all public routes through a local HTTP server**
 
 Start:
 
@@ -861,7 +861,7 @@ python3 -m http.server 4173 --bind 127.0.0.1
 
 In a second shell, extract every English sitemap URL and verify HTTP 200. Check the homepage plus the five changed guide routes at desktop and mobile widths. Stop the server after verification.
 
-- [ ] **Step 3: Verify the exact production commit**
+- [x] **Step 3: Verify the exact production commit**
 
 For each pushed batch:
 
@@ -871,7 +871,7 @@ For each pushed batch:
 - parse every live JSON-LD block;
 - confirm the old absolute `every gunshot` and `instantly get precise` homepage wording is absent.
 
-- [ ] **Step 4: Record the deployment baseline**
+- [x] **Step 4: Record the deployment baseline**
 
 Add one deployment row per commit with:
 
@@ -884,7 +884,7 @@ Add one deployment row per commit with:
 
 Do not record cookies, OAuth tokens, account IDs, or private Search Console/Bing exports.
 
-- [ ] **Step 5: Sample Q01–Q16 and P01–P08 on the fixed schedule**
+- [x] **Step 5: Sample Q01–Q16 and P01–P08 on the fixed schedule**
 
 Use:
 
@@ -895,7 +895,7 @@ Use:
 
 Do not interpret a single generative answer as a ranking.
 
-- [ ] **Step 6: Apply evidence-gated follow-up rules**
+- [x] **Step 6: Apply evidence-gated follow-up rules**
 
 - If a page is not discovered, inspect sitemap, homepage link depth, robots, HTTP, and canonical.
 - If discovered but not crawled, inspect fetch stability and internal links.
@@ -906,7 +906,7 @@ Do not interpret a single generative answer as a ranking.
 - If a citation contains a factual error, update visible text and matching JSON-LD together.
 - Do not create a new route unless Week-8 evidence shows an intent that none of the 13 guides can answer.
 
-- [ ] **Step 7: Commit the final dated record**
+- [x] **Step 7: Commit the final dated record**
 
 Run:
 

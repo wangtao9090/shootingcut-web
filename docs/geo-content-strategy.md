@@ -567,3 +567,49 @@ Facebook 仍是重要的射击内容发布与发现渠道。本轮公开搜索�
 - Merge 页已经直接回答 `Full Match` 与 `Every Stage`，不为本轮研究重复
   改写；Batch Export 只回答多个独立成片的重复渲染。
 - 隐私和设备端处理继续作为显著信任理由，但不抢占完整编辑器主定位。
+
+## 16. 2026-07-30 痛点导向英文 GEO 执行结果
+
+本轮没有新增近义页面，也没有公开点名其他产品。核心实体词仍为
+`competitive-shooting video editor`，首页先解释 Shooting Cut 如何把比赛
+素材变成可发布的完整视频，再用隐私、本地处理和真实功能边界建立信任。
+
+| 批次 | Commit | 已执行内容 |
+|---|---|---|
+| 研究与测量 | `ea130c218aecd04fb7fa068545b343c7f7a890e9` | 固化 P01–P08、痛点证据强度、页面决策和媒体优先级；未修改公开 HTML。 |
+| 首页定位 | `1f6969ffedd16a289d3e74a2a70ae773fa99607d` | 用完整比赛视频编辑结果组织 Hero、功能顺序、Guide Hub 与 `llms.txt`。 |
+| 完整工作流 | `7a30e5a37c2db2151bcfce0c0dec24a35d1b9df3` | 把裁剪、同步、顺序合并、成绩/计时、画幅复用映射到一个编辑器。 |
+| 双视角同步 | `2b658d16b2f6d152f3edb4c57ff0a6a2dcce84a1` | 增加 POV/第三人称复盘、脚步与 stage strategy 语境，并保留 exactly 2 和人工校验边界。 |
+| 横屏转竖屏 | `18875bcee00fef2eb0030baa85a0e82b7f63c72b` | 回答固定裁切、主体跟随和 YouTube/Instagram/Facebook 竖屏格式，同时声明仍需检查靶、字幕与叠加层。 |
+| 计时与成绩 | `cb1f3fb9d5fd4ff788de9bd6754b572645fbbb4c` | 说明计时和成绩如何帮助理解表现，并明确不自动定位弹着点。 |
+| 批量导出 | `1cdc04eb9272f6ded7280eab3b2b80a93e6dd4fc` | 解释多个已准备 Stage 的独立批量渲染；明确 Batch Export 不合并 Stage，Merge 才生成一条 Full Match 视频。 |
+
+以下页面保留现状是明确决策，不是遗漏：
+
+- Merge 已准确覆盖 `Full Match`、`Every Stage` 和顺序合并。
+- Side by Side 已准确覆盖两次 run 的人工对比，与 Split Sync 的同时拍摄输入
+  不混淆。
+- On-device 隐私页继续作为信任证据，不替代完整编辑结果的首页主定位。
+- Thailand HDP/ESS 页继续回答成绩留存和导入，不用普通英文剪辑样本改写泰国
+  特有痛点。
+- Shot Detection Troubleshooting 继续承接 AGC、隔壁枪声、回音、弱蜂鸣和
+  人工纠正等支持意图，不被扩张成首页主叙事。
+
+最终验收于 `2026-07-30T12:56:51Z` 完成：
+
+- 本地 40 项回归测试通过；校验器检查 20 个 HTML、57 个 JSON-LD、369 个
+  本地链接目标和 18 个 sitemap URL。
+- 本地 18/18 公开路由返回 200；首页及 5 个改动指南在 1440×900 与
+  390×844 视口下无横向溢出。
+- 生产 18/18 路由返回 200，57 个 JSON-LD 均可解析；旧的
+  `every gunshot` 与 `instantly get precise` 首页措辞不存在。
+- `1cdc04e` 的 Validate site 与 Pages 均成功，生产 deployment SHA 与提交
+  完全一致。Reframe 提交 `18875bc` 没有单独的 Pages deployment SHA，
+  已在后续精确部署 `cb1f3fb` 中上线并通过生产检查；测量文档没有把前一个
+  SHA 错记为该提交。
+
+后续不立即继续改文案。固定复核时间为：72 小时 `2026-08-02` 只检查技术
+发现；Week 2 `2026-08-13` 检查抓取/索引和着陆页；Week 4
+`2026-08-27` 检查曝光、点击与三次生成式样本；Week 8 `2026-09-24`
+判断是否存在 13 条现有指南都无法回答的真实意图。单次搜索或模型回答不作为
+排名结论，也不触发新页面。

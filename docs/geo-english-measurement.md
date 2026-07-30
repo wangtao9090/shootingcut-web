@@ -290,9 +290,32 @@ Each reviewed public route receives exactly one current state:
   Free/Pro, subscription scope, privacy, result sources, upload destinations,
   and export limits.
 
+The pain-led deployment adds the following fixed checkpoints. These are future
+sampling dates, not results recorded in advance:
+
+| Checkpoint | Due date (UTC) | Required check | Decision boundary |
+|---|---|---|---|
+| 72 hours | 2026-08-02 | HTTP, sitemap, canonical, robots, and structured-data health for all 18 routes | Correct only technical discovery or parsing failures. |
+| Week 2 | 2026-08-13 | Discovery/crawl/index state plus Q01–Q16 and P01–P08 landing-page correctness | Do not infer a ranking from one answer or one result. |
+| Week 4 | 2026-08-27 | Impressions, click-through, landing pages, and three fresh generative samples per selected query | Change title, description, or opening answer only when the observed query supports it. |
+| Week 8 | 2026-09-24 | Durable query coverage and any intent that the existing 13 guides cannot answer | Create no new route unless repeated evidence shows a genuine uncovered intent. |
+
 ## Deployment record
 
 | Deployed at (UTC) | Commit | Validate site | GitHub Pages | Production check | Notes |
 |---|---|---|---|---|---|
 | 2026-07-30T10:24:25Z | `c590804df769b811aba282755b788949df8658d4` | Success — run `30534430271` | Success — run `30534429598` | Three modified guide URLs returned 200 with the expected four YouTube IDs; homepage Pro upload boundary was live | Deployment includes the App Store fact correction, Week-0 baseline, official guide videos, validator coverage, and real-product media brief. |
 | 2026-07-30T11:34:12Z | `31dd6010e3c316fa826fb84ae10e9d2a64a3e638` | Success — run `30539023477` | Success — run `30539022993` | All 18 sitemap routes returned 200 and their live JSON-LD parsed without errors | Deployment records the bounded public Google site-query snapshot and corrects the documented Homebrew/official `yt-dlp` version to 2026.07.04; no public HTML changed. |
+| 2026-07-30T12:28:56Z | `ea130c218aecd04fb7fa068545b343c7f7a890e9` | Success — run `30542693735` | Success — run `30542691652`; deployment SHA exact | No public HTML changed | Recorded the pain evidence, P01–P08 matrix, no-change decisions, and media priorities. |
+| 2026-07-30T12:33:20Z | `1f6969ffedd16a289d3e74a2a70ae773fa99607d` | Success — run `30542985167` | Success — run `30542983939`; deployment SHA exact | `/` returned 200 and all 4 JSON-LD blocks parsed | Homepage and `llms.txt` now lead with the complete match-video editing outcome. |
+| 2026-07-30T12:36:17Z | `7a30e5a37c2db2151bcfce0c0dec24a35d1b9df3` | Success — run `30543208767` | Success — run `30543208198`; deployment SHA exact | `/competitive-shooting-video-editor/` returned 200 and all 3 JSON-LD blocks parsed | Added the pain-to-workflow map without changing verified product limits. |
+| 2026-07-30T12:40:15Z | `2b658d16b2f6d152f3edb4c57ff0a6a2dcce84a1` | Success — run `30543475107` | Success — run `30543473766`; deployment SHA exact | `/sync-two-shooting-videos-by-timer-beep/` returned 200 and all 5 JSON-LD blocks parsed | Added the POV/third-person review use case, exactly-two-input boundary, and manual verification requirement. |
+| 2026-07-30T12:47:13Z (carried forward) | `18875bcee00fef2eb0030baa85a0e82b7f63c72b` | Success — run `30543699740` | No standalone deployment SHA was recorded; included in the next exact deployment, `cb1f3fb9d5fd4ff788de9bd6754b572645fbbb4c` | `/reframe-landscape-shooting-video-for-social-media/` returned 200 and all 6 JSON-LD blocks parsed | The live page contained the new Reframe copy before final acceptance; this row does not mislabel the prior SHA as an exact deployment. |
+| 2026-07-30T12:47:13Z | `cb1f3fb9d5fd4ff788de9bd6754b572645fbbb4c` | Success — run `30543977417` | Success — run `30543976711`; deployment SHA exact | `/add-shot-times-and-scores-to-match-video/` returned 200 and all 4 JSON-LD blocks parsed | Clarified performance context and explicitly rejected automatic bullet-hit localization; the deployment also carried the preceding Reframe change. |
+| 2026-07-30T12:51:54Z | `1cdc04eb9272f6ded7280eab3b2b80a93e6dd4fc` | Success — run `30544306248` | Success — run `30544301038`; deployment SHA exact | `/batch-export-match-videos/` returned 200 and all 4 JSON-LD blocks parsed | Framed batch export around several prepared edits and kept the separate-files-versus-Merge boundary explicit. |
+
+Final acceptance at `2026-07-30T12:56:51Z` fetched all 18 production
+sitemap routes with HTTP 200 and parsed all 57 live JSON-LD blocks. The removed
+homepage claims containing `every gunshot` or `instantly get precise` were not
+present. Local responsive checks at 1440×900 and 390×844 found no horizontal
+overflow on the homepage or the five changed guide routes.
