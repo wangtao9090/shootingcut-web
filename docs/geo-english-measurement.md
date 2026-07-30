@@ -267,3 +267,4 @@ Each reviewed public route receives exactly one current state:
 | Deployed at (UTC) | Commit | Validate site | GitHub Pages | Production check | Notes |
 |---|---|---|---|---|---|
 | 2026-07-30T10:24:25Z | `c590804df769b811aba282755b788949df8658d4` | Success — run `30534430271` | Success — run `30534429598` | Three modified guide URLs returned 200 with the expected four YouTube IDs; homepage Pro upload boundary was live | Deployment includes the App Store fact correction, Week-0 baseline, official guide videos, validator coverage, and real-product media brief. |
+| 2026-07-30T11:34:12Z | `31dd6010e3c316fa826fb84ae10e9d2a64a3e638` | Success — run `30539023477` | Success — run `30539022993` | All 18 sitemap routes returned 200 and their live JSON-LD parsed without errors | Deployment records the bounded public Google site-query snapshot and corrects the documented Homebrew/official `yt-dlp` version to 2026.07.04; no public HTML changed. |
