@@ -260,3 +260,4 @@ Each reviewed public route receives exactly one current state:
 
 | Deployed at (UTC) | Commit | Validate site | GitHub Pages | Production check | Notes |
 |---|---|---|---|---|---|
+| 2026-07-30T10:24:25Z | `c590804df769b811aba282755b788949df8658d4` | Success — run `30534430271` | Success — run `30534429598` | Three modified guide URLs returned 200 with the expected four YouTube IDs; homepage Pro upload boundary was live | Deployment includes the App Store fact correction, Week-0 baseline, official guide videos, validator coverage, and real-product media brief. |
