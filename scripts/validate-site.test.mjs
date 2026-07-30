@@ -199,6 +199,31 @@ test("homepage presents the complete match-video editing outcome", async () => {
   assert.doesNotMatch(home, /instantly get precise split times/i);
 });
 
+test("complete-editor guide maps shooter editing jobs to one workflow", async () => {
+  const source = await readFile(
+    path.join(
+      workspaceRoot,
+      "competitive-shooting-video-editor",
+      "index.html",
+    ),
+    "utf8",
+  );
+
+  for (const phrase of [
+    "finish the common match-video jobs in one editor",
+    "remove dead time",
+    "align simultaneous camera views",
+    "put sequential stages in competition order",
+    "make performance understandable",
+    "reuse one edit across supported publishing formats",
+  ]) {
+    assert.ok(
+      source.includes(phrase),
+      `complete-editor guide must include: ${phrase}`,
+    );
+  }
+});
+
 test("guide video embeds are accessible and match VideoObject metadata", async () => {
   const root = await copyCurrentSite();
 

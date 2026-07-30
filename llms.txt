@@ -52,7 +52,7 @@ This file supplements the public HTML pages and XML sitemap. Product facts, limi
 
 ## Start here
 
-- [Competitive-shooting video editor](https://shootingcut.com/competitive-shooting-video-editor/): choose among Auto Trim, Merge, Split Sync, and Stage Mix, with score, Reframe, Free, and Pro boundaries.
+- [Competitive-shooting video editor](https://shootingcut.com/competitive-shooting-video-editor/): map dead-time removal, POV and third-person synchronization, full-match assembly, timing and score context, reframing, and batch output to the verified Shooting Cut workflow.
 - [On-device shooting video editor](https://shootingcut.com/on-device-shooting-video-editor/): review local processing and the iCloud, subscription, improvement-data, import, and upload boundaries.
 
 ## Core workflow guides

@@ -296,7 +296,7 @@ Retain every exact mode, subscription, upload, score-source, export, and privacy
 
 Update only the homepage `<lastmod>`. Add a page-decision row linking this change to P01/P02 and state that no ranking or citation improvement is claimed at deployment time.
 
-- [ ] **Step 8: Validate, commit, push, and verify production**
+- [x] **Step 8: Validate, commit, push, and verify production**
 
 Run:
 
@@ -334,7 +334,7 @@ Expected production result: the homepage returns 200, its visible hero contains 
 - Consumes: P01/P02 and the existing four-mode table.
 - Produces: an answer that connects editing friction to the correct Shooting Cut workflow without naming competitors.
 
-- [ ] **Step 1: Add a failing guide-positioning test**
+- [x] **Step 1: Add a failing guide-positioning test**
 
 Add:
 
@@ -362,7 +362,7 @@ test("complete-editor guide maps shooter editing jobs to one workflow", async ()
 });
 ```
 
-- [ ] **Step 2: Run the test and verify failure**
+- [x] **Step 2: Run the test and verify failure**
 
 Run:
 
@@ -373,7 +373,7 @@ node --test --test-name-pattern="maps shooter editing jobs" \
 
 Expected: FAIL because the current page starts with a feature inventory and has no outcome checklist.
 
-- [ ] **Step 3: Rewrite the metadata, answer, and lede**
+- [x] **Step 3: Rewrite the metadata, answer, and lede**
 
 Use this meta description:
 
@@ -393,7 +393,7 @@ Use this lede:
 The editing job is usually simple to describe even when the footage is not: remove dead time, keep simultaneous camera views aligned, put sequential stages in order, and make the finished run understandable. Shooting Cut organizes those jobs around match footage rather than presenting timer and gunshot subtitles as the entire product.
 ```
 
-- [ ] **Step 4: Add the outcome checklist before the existing mode table**
+- [x] **Step 4: Add the outcome checklist before the existing mode table**
 
 Add an H2 titled:
 
@@ -412,7 +412,7 @@ Add a visible list covering these exact outcomes:
 
 Link each outcome to its existing exact guide. Keep the four-mode input table immediately after the checklist so outcomes lead and limits remain easy to verify.
 
-- [ ] **Step 5: Update matching structured data and machine summary**
+- [x] **Step 5: Update matching structured data and machine summary**
 
 Update the page's `Article` description to match the visible answer. Update the route description in `llms.txt` without repeating the whole homepage paragraph.
 
