@@ -172,6 +172,33 @@ test("homepage visibly links every English guide exactly once", async () => {
   }
 });
 
+test("homepage presents the complete match-video editing outcome", async () => {
+  const [home, llms] = await Promise.all([
+    readFile(path.join(workspaceRoot, "index.html"), "utf8"),
+    readFile(path.join(workspaceRoot, "llms.txt"), "utf8"),
+  ]);
+
+  for (const phrase of [
+    "Competitive-Shooting.",
+    "Video Editing.",
+    "Built for the Match.",
+    "trim dead time",
+    "sync POV and third-person views",
+    "combine every stage",
+    "add timing and results",
+    "full-match video or vertical social clip",
+  ]) {
+    assert.ok(home.includes(phrase), `homepage must include: ${phrase}`);
+  }
+
+  assert.match(
+    llms,
+    /complete competitive-shooting video editor[\s\S]*trim dead time[\s\S]*combine every stage/i,
+  );
+  assert.doesNotMatch(home, /detect timer beeps and every gunshot/i);
+  assert.doesNotMatch(home, /instantly get precise split times/i);
+});
+
 test("guide video embeds are accessible and match VideoObject metadata", async () => {
   const root = await copyCurrentSite();
 
@@ -249,7 +276,7 @@ test("llms.txt exposes the complete reviewed product and route surface", async (
   assert.equal(countExact(llms, "# Shooting Cut"), 1);
   for (const fact of [
     "Current product version: 1.1.3",
-    "Shooting Cut is a competitive-shooting video editor for iPhone, iPad, and Mac.",
+    "Shooting Cut is a complete competitive-shooting video editor for iPhone, iPad, and Mac.",
     "Requires iOS 26.0+, iPadOS 26.0+, or macOS 26.0+.",
     "Auto Trim accepts exactly 1 video.",
     "Merge combines up to 20 sequential clips into one long video.",

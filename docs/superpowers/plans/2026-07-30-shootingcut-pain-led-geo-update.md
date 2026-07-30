@@ -170,7 +170,7 @@ git push origin main
 - Consumes: Task 1's evidence hierarchy and P01/P02 query definitions.
 - Produces: one outcome-led homepage description shared consistently by visible copy, JSON-LD, and `llms.txt`.
 
-- [ ] **Step 1: Add a failing homepage-positioning regression test**
+- [x] **Step 1: Add a failing homepage-positioning regression test**
 
 Add:
 
@@ -203,7 +203,7 @@ test("homepage presents the complete match-video editing outcome", async () => {
 });
 ```
 
-- [ ] **Step 2: Run the focused test and verify failure**
+- [x] **Step 2: Run the focused test and verify failure**
 
 Run:
 
@@ -214,7 +214,7 @@ node --test --test-name-pattern="complete match-video editing outcome" \
 
 Expected: FAIL because the current hero and `llms.txt` do not contain the new outcome-led copy and the homepage still contains absolute audio-analysis wording.
 
-- [ ] **Step 3: Replace the homepage metadata and hero copy**
+- [x] **Step 3: Replace the homepage metadata and hero copy**
 
 Keep the existing `<title>`. Replace the meta description with:
 
@@ -238,7 +238,7 @@ Shooting Cut turns raw match footage into a finished video in one purpose-built 
 
 Keep the App Store CTA, free-trial statement, OS requirements, and discipline tags.
 
-- [ ] **Step 4: Reorder the homepage feature hierarchy**
+- [x] **Step 4: Reorder the homepage feature hierarchy**
 
 Make the first six cards appear in this order:
 
@@ -263,7 +263,7 @@ Analyze timer beeps and gunshot impulses to propose trim points, synchronization
 
 Keep on-device processing, Apple-device subscription coverage, export/sharing, intro cards, and watermarks as secondary trust and finishing capabilities.
 
-- [ ] **Step 5: Reorganize the guide hub by user outcome**
+- [x] **Step 5: Reorganize the guide hub by user outcome**
 
 Use these three lane headings:
 
@@ -279,7 +279,7 @@ Use this guide-hub subtitle:
 Choose the outcome you need: trim one stage, synchronize camera views, assemble a full match, add performance context, or export another format.
 ```
 
-- [ ] **Step 6: Synchronize homepage JSON-LD and `llms.txt`**
+- [x] **Step 6: Synchronize homepage JSON-LD and `llms.txt`**
 
 Update the homepage `SoftwareApplication` description and the first product paragraph in `llms.txt` to say that Shooting Cut is a complete competitive-shooting video editor that:
 
@@ -292,7 +292,7 @@ Update the homepage `SoftwareApplication` description and the first product para
 
 Retain every exact mode, subscription, upload, score-source, export, and privacy boundary already enforced by the validator.
 
-- [ ] **Step 7: Update the homepage sitemap date and measurement record**
+- [x] **Step 7: Update the homepage sitemap date and measurement record**
 
 Update only the homepage `<lastmod>`. Add a page-decision row linking this change to P01/P02 and state that no ranking or citation improvement is claimed at deployment time.
 
