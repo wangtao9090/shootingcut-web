@@ -4,6 +4,20 @@ import path from "node:path";
 const siteRoot = process.cwd();
 const englishOrigin = "https://shootingcut.com";
 const chineseOrigin = "https://shootingcut.cn";
+const englishSitemapUrl = `${englishOrigin}/sitemap.xml`;
+const pageOwnedSchemaTypes = new Set([
+  "aboutpage",
+  "article",
+  "blogposting",
+  "collectionpage",
+  "contactpage",
+  "faqpage",
+  "howto",
+  "newsarticle",
+  "profilepage",
+  "softwareapplication",
+  "webpage",
+]);
 const excludedDirectories = new Set([
   ".git",
   ".worktrees",
@@ -253,6 +267,84 @@ function chineseCounterpartRoute(rawUrl, expectedRoute) {
   return { route: url.pathname };
 }
 
+function schemaTypeNames(value) {
+  const types = Array.isArray(value) ? value : [value];
+  return types
+    .filter((type) => typeof type === "string")
+    .map((type) => type.toLowerCase());
+}
+
+function collectPageOwnedJsonLdUrls(value, entries = []) {
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      collectPageOwnedJsonLdUrls(item, entries);
+    }
+    return entries;
+  }
+  if (!value || typeof value !== "object") {
+    return entries;
+  }
+
+  const ownerType = schemaTypeNames(value["@type"]).find((type) =>
+    pageOwnedSchemaTypes.has(type),
+  );
+  if (ownerType) {
+    for (const field of ["url", "@id", "mainEntityOfPage"]) {
+      const fieldValue = value[field];
+      const values = Array.isArray(fieldValue) ? fieldValue : [fieldValue];
+      for (const candidate of values) {
+        if (typeof candidate === "string") {
+          entries.push({
+            field,
+            ownerType,
+            value: candidate,
+          });
+        }
+      }
+    }
+  }
+
+  for (const child of Object.values(value)) {
+    collectPageOwnedJsonLdUrls(child, entries);
+  }
+  return entries;
+}
+
+function validatePageOwnedJsonLdUrls(page, json, sourceIndex) {
+  const expectedRoute = currentRoute(page.relativePath);
+  const expectedUrl = `${englishOrigin}${expectedRoute}`;
+
+  for (const entry of collectPageOwnedJsonLdUrls(json)) {
+    let parsed;
+    try {
+      parsed = new URL(entry.value);
+    } catch {
+      parsed = null;
+    }
+
+    const allowsFragment = entry.field === "@id";
+    const valid =
+      parsed?.origin === englishOrigin &&
+      parsed.username === "" &&
+      parsed.password === "" &&
+      parsed.pathname === expectedRoute &&
+      parsed.search === "" &&
+      (allowsFragment || parsed.hash === "");
+    if (!valid) {
+      const valueIndex = page.source.indexOf(
+        JSON.stringify(entry.value),
+        sourceIndex,
+      );
+      addFailure(
+        page.relativePath,
+        page.source,
+        valueIndex === -1 ? sourceIndex : valueIndex,
+        `${entry.ownerType === "softwareapplication" ? "SoftwareApplication" : entry.ownerType} ${entry.field} must be exactly "${expectedUrl}"${allowsFragment ? " with an optional fragment" : ""}`,
+      );
+    }
+  }
+}
+
 function parseJsonLd(page) {
   const scriptPattern =
     /<script\b((?:"[^"]*"|'[^']*'|[^'"<>])*)>/gi;
@@ -290,7 +382,8 @@ function parseJsonLd(page) {
         closing.index,
       );
       try {
-        JSON.parse(jsonSource);
+        const json = JSON.parse(jsonSource);
+        validatePageOwnedJsonLdUrls(page, json, scriptPattern.lastIndex);
       } catch (error) {
         addFailure(
           page.relativePath,
@@ -310,7 +403,16 @@ function collectIds(page) {
   for (const tag of page.tags) {
     const id = findAttribute(tag, "id");
     if (id?.value !== undefined) {
-      ids.add(decodeHtmlAttribute(id.value));
+      const value = decodeHtmlAttribute(id.value);
+      if (ids.has(value)) {
+        addFailure(
+          page.relativePath,
+          page.source,
+          id.index,
+          `duplicate id="${value}"`,
+        );
+      }
+      ids.add(value);
     }
   }
   return ids;
@@ -456,6 +558,44 @@ function requireSingleMetadataEntry(page, entries, label) {
     return null;
   }
   return entries[0];
+}
+
+function validateOpenGraphUrl(page, publicFiles) {
+  const entries = page.tags
+    .filter((tag) => tag.name === "meta")
+    .map((tag) => ({
+      tag,
+      property: findAttribute(tag, "property"),
+      content: findAttribute(tag, "content"),
+    }))
+    .filter(
+      ({ property }) =>
+        property?.value?.trim().toLowerCase() === "og:url",
+    )
+    .map(({ tag, content }) => ({
+      href: content?.value,
+      index: content?.index ?? tag.index,
+    }));
+  const entry = requireSingleMetadataEntry(page, entries, "og:url meta tag");
+  if (!entry) {
+    return;
+  }
+
+  const expectedUrl = `${englishOrigin}${currentRoute(page.relativePath)}`;
+  const value = decodeHtmlAttribute(entry.href).trim();
+  const result = englishUrlRoute(value, publicFiles);
+  if (
+    result.error ||
+    result.route !== page.relativePath ||
+    value !== expectedUrl
+  ) {
+    addFailure(
+      page.relativePath,
+      page.source,
+      entry.index,
+      `og:url must be exactly "${expectedUrl}"`,
+    );
+  }
 }
 
 function validateDocumentLanguage(page) {
@@ -740,6 +880,16 @@ const directFactRules = [
     message: "absolute privacy claim",
   },
   {
+    pattern:
+      /\b(?:all\s+(?:video|audio|media)(?:\s+and\s+(?:video|audio|media))?\s+processing\s+is\s+(?:performed\s+)?locally|your\s+media\s+files?\s+never\s+leaves?\s+your\s+device|(?:video|audio|media)\s+files?\s+(?:are|is)\s+never\s+(?:uploaded|transmitted)\s+to\s+(?:our|any)\s+servers?)\b/i,
+    message: "absolute local-media privacy claim",
+  },
+  {
+    pattern:
+      /\banonymous\b.{0,120}\b(?:detection|telemetry)\b|\b(?:detection|telemetry)\b.{0,120}\banonymous\b/i,
+    message: "detection reports must be described as pseudonymous",
+  },
+  {
     pattern: /\ball\s+features\b.{0,40}\boffline\b|\bfull(?:y)?\s+offline\b/i,
     message: "absolute offline claim",
   },
@@ -763,21 +913,21 @@ const contextualFactRules = [
   {
     pattern:
       /\btiktok\b.{0,100}\b(?:direct(?:ly)?\s+upload|upload(?:ed|ing|s)?|integrat(?:e|ed|es|ing|ion)|connect(?:ed|ing|ion|s)?|share\s+(?:directly\s+)?to|post(?:ed|ing|s)?\s+to|publish(?:ed|ing|es)?\s+to)\b|(?:direct(?:ly)?\s+upload|upload(?:ed|ing|s)?|integrat(?:e|ed|es|ing|ion)|connect(?:ed|ing|ion|s)?|share\s+(?:directly\s+)?to|post(?:ed|ing|s)?\s+to|publish(?:ed|ing|es)?\s+to).{0,100}\btiktok\b/i,
+    allowedPattern:
+      /\b(?:does\s+not|do\s+not|doesn't|not\s+currently|currently\s+does\s+not|no\s+current)\b.{0,120}\b(?:tiktok|direct(?:ly)?\s+upload)\b/i,
     message: "TikTok direct-upload or integration claim",
   },
   {
     pattern:
       /tiktok.{0,100}(?:直传|直接上传|上传|集成|整合|连接|分享到|发布到)|(?:直传|直接上传|上传|集成|整合|连接|分享到|发布到).{0,100}tiktok/i,
+    allowedPattern:
+      /(?:不提供|不支持|尚未提供|当前没有).{0,80}tiktok|tiktok.{0,80}(?:不提供|不支持|尚未提供|当前没有)/i,
     message: "TikTok direct-upload or integration claim",
   },
 ];
 
 function isFactLintPage(relativePath) {
-  if (relativePath === "oauth" || relativePath.startsWith("oauth/")) {
-    return false;
-  }
-  const basename = path.posix.basename(relativePath).toLowerCase();
-  return !/^(?:privacy|terms|support).*\.html$/.test(basename);
+  return relativePath !== "oauth" && !relativePath.startsWith("oauth/");
 }
 
 function visibleLine(line) {
@@ -785,6 +935,89 @@ function visibleLine(line) {
     .replace(/<!--.*?-->/g, " ")
     .replace(/<[^>]*>/g, " ")
     .replace(/&nbsp;/gi, " ");
+}
+
+const requiredPrivacyBoundaryRules = [
+  {
+    pattern:
+      /\bcore video and audio analysis, editing, export, and person tracking run on your device\b/i,
+    message: "must preserve the precise on-device core-processing boundary",
+  },
+  {
+    pattern:
+      /\boriginal footage is not uploaded to a ShootingCut media-processing server\b/i,
+    message: "must preserve the original-footage processing-server boundary",
+  },
+  {
+    pattern:
+      /\baliases\b[\s\S]*\bperspectives\b[\s\S]*\bgun type\b[\s\S]*\bscore associations\b[\s\S]*\bimported match records\b[\s\S]*\bshooter and match fields\b/i,
+    message: "must list the metadata that can use iCloud KVS",
+  },
+  {
+    pattern:
+      /\boriginal media\b[\s\S]*\bPCM audio\b[\s\S]*\bperson-tracking paths\b[\s\S]*\bnot placed in KVS\b/i,
+    message: "must list media and tracking data excluded from iCloud KVS",
+  },
+  {
+    pattern:
+      /\bRevenueCat receives\b[\s\S]*\bidentifiers\b[\s\S]*\bsubscription status\b/i,
+    message: "must describe RevenueCat identifiers and subscription status",
+  },
+  {
+    pattern:
+      /Help Improve Gunshot Detection[\s\S]{0,160}\bcurrently enabled by default\b/i,
+    message:
+      "must state that detection improvement is currently enabled by default",
+  },
+  {
+    pattern: /\blimited pseudonymous derived fields\b[\s\S]*\bCloudKit\b/i,
+    message: "detection reports must be described as pseudonymous",
+  },
+  {
+    pattern:
+      /\brandom session and analysis identifiers\b[\s\S]*\bcorrection events\b/i,
+    message: "must list detection-report identifiers and correction events",
+  },
+  {
+    pattern:
+      /\breports do not contain original audio, original video\b[\s\S]*\bPCM\b/i,
+    message: "must state that detection reports exclude original media and PCM",
+  },
+  {
+    pattern:
+      /\bdoes not create new reports or retry the local pending queue\b/i,
+    message: "must state what disabling detection improvement stops",
+  },
+  {
+    pattern:
+      /\bdoes not erase reports already submitted\b[\s\S]*\bdoes not clear the local retry queue\b/i,
+    message: "must state what disabling detection improvement does not erase",
+  },
+  {
+    pattern: /\bimporting results\b[\s\S]{0,180}\buses the network\b/i,
+    message: "must state that score import uses the network",
+  },
+  {
+    pattern:
+      /\bYouTube or Facebook\b[\s\S]*\bselected exported video\b[\s\S]*\bmetadata required by the destination\b/i,
+    message: "must describe user-initiated YouTube and Facebook uploads",
+  },
+];
+
+function validatePrivacyBoundary(page) {
+  if (page.relativePath !== "privacy.html") {
+    return;
+  }
+
+  const visibleText = page.source
+    .split("\n")
+    .map((line) => visibleLine(line))
+    .join(" ");
+  for (const rule of requiredPrivacyBoundaryRules) {
+    if (!rule.pattern.test(visibleText)) {
+      addFailure(page.relativePath, page.source, 0, rule.message);
+    }
+  }
 }
 
 function validateMarketingFacts(page) {
@@ -796,7 +1029,7 @@ function validateMarketingFacts(page) {
   for (const [offset, sourceLine] of lines.entries()) {
     const line = visibleLine(sourceLine);
     for (const rule of [...directFactRules, ...contextualFactRules]) {
-      if (rule.pattern.test(line)) {
+      if (rule.pattern.test(line) && !rule.allowedPattern?.test(line)) {
         failures.push({
           relativePath: page.relativePath,
           line: offset + 1,
@@ -1021,6 +1254,52 @@ function parseSitemap(source) {
   }
 
   return locations;
+}
+
+async function validateRobots() {
+  let source;
+  try {
+    source = await readFile(absolutePath("robots.txt"), "utf8");
+  } catch (error) {
+    failures.push({
+      relativePath: "robots.txt",
+      line: 1,
+      message: `cannot read robots.txt: ${error.message}`,
+    });
+    return;
+  }
+
+  const sitemapDirectives = [];
+  let offset = 0;
+  for (const line of source.split("\n")) {
+    const match = line.match(/^\s*Sitemap\s*:\s*(.*?)\s*$/i);
+    if (match) {
+      sitemapDirectives.push({
+        index: offset,
+        value: match[1],
+      });
+    }
+    offset += line.length + 1;
+  }
+
+  if (sitemapDirectives.length !== 1) {
+    addFailure(
+      "robots.txt",
+      source,
+      sitemapDirectives[1]?.index ?? sitemapDirectives[0]?.index ?? 0,
+      `sitemap directive must be exactly one "${englishSitemapUrl}"; found ${sitemapDirectives.length}`,
+    );
+  }
+  for (const directive of sitemapDirectives) {
+    if (directive.value !== englishSitemapUrl) {
+      addFailure(
+        "robots.txt",
+        source,
+        directive.index,
+        `sitemap directive must be exactly "${englishSitemapUrl}"`,
+      );
+    }
+  }
 }
 
 function collectSitemapLocaleGroups(source) {
@@ -1323,6 +1602,7 @@ async function main() {
   for (const page of pages.values()) {
     parseJsonLd(page);
     validateMarketingFacts(page);
+    validatePrivacyBoundary(page);
   }
   for (const page of pages.values()) {
     validateLocalLinks(page, pages, publicFiles);
@@ -1335,9 +1615,11 @@ async function main() {
     validateDocumentLanguage(page);
     validateEnglishVisibleText(page);
     validateLocaleMetadata(page, publicFiles);
+    validateOpenGraphUrl(page, publicFiles);
     validateLanguageSwitch(page);
   }
 
+  await validateRobots();
   await validateSitemap(
     publicFiles,
     new Set(normalPages.map((page) => page.relativePath)),

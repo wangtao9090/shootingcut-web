@@ -32,5 +32,8 @@ jobs:
       - name: Validate site structure and facts
         run: node scripts/validate-site.mjs
 
+      - name: Run validator regression tests
+        run: node --test scripts/validate-site.test.mjs
+
       - name: Validate sitemap XML
         run: xmllint --noout sitemap.xml
