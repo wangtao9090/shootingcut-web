@@ -2,7 +2,8 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 
 const siteRoot = process.cwd();
-const productionOrigin = "https://shootingcut.com";
+const englishOrigin = "https://shootingcut.com";
+const chineseOrigin = "https://shootingcut.cn";
 const excludedDirectories = new Set([
   ".git",
   ".worktrees",
@@ -191,7 +192,7 @@ function resolveRoute(pathname, publicFiles) {
   );
 }
 
-function productionUrlRoute(rawUrl, publicFiles) {
+function englishUrlRoute(rawUrl, publicFiles) {
   let url;
   try {
     url = new URL(rawUrl);
@@ -199,9 +200,9 @@ function productionUrlRoute(rawUrl, publicFiles) {
     return { error: `"${rawUrl}" is not a valid absolute URL` };
   }
 
-  if (url.origin !== productionOrigin) {
+  if (url.origin !== englishOrigin) {
     return {
-      error: `"${rawUrl}" must use ${productionOrigin}`,
+      error: `"${rawUrl}" must use ${englishOrigin}`,
     };
   }
   if (url.username || url.password) {
@@ -220,6 +221,36 @@ function productionUrlRoute(rawUrl, publicFiles) {
     };
   }
   return { route: resolved };
+}
+
+function chineseCounterpartRoute(rawUrl, expectedRoute) {
+  let url;
+  try {
+    url = new URL(rawUrl);
+  } catch {
+    return { error: `"${rawUrl}" is not a valid absolute URL` };
+  }
+
+  if (url.origin !== chineseOrigin) {
+    return {
+      error: `"${rawUrl}" must use ${chineseOrigin}`,
+    };
+  }
+  if (url.username || url.password) {
+    return { error: `"${rawUrl}" must not include credentials` };
+  }
+  if (url.search || url.hash) {
+    return {
+      error: `"${rawUrl}" must not include a query string or fragment`,
+    };
+  }
+  if (url.pathname !== expectedRoute) {
+    return {
+      error: `"${rawUrl}" must use the matching Chinese route "${expectedRoute}"`,
+    };
+  }
+
+  return { route: url.pathname };
 }
 
 function parseJsonLd(page) {
@@ -286,15 +317,15 @@ function collectIds(page) {
 }
 
 function isSkippableUrl(value) {
-  return (
-    value.startsWith("//") ||
-    /^[A-Za-z][A-Za-z0-9+.-]*:/.test(value)
+  const scheme = value.match(/^([A-Za-z][A-Za-z0-9+.-]*):/);
+  return Boolean(
+    scheme && !["http", "https"].includes(scheme[1].toLowerCase()),
   );
 }
 
 function validateLocalLinks(page, pages, publicFiles) {
   const linkAttributeNames = new Set(["href", "poster", "src"]);
-  const baseUrl = `${productionOrigin}${currentRoute(page.relativePath)}`;
+  const baseUrl = `${englishOrigin}${currentRoute(page.relativePath)}`;
 
   for (const tag of page.tags) {
     for (const attribute of tag.attributes) {
@@ -310,7 +341,6 @@ function validateLocalLinks(page, pages, publicFiles) {
         continue;
       }
 
-      counts.localLinks += 1;
       let url;
       try {
         url = new URL(rawValue, baseUrl);
@@ -324,10 +354,11 @@ function validateLocalLinks(page, pages, publicFiles) {
         continue;
       }
 
-      if (url.origin !== productionOrigin) {
+      if (url.origin !== englishOrigin) {
         continue;
       }
 
+      counts.localLinks += 1;
       const target = resolveRoute(url.pathname, publicFiles);
       if (!target) {
         addFailure(
@@ -427,15 +458,56 @@ function requireSingleMetadataEntry(page, entries, label) {
   return entries[0];
 }
 
+function validateDocumentLanguage(page) {
+  const htmlTags = page.tags.filter((tag) => tag.name === "html");
+  if (htmlTags.length !== 1) {
+    addFailure(
+      page.relativePath,
+      page.source,
+      htmlTags[1]?.index ?? htmlTags[0]?.index ?? 0,
+      `expected exactly one <html> element; found ${htmlTags.length}`,
+    );
+    return;
+  }
+
+  const lang = findAttribute(htmlTags[0], "lang");
+  const value = lang?.value
+    ? decodeHtmlAttribute(lang.value).trim().toLowerCase()
+    : "";
+  if (value !== "en") {
+    addFailure(
+      page.relativePath,
+      page.source,
+      lang?.index ?? htmlTags[0].index,
+      'English public pages must use lang="en"',
+    );
+  }
+}
+
+function validateEnglishVisibleText(page) {
+  const mask = (value) => " ".repeat(value.length);
+  const visibleSource = page.source
+    .replace(/<!--[\s\S]*?-->/g, mask)
+    .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, mask)
+    .replace(/<[^>]*>/g, mask);
+  const chineseCharacter =
+    /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/u.exec(visibleSource);
+
+  if (chineseCharacter) {
+    addFailure(
+      page.relativePath,
+      page.source,
+      chineseCharacter.index,
+      "English public pages must not contain visible Chinese text",
+    );
+  }
+}
+
 function validateLocaleMetadata(page, publicFiles) {
   const metadata = collectLocaleMetadata(page);
-  const resolved = {
-    canonical: null,
-    en: null,
-    zh: null,
-    default: null,
-    indexes: {},
-  };
+  const expectedRoute = currentRoute(page.relativePath);
+  const expectedEnglishUrl = `${englishOrigin}${expectedRoute}`;
+  const expectedChineseUrl = `${chineseOrigin}${expectedRoute}`;
 
   const canonical = requireSingleMetadataEntry(
     page,
@@ -443,10 +515,8 @@ function validateLocaleMetadata(page, publicFiles) {
     "canonical link",
   );
   if (canonical) {
-    const result = productionUrlRoute(
-      decodeHtmlAttribute(canonical.href),
-      publicFiles,
-    );
+    const canonicalUrl = decodeHtmlAttribute(canonical.href).trim();
+    const result = englishUrlRoute(canonicalUrl, publicFiles);
     if (result.error) {
       addFailure(
         page.relativePath,
@@ -454,39 +524,31 @@ function validateLocaleMetadata(page, publicFiles) {
         canonical.index,
         `canonical ${result.error}`,
       );
-    } else {
-      resolved.canonical = result.route;
-      if (result.route !== page.relativePath) {
-        addFailure(
-          page.relativePath,
-          page.source,
-          canonical.index,
-          `canonical maps to ${result.route}, not the current page`,
-        );
-      }
+    } else if (
+      result.route !== page.relativePath ||
+      canonicalUrl !== expectedEnglishUrl
+    ) {
+      addFailure(
+        page.relativePath,
+        page.source,
+        canonical.index,
+        `canonical must be exactly "${expectedEnglishUrl}"`,
+      );
     }
   }
 
-  const requiredLanguages = [
-    ["en", "en"],
-    ["zh-hans", "zh"],
-    ["x-default", "default"],
-  ];
-  for (const [language, key] of requiredLanguages) {
+  for (const language of ["en", "x-default"]) {
     const entry = requireSingleMetadataEntry(
       page,
       metadata.alternates.get(language) ?? [],
-      `alternate link for hreflang="${language === "zh-hans" ? "zh-Hans" : language}"`,
+      `alternate link for hreflang="${language}"`,
     );
     if (!entry) {
       continue;
     }
 
-    resolved.indexes[key] = entry.index;
-    const result = productionUrlRoute(
-      decodeHtmlAttribute(entry.href),
-      publicFiles,
-    );
+    const alternateUrl = decodeHtmlAttribute(entry.href).trim();
+    const result = englishUrlRoute(alternateUrl, publicFiles);
     if (result.error) {
       addFailure(
         page.relativePath,
@@ -494,8 +556,41 @@ function validateLocaleMetadata(page, publicFiles) {
         entry.index,
         `hreflang="${language}" alternate ${result.error}`,
       );
-    } else {
-      resolved[key] = result.route;
+    } else if (
+      result.route !== page.relativePath ||
+      alternateUrl !== expectedEnglishUrl
+    ) {
+      addFailure(
+        page.relativePath,
+        page.source,
+        entry.index,
+        `hreflang="${language}" must be exactly "${expectedEnglishUrl}"`,
+      );
+    }
+  }
+
+  const chinese = requireSingleMetadataEntry(
+    page,
+    metadata.alternates.get("zh-hans") ?? [],
+    'alternate link for hreflang="zh-Hans"',
+  );
+  if (chinese) {
+    const alternateUrl = decodeHtmlAttribute(chinese.href).trim();
+    const result = chineseCounterpartRoute(alternateUrl, expectedRoute);
+    if (result.error) {
+      addFailure(
+        page.relativePath,
+        page.source,
+        chinese.index,
+        `hreflang="zh-Hans" alternate ${result.error}`,
+      );
+    } else if (alternateUrl !== expectedChineseUrl) {
+      addFailure(
+        page.relativePath,
+        page.source,
+        chinese.index,
+        `hreflang="zh-Hans" must be exactly "${expectedChineseUrl}"`,
+      );
     }
   }
 
@@ -507,52 +602,92 @@ function validateLocaleMetadata(page, publicFiles) {
       'use hreflang="zh-Hans" instead of hreflang="zh"',
     );
   }
-
-  if (resolved.default && resolved.en && resolved.default !== resolved.en) {
-    addFailure(
-      page.relativePath,
-      page.source,
-      resolved.indexes.default,
-      `x-default must point to the English counterpart (${resolved.en})`,
-    );
-  }
-  if (
-    resolved.en &&
-    resolved.zh &&
-    page.relativePath !== resolved.en &&
-    page.relativePath !== resolved.zh
-  ) {
-    addFailure(
-      page.relativePath,
-      page.source,
-      resolved.indexes.en,
-      "current page must be either its English or Chinese locale target",
-    );
-  }
-
-  return resolved;
 }
 
-function validateLocaleReciprocity(page, pages) {
-  const locale = page.locale;
-  if (!locale.en || !locale.zh || !locale.default) {
+function validateLanguageSwitch(page) {
+  const expectedUrl = `${chineseOrigin}${currentRoute(page.relativePath)}`;
+  const switches = page.tags
+    .filter((tag) => tag.name === "a")
+    .map((tag) => ({
+      tag,
+      href: findAttribute(tag, "href"),
+      hreflang: findAttribute(tag, "hreflang"),
+      lang: findAttribute(tag, "lang"),
+    }))
+    .filter(
+      ({ hreflang }) =>
+        hreflang?.value?.trim().toLowerCase() === "zh-hans",
+    );
+
+  if (switches.length !== 1) {
+    addFailure(
+      page.relativePath,
+      page.source,
+      switches[1]?.tag.index ?? switches[0]?.tag.index ?? 0,
+      `expected exactly one visible zh-Hans language switch; found ${switches.length}`,
+    );
     return;
   }
 
-  for (const target of [locale.en, locale.zh]) {
-    const counterpart = pages.get(target);
+  const languageSwitch = switches[0];
+  const href = languageSwitch.href?.value
+    ? decodeHtmlAttribute(languageSwitch.href.value).trim()
+    : "";
+  const lang = languageSwitch.lang?.value
+    ? decodeHtmlAttribute(languageSwitch.lang.value).trim().toLowerCase()
+    : "";
+  if (href !== expectedUrl) {
+    addFailure(
+      page.relativePath,
+      page.source,
+      languageSwitch.href?.index ?? languageSwitch.tag.index,
+      `visible language switch must point to "${expectedUrl}"`,
+    );
+  }
+  if (lang !== "zh-hans") {
+    addFailure(
+      page.relativePath,
+      page.source,
+      languageSwitch.lang?.index ?? languageSwitch.tag.index,
+      'visible Chinese language switch must use lang="zh-Hans"',
+    );
+  }
+
+  const closingAnchor = page.source.indexOf("</a>", languageSwitch.tag.endIndex);
+  const label =
+    closingAnchor === -1
+      ? ""
+      : visibleLine(
+          page.source.slice(languageSwitch.tag.endIndex, closingAnchor),
+        ).trim();
+  if (label !== "Chinese") {
+    addFailure(
+      page.relativePath,
+      page.source,
+      languageSwitch.tag.endIndex,
+      'visible Chinese language switch must use the English label "Chinese"',
+    );
+  }
+}
+
+function validateRepositorySeparation(discoveredFiles) {
+  for (const relativePath of discoveredFiles) {
     if (
-      !counterpart?.locale ||
-      counterpart.locale.en !== locale.en ||
-      counterpart.locale.zh !== locale.zh ||
-      counterpart.locale.default !== locale.en
+      relativePath.startsWith("zh/") ||
+      /(?:^|\/)[^/]+-zh\.html$/i.test(relativePath)
     ) {
-      addFailure(
-        page.relativePath,
-        page.source,
-        locale.indexes.en ?? 0,
-        `locale alternates do not reciprocate with ${target}`,
-      );
+      failures.push({
+        relativePath,
+        line: 1,
+        message: "Chinese public content must not be tracked in the English repository",
+      });
+    }
+    if (relativePath === ".github/workflows/sync-cn.yml") {
+      failures.push({
+        relativePath,
+        line: 1,
+        message: "the retired Chinese-site sync workflow must not be tracked",
+      });
     }
   }
 }
@@ -888,7 +1023,155 @@ function parseSitemap(source) {
   return locations;
 }
 
-async function validateSitemap(publicFiles) {
+function collectSitemapLocaleGroups(source) {
+  const groups = [];
+  const urlPattern = /<url(?:\s[^>]*)?>([\s\S]*?)<\/url\s*>/gi;
+  let match;
+
+  while ((match = urlPattern.exec(source)) !== null) {
+    const block = match[0];
+    const locationMatch = block.match(
+      /<loc(?:\s[^>]*)?>([\s\S]*?)<\/loc\s*>/i,
+    );
+    let location = null;
+    if (locationMatch) {
+      const decoded = decodeXmlText(locationMatch[1].trim());
+      if (!decoded.error) {
+        location = decoded.value;
+      }
+    }
+
+    const alternates = [];
+    for (const tag of scanStartTags(block)) {
+      if (tag.name !== "xhtml:link") {
+        continue;
+      }
+      const rel = findAttribute(tag, "rel");
+      const hreflang = findAttribute(tag, "hreflang");
+      const href = findAttribute(tag, "href");
+      alternates.push({
+        rel: rel?.value ? decodeHtmlAttribute(rel.value).trim() : "",
+        language: hreflang?.value
+          ? decodeHtmlAttribute(hreflang.value).trim()
+          : "",
+        href: href?.value ? decodeHtmlAttribute(href.value).trim() : "",
+        index: match.index + (href?.index ?? hreflang?.index ?? tag.index),
+      });
+    }
+
+    groups.push({
+      location,
+      index: match.index,
+      alternates,
+    });
+  }
+
+  return groups;
+}
+
+function validateSitemapAlternates(
+  source,
+  groups,
+  publicFiles,
+  expectedPages,
+) {
+  for (const group of groups) {
+    if (!group.location) {
+      continue;
+    }
+
+    let locationUrl;
+    try {
+      locationUrl = new URL(group.location);
+    } catch {
+      continue;
+    }
+    if (locationUrl.origin !== englishOrigin) {
+      continue;
+    }
+
+    const target = resolveRoute(locationUrl.pathname, publicFiles);
+    if (!target || !expectedPages.has(target)) {
+      continue;
+    }
+
+    const route = currentRoute(target);
+    const expectedAlternates = new Map([
+      ["en", `${englishOrigin}${route}`],
+      ["zh-hans", `${chineseOrigin}${route}`],
+      ["x-default", `${englishOrigin}${route}`],
+    ]);
+    const alternatesByLanguage = new Map();
+
+    for (const alternate of group.alternates) {
+      if (alternate.rel.toLowerCase() !== "alternate") {
+        addFailure(
+          "sitemap.xml",
+          source,
+          alternate.index,
+          'sitemap xhtml:link must use rel="alternate"',
+        );
+      }
+
+      const language = alternate.language.toLowerCase();
+      if (!language) {
+        addFailure(
+          "sitemap.xml",
+          source,
+          alternate.index,
+          "sitemap alternate link is missing hreflang",
+        );
+        continue;
+      }
+      if (!alternate.href) {
+        addFailure(
+          "sitemap.xml",
+          source,
+          alternate.index,
+          `sitemap alternate hreflang="${alternate.language}" is missing href`,
+        );
+        continue;
+      }
+      if (!expectedAlternates.has(language)) {
+        addFailure(
+          "sitemap.xml",
+          source,
+          alternate.index,
+          `unexpected sitemap hreflang="${alternate.language}"`,
+        );
+        continue;
+      }
+
+      const entries = alternatesByLanguage.get(language) ?? [];
+      entries.push(alternate);
+      alternatesByLanguage.set(language, entries);
+    }
+
+    for (const [language, expectedHref] of expectedAlternates) {
+      const entries = alternatesByLanguage.get(language) ?? [];
+      const label = language === "zh-hans" ? "zh-Hans" : language;
+      if (entries.length !== 1) {
+        addFailure(
+          "sitemap.xml",
+          source,
+          entries[1]?.index ?? entries[0]?.index ?? group.index,
+          `expected exactly one sitemap alternate for hreflang="${label}"; found ${entries.length}`,
+        );
+        continue;
+      }
+      if (entries[0].href !== expectedHref) {
+        addFailure(
+          "sitemap.xml",
+          source,
+          entries[0].index,
+          `sitemap hreflang="${label}" must be exactly "${expectedHref}"`,
+        );
+      }
+    }
+  }
+}
+
+async function validateSitemap(publicFiles, expectedPages) {
   let source;
   try {
     source = await readFile(absolutePath("sitemap.xml"), "utf8");
@@ -913,6 +1196,7 @@ async function validateSitemap(publicFiles) {
   const locations = parseSitemap(source);
   counts.sitemapLocations = locations.length;
   const seen = new Map();
+  const targetCounts = new Map();
 
   for (const location of locations) {
     let url;
@@ -928,12 +1212,12 @@ async function validateSitemap(publicFiles) {
       continue;
     }
 
-    if (url.origin !== productionOrigin || url.username || url.password) {
+    if (url.origin !== englishOrigin || url.username || url.password) {
       addFailure(
         "sitemap.xml",
         source,
         location.index,
-        `sitemap location "${location.value}" must use ${productionOrigin}`,
+        `sitemap location "${location.value}" must use ${englishOrigin}`,
       );
       continue;
     }
@@ -965,12 +1249,58 @@ async function validateSitemap(publicFiles) {
         location.index,
         `sitemap location "${location.value}" does not resolve to a public page`,
       );
+      continue;
+    }
+
+    if (!expectedPages.has(target)) {
+      addFailure(
+        "sitemap.xml",
+        source,
+        location.index,
+        `sitemap location "${location.value}" must not include OAuth or non-public HTML`,
+      );
+      continue;
+    }
+
+    const expectedLocation = `${englishOrigin}${currentRoute(target)}`;
+    if (location.value !== expectedLocation) {
+      addFailure(
+        "sitemap.xml",
+        source,
+        location.index,
+        `sitemap location must be exactly "${expectedLocation}"`,
+      );
+    }
+    targetCounts.set(target, (targetCounts.get(target) ?? 0) + 1);
+  }
+
+  for (const relativePath of [...expectedPages].sort()) {
+    const count = targetCounts.get(relativePath) ?? 0;
+    if (count !== 1) {
+      addFailure(
+        "sitemap.xml",
+        source,
+        0,
+        `public page "${relativePath}" must appear exactly once in sitemap.xml; found ${count}`,
+      );
     }
   }
+
+  const localeGroups = collectSitemapLocaleGroups(source);
+  if (localeGroups.length !== locations.length) {
+    addFailure(
+      "sitemap.xml",
+      source,
+      0,
+      `expected one locale group per sitemap location; found ${localeGroups.length} groups for ${locations.length} locations`,
+    );
+  }
+  validateSitemapAlternates(source, localeGroups, publicFiles, expectedPages);
 }
 
 async function main() {
   const discoveredFiles = await discoverPublicFiles();
+  validateRepositorySeparation(discoveredFiles);
   const publicFiles = new Set(discoveredFiles);
   const htmlFiles = discoveredFiles.filter((file) => file.endsWith(".html"));
   counts.htmlPages = htmlFiles.length;
@@ -1002,13 +1332,16 @@ async function main() {
     (page) => !page.relativePath.startsWith("oauth/"),
   );
   for (const page of normalPages) {
-    page.locale = validateLocaleMetadata(page, publicFiles);
-  }
-  for (const page of normalPages) {
-    validateLocaleReciprocity(page, pages);
+    validateDocumentLanguage(page);
+    validateEnglishVisibleText(page);
+    validateLocaleMetadata(page, publicFiles);
+    validateLanguageSwitch(page);
   }
 
-  await validateSitemap(publicFiles);
+  await validateSitemap(
+    publicFiles,
+    new Set(normalPages.map((page) => page.relativePath)),
+  );
 
   failures.sort(
     (left, right) =>
