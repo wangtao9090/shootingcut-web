@@ -416,7 +416,7 @@ Link each outcome to its existing exact guide. Keep the four-mode input table im
 
 Update the page's `Article` description to match the visible answer. Update the route description in `llms.txt` without repeating the whole homepage paragraph.
 
-- [ ] **Step 6: Validate and deploy**
+- [x] **Step 6: Validate and deploy**
 
 Run the full validation command set from Task 2, then:
 
@@ -443,7 +443,7 @@ Expected: P01/P02 have one clear primary route, all original input limits remain
 - Consumes: P03 and the existing official Split Sync demonstration.
 - Produces: a two-camera guide that answers the observed review use case while retaining exact-two-input and manual-verification boundaries.
 
-- [ ] **Step 1: Add a failing two-view use-case test**
+- [x] **Step 1: Add a failing two-view use-case test**
 
 Add:
 
@@ -469,7 +469,7 @@ test("Split Sync guide explains POV and third-person review", async () => {
 });
 ```
 
-- [ ] **Step 2: Run the focused test and verify failure**
+- [x] **Step 2: Run the focused test and verify failure**
 
 Run:
 
@@ -480,7 +480,7 @@ node --test --test-name-pattern="POV and third-person review" \
 
 Expected: FAIL on the new use-case phrases.
 
-- [ ] **Step 3: Update metadata and the opening answer**
+- [x] **Step 3: Update metadata and the opening answer**
 
 Use this meta description:
 
@@ -496,7 +496,7 @@ Use Split Sync to align exactly two simultaneous recordings—such as a hat-came
 
 Keep the existing H1 and URL.
 
-- [ ] **Step 4: Add the review-purpose section**
+- [x] **Step 4: Add the review-purpose section**
 
 Add an H2:
 
@@ -508,7 +508,7 @@ Explain that keeping POV and third-person footage on one synchronized timeline c
 
 Link `Side by Side` to `/side-by-side-shooting-video-comparison/`.
 
-- [ ] **Step 5: Add one visible FAQ and matching FAQPage item**
+- [x] **Step 5: Add one visible FAQ and matching FAQPage item**
 
 Question:
 

@@ -224,6 +224,26 @@ test("complete-editor guide maps shooter editing jobs to one workflow", async ()
   }
 });
 
+test("Split Sync guide explains POV and third-person review", async () => {
+  const source = await readFile(
+    path.join(
+      workspaceRoot,
+      "sync-two-shooting-videos-by-timer-beep",
+      "index.html",
+    ),
+    "utf8",
+  );
+
+  for (const phrase of [
+    "hat-camera POV and a third-person view",
+    "footwork, reloads, hard stops, movement, and stage strategy",
+    "exactly two simultaneous recordings",
+    "manually verify",
+  ]) {
+    assert.ok(source.includes(phrase), `Split Sync guide must include: ${phrase}`);
+  }
+});
+
 test("guide video embeds are accessible and match VideoObject metadata", async () => {
   const root = await copyCurrentSite();
 

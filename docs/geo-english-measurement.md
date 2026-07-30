@@ -270,6 +270,7 @@ Each reviewed public route receives exactly one current state:
 | 2026-07-30 | `/shot-detection-troubleshooting/` | `discovered but not crawled` | Preserve | Keep this as support intent for AGC, neighboring shots, echo, weak beeps, and manual corrections rather than a homepage-defining pain. |
 | 2026-07-30 | `/` | `discovered but not crawled` | Pain-language positioning change | Reframe the hero, feature order, and guide hub around the complete editing outcome represented by P01/P02. This deployment does not claim a ranking or citation improvement. |
 | 2026-07-30 | `/competitive-shooting-video-editor/` | `discovered but not crawled` | Pain-to-workflow change | Add an outcome map for P01/P02 before the existing verified mode table; preserve every input, Free/Pro, export, and privacy boundary. |
+| 2026-07-30 | `/sync-two-shooting-videos-by-timer-beep/` | `discovered but not crawled` | Two-view use-case change | Answer P03 with POV/third-person review language, footwork and stage-strategy context, an exact-two-input boundary, and manual sync verification. |
 
 ## Review schedule
 
