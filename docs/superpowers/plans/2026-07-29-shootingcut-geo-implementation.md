@@ -28,165 +28,118 @@
   - limited, pseudonymous detection-quality telemetry is enabled by default but can be disabled, and sends derived detection/timing/spectral fields, random session/analysis identifiers, and correction events to CloudKit rather than original media; disabling stops new reports and queued retries while disabled but does not erase data already submitted or the local retry queue;
   - score import and user-initiated YouTube/Facebook uploads use the network.
 - Never claim “100% secure,” “all data never leaves the device,” “fully offline for every feature,” “no analytics,” “no third parties,” or that all video sync happens through Shooting Cut’s own iCloud mechanism.
-- Every English public page must have a Chinese counterpart under `/zh/`; canonical and reciprocal `hreflang` links must agree.
+- Production is split across two independent repositories and domains:
+  - `/Users/wangtao/DevProject/shootingcut-web` publishes English-only content to `https://shootingcut.com`.
+  - `/Users/wangtao/DevProject/shootingcut-cn` publishes Chinese-only content to `https://shootingcut.cn`.
+- `shootingcut.com` must not retain `/zh/`, `*-zh.html`, Chinese content, or compatibility redirects. Those old URLs intentionally return 404.
+- `shootingcut.cn` must not retain duplicate `zh/` or `*-zh.html` paths. Chinese pages use the same root-relative path shape as their English counterpart.
+- The old `sync-cn.yml` workflow must be removed. The two repositories are maintained and deployed independently.
+- Every English public page has a Chinese counterpart on `shootingcut.cn`; reciprocal cross-domain `hreflang` links must agree.
 - Every content page starts with a standalone answer paragraph and includes specific inputs, output, workflow steps, limitations, Free/Pro boundary where verified, and an updated date.
 - Content pages use `Article`, `HowTo` where appropriate, and `BreadcrumbList` JSON-LD. JSON-LD must parse as strict JSON.
 - GitHub Pages remains the host. Preserve `CNAME`, root-based paths, HTTPS URLs, and the `main`/root Pages source.
 
-## Task 1: Add automated site validation and correct the public factual baseline
+## Task 1: Split the repositories and correct both factual baselines
 
-**Files**
+1. First migrate the corrected Chinese pages from this branch into the Chinese repository:
+   - `zh/index.html` → Chinese `index.html`
+   - `faq-zh.html` → Chinese `faq.html`
+   - `privacy-zh.html` → Chinese `privacy.html`
+   - `support-zh.html` → Chinese `support.html`
+   - `terms-zh.html` → Chinese `terms.html`
+2. In the English repository, remove `zh/`, every `*-zh.html` file, and `.github/workflows/sync-cn.yml`. Do not add redirects.
+3. In the Chinese repository, remove the duplicate `zh/` and every `*-zh.html` file after the root-path replacements exist.
+4. Preserve the English factual corrections in `96e7f53` and the Chinese factual corrections in `ceaade5`/`fc1d48d`.
+5. Publicly position Shooting Cut as a complete competitive-shooting video editor. Remove competitor comparisons and stale product/privacy claims from both sites.
+6. Commit and push each repository’s branch independently.
 
-- Create: `scripts/validate-site.mjs`
-- Create: `.github/workflows/validate-site.yml`
-- Modify: `index.html`
-- Modify: `zh/index.html`
-- Modify: `faq.html`
-- Modify: `faq-zh.html`
-- Modify: `og-image.svg`
+## Task 2: Add independent validation, crawl metadata, privacy, and support
 
-**Requirements**
+1. Adapt the dependency-free validator and CI separately in both repositories.
+2. Each validator parses JSON-LD, checks local links/fragments/assets, validates sitemap locations, and blocks stale facts from Global Constraints.
+3. English validation requires:
+   - `lang="en"`;
+   - canonical/OG/JSON-LD URLs on `https://shootingcut.com`;
+   - `en` self-reference, `zh-Hans` matching `https://shootingcut.cn` path, and `x-default` English;
+   - no `zh/`, `*-zh.html`, same-domain Chinese page, or Chinese sitemap URL.
+4. Chinese validation requires:
+   - `lang="zh-Hans"`;
+   - canonical/OG/JSON-LD URLs on `https://shootingcut.cn`;
+   - `zh-Hans` self-reference, `en` matching `https://shootingcut.com` path, and `x-default` English;
+   - no duplicate `zh/` or `*-zh.html` page, and no English URL in the Chinese sitemap.
+5. Create independent `robots.txt` and `sitemap.xml` files; each sitemap contains only its own domain.
+6. Correct both privacy/terms/support sets to the precise data flow in Global Constraints. Make clear that detection-quality upload is user-controlled, currently enabled by default, excludes original audio/video, and can be disabled.
+7. Preserve the `.com` OAuth callback paths. Legal TikTok disclosure may remain, but no marketing page may claim current TikTok direct upload.
+8. Run validators, `xmllint`, local HTTP crawls, and diff checks; commit/push each repository independently.
 
-1. Add a dependency-free Node validator that:
-   - discovers public HTML files outside `.git`, `.worktrees`, `.superpowers`, and `docs`;
-   - parses every `application/ld+json` block with `JSON.parse`;
-   - verifies local `href`, `src`, and `poster` targets;
-   - verifies canonical links and English/Chinese reciprocal `hreflang` pairs;
-   - verifies sitemap entries resolve to local pages;
-   - rejects public competitor names, stale Stage Mix “3+” wording, one-purchase/lifetime wording, Strings-mode claims, TikTok direct-upload claims, and absolute privacy claims listed in Global Constraints;
-   - emits actionable file/line errors and exits non-zero on failure.
-2. Add a GitHub Actions workflow for pull requests and pushes that runs the validator and `xmllint --noout sitemap.xml`.
-3. Rewrite homepage and FAQ facts to match Global Constraints.
-4. Remove every public competitor comparison and replace it with answer-first product/workflow explanations.
-5. Reframe the product as a full competitive-shooting video editor. Keep scores as a useful editing/review input, not a separate market thesis.
-6. Use accurate local-processing/privacy copy with a link to the privacy page.
-7. Update the social image copy from generic “Smart Video Analysis” to the broader video-editing position and remove duplicate branding if present.
-8. Run `node scripts/validate-site.mjs`, `xmllint --noout sitemap.xml`, and `git diff --check`.
-9. Commit in English and push `codex/geo-optimization`.
+## Task 3: Create the two-site GEO content foundation
 
-## Task 2: Repair crawlability, locale metadata, legal/privacy accuracy, and support facts
+Create the same root-relative paths independently in both repositories:
 
-**Files**
+- `competitive-shooting-video-editor/`
+- `on-device-shooting-video-editor/`
 
-- Modify: `robots.txt`
-- Modify: `sitemap.xml`
-- Modify: `privacy.html`
-- Modify: `privacy-zh.html`
-- Modify: `terms.html`
-- Modify: `terms-zh.html`
-- Modify: `support.html`
-- Modify: `support-zh.html`
-- Modify: all existing public HTML pages as needed for canonical and `hreflang`
+Requirements:
 
-**Requirements**
+1. Use a shared responsive content-page shell within each repository.
+2. Publish answer-first product and privacy explainers using current product facts.
+3. Add reciprocal cross-domain `hreflang`, self-canonical URLs, contextual navigation, accessibility basics, and Article/Breadcrumb/HowTo JSON-LD where applicable.
+4. Do not mix languages inside a site except proper product/technical names.
+5. Validate, review, commit, and push each repository.
 
-1. Add canonical, `en`, `zh-Hans`, and `x-default` links to every existing page and make locale pairs reciprocal.
-2. Keep search crawling rules separate from any AI-training opt-out language; do not accidentally block discovery crawlers.
-3. Correct privacy and terms text to the precise data flow in Global Constraints.
-4. State that original footage is not sent to a Shooting Cut processing server while documenting Apple storage/download behavior, RevenueCat, derived CloudKit telemetry and its disable control, score-fetch network access, and user-initiated social upload.
-5. Preserve the existing TikTok legal disclosure and OAuth callback route, as previously decided, while making clear outside the legal disclosure that TikTok is not a currently available direct-upload feature.
-6. Correct support feature/platform/plan facts.
-7. Ensure sitemap dates and URLs match the actual public files.
-8. Run the validator, XML validation, local HTTP link smoke checks, and `git diff --check`.
-9. Commit in English and push the branch.
+## Task 4: Publish the core workflow guides on both domains
 
-## Task 3: Create the bilingual GEO content foundation and positioning/privacy pages
+Create the same paths independently in both repositories:
 
-**Files**
+- `auto-trim-shooting-match-video/`
+- `sync-two-shooting-videos-by-timer-beep/`
+- `edit-multi-camera-shooting-video/`
+- `shot-detection-troubleshooting/`
+- `reframe-landscape-shooting-video-for-social-media/`
 
-- Create: `assets/content.css`
-- Create: `competitive-shooting-video-editor/index.html`
-- Create: `zh/competitive-shooting-video-editor/index.html`
-- Create: `on-device-shooting-video-editor/index.html`
-- Create: `zh/on-device-shooting-video-editor/index.html`
-- Modify: `index.html`
-- Modify: `zh/index.html`
+Requirements:
 
-**Requirements**
-
-1. Create a reusable, responsive content-page shell consistent with the current dark visual identity.
-2. Publish an answer-first overview of the four real video-editing modes, exact input counts, export formats, score-aware overlays, supported devices, and verified Free/Pro boundaries.
-3. Publish an accurate on-device processing and privacy explainer using the full exception model in Global Constraints.
-4. Add FAQ-style questions only when the page body also answers them; add Article/Breadcrumb/HowTo JSON-LD as applicable.
-5. Add contextual links from both homepages to the new pages.
-6. Meet accessibility basics: semantic headings, visible keyboard focus, sufficient contrast, reduced-motion handling, useful link text.
-7. Run the validator, XML validation, responsive local HTTP smoke checks, and `git diff --check`.
-8. Commit in English and push the branch.
-
-## Task 4: Publish the bilingual core workflow guides
-
-**Files**
-
-- Create English and Chinese page pairs for:
-  - `auto-trim-shooting-match-video/`
-  - `sync-two-shooting-videos-by-timer-beep/`
-  - `edit-multi-camera-shooting-video/`
-  - `shot-detection-troubleshooting/`
-
-**Requirements**
-
-1. Auto Trim: one input, timer/shot detection, adjustable padding/manual correction, free export facts.
-2. Split Sync: exactly two inputs, timer-beep alignment, all four layouts, and Pro boundary.
+1. Auto Trim: one input, timer/shot detection, padding/manual correction, and free export facts.
+2. Split Sync: exactly two inputs, timer-beep alignment, four layouts, and Pro boundary.
 3. Stage Mix: 2–3 inputs, POV/Follow/Static roles, movement-aware switching, manual override, and Pro boundary.
-4. Troubleshooting: real recording conditions and current manual correction controls; never mention `.22`.
-5. Add reciprocal locale metadata, canonical URLs, breadcrumbs, answer paragraphs, steps, limitations, and contextual links.
-6. Run the validator, XML validation, HTTP smoke checks, and `git diff --check`.
-7. Commit in English and push the branch.
+4. Troubleshooting: AGC, neighboring gunshots, echo/reverb, weak beeps, and current manual correction controls; never mention `.22` as a limitation.
+5. Reframe/Track: show how one landscape recording can be tracked on device and exported repeatedly for different publishing formats. Include Source, 9:16, 3:4, 4:5, 6:7, 1:1, and 16:9 ratios plus Original, 4K, 1080p, and 720p resolutions. Explain which modes support reframing and that Split Sync output ratio is controlled by its layout.
+6. Include a practical output matrix for vertical short video, portrait feed, square feed, and landscape video. Social-platform names may be used as format examples, but never imply TikTok direct upload; current direct-upload support is YouTube and Facebook.
+7. Validate reciprocal metadata and all content facts before separate commits/pushes.
 
-## Task 5: Publish the bilingual advanced workflow guides
+## Task 5: Publish the advanced workflow guides on both domains
 
-**Files**
+Create the same paths independently in both repositories:
 
-- Create English and Chinese page pairs for:
-  - `side-by-side-shooting-video-comparison/`
-  - `merge-uspsa-stage-videos/`
-  - `reframe-shooting-video-for-reels-shorts/`
-  - `batch-export-match-videos/`
-  - `add-shot-times-and-scores-to-match-video/`
+- `side-by-side-shooting-video-comparison/`
+- `merge-uspsa-stage-videos/`
+- `batch-export-match-videos/`
+- `add-shot-times-and-scores-to-match-video/`
 
-**Requirements**
+Requirements:
 
-1. Explain how Side by Side is one Split Sync layout; do not imply a separate mode.
-2. Explain Merge’s 20-video maximum without implying it auto-syncs multiple camera angles.
-3. Explain on-device Vision-based reframing and the exact export ratios/resolutions without biometric or cloud-AI claims.
-4. State macOS + Pro for batch export.
-5. Clearly distinguish PractiScore official per-shot anchoring from ESS/HDP/IDPA score import.
-6. Do not claim unsupported progress prediction, WinMSS, arbitrary PDFs, or score-system coverage.
-7. Run the validator, XML validation, HTTP smoke checks, and `git diff --check`.
-8. Commit in English and push the branch.
+1. Side by Side is a Split Sync layout, not a separate mode.
+2. Merge accepts up to 20 videos and is not multi-camera auto-sync.
+3. Batch export is macOS + Pro.
+4. PractiScore supports official per-shot anchoring; distinguish this from ESS/HDP/IDPA score import.
+5. Do not claim progress prediction, WinMSS, arbitrary PDFs, or unsupported score-system coverage.
 
-## Task 6: Complete machine-readable discovery, navigation, and GEO handoff
+## Task 6: Complete machine-readable discovery and handoff
 
-**Files**
-
-- Create: `llms.txt`
-- Modify: `sitemap.xml`
-- Modify: all public pages needed for final contextual navigation
-- Modify: `docs/geo-content-strategy.md`
-- Modify: `README.md`
-
-**Requirements**
-
-1. Add a concise, factual `llms.txt` with product identity, current version/platforms, exact mode/input facts, privacy summary with exceptions, Free/Pro facts, and the complete public page index.
-2. Add every new EN/ZH URL to the sitemap with current `lastmod`.
-3. Ensure each guide is reachable from at least one hub/home page and links to relevant adjacent guides.
-4. Update the handoff to record completed implementation, source-verified corrections, remaining research, and a measurement plan. Keep competitor/social research internal only.
-5. Document local validation and GitHub Pages deployment in README.
-6. Run the validator, `xmllint`, local HTTP smoke checks, and `git diff --check`.
-7. Commit in English and push the branch.
+1. Add domain-specific `llms.txt` files with current product facts and page indexes.
+2. Add every local URL to only that domain’s sitemap.
+3. Ensure each guide is reachable from a homepage/hub and links to relevant adjacent guides.
+4. Update the English repository’s GEO handoff with the source audit, two-domain architecture, completed work, measurement plan, and remaining internal research.
+5. Document independent repository validation/deployment in each README.
+6. Repair `shootingcut.cn` certificate provisioning, verify the certificate covers the production hostname, then enable GitHub Pages HTTPS enforcement.
 
 ## Task 7: Whole-site review, production merge, and live verification
 
-**Requirements**
-
-1. Run a broad final review against this plan and current product facts.
-2. Re-run:
-   - `node scripts/validate-site.mjs`
-   - `xmllint --noout sitemap.xml`
-   - `git diff --check origin/main...HEAD`
-   - a local HTTP crawl over every sitemap URL
-3. Verify no user-owned changes exist in either repository.
-4. Merge the reviewed branch into `main` without rewriting history and push `main`.
-5. Monitor the GitHub Pages workflow to a terminal success state.
-6. Verify production HTTPS, `CNAME`, canonical URLs, `robots.txt`, `llms.txt`, sitemap, both homepages, privacy pages, and every new EN/ZH guide return 200 with correct content.
-7. Deliver a concise Chinese completion report with commits, validation evidence, production URLs, source-audit corrections, and remaining measurement/research work.
+1. Run a broad review of both branches against this plan and current product facts.
+2. Re-run both validators, both sitemap XML checks, branch diff checks, and local sitemap crawls.
+3. Verify neither repository contains unowned changes.
+4. Merge each reviewed branch to its own `main` without rewriting history, then push.
+5. Monitor both GitHub Pages deployments and all repository workflows to terminal success.
+6. Verify both production domains, HTTPS, CNAME, canonical URLs, reciprocal cross-domain `hreflang`, robots, llms, sitemaps, homepages, privacy pages, and every guide.
+7. Confirm `.com/zh/` and `.com/*-zh.html` return 404 with no redirect.
+8. Deliver a concise Chinese report with commits, validation evidence, production URLs, source-audit corrections, and remaining measurement work.
