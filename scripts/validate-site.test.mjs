@@ -199,6 +199,33 @@ test("homepage presents the complete match-video editing outcome", async () => {
   assert.doesNotMatch(home, /instantly get precise split times/i);
 });
 
+test("homepage visibly labels Pro features and mixed access boundaries", async () => {
+  const home = await readFile(path.join(workspaceRoot, "index.html"), "utf8");
+
+  for (const heading of [
+    "Full Match Merge",
+    "Split Sync",
+    "Stage Mix",
+    "Batch Export on Mac",
+    "Custom Watermarks",
+  ]) {
+    assert.match(
+      home,
+      new RegExp(`<h3>${heading}[\\s\\S]{0,180}\\(PRO\\)</span></h3>`),
+      `${heading} must display a Pro label in the feature grid`,
+    );
+  }
+
+  assert.match(
+    home,
+    /<h3>Export and User-Initiated Sharing[\s\S]{0,320}\(FREE IN AUTO TRIM\)[\s\S]{0,180}\(PRO: MULTI-PLATFORM\)<\/span><\/h3>/,
+  );
+  assert.match(
+    home,
+    /<h3>Intro Title Cards[\s\S]{0,260}\(FREE DEFAULT\)[\s\S]{0,180}\(PRO: CUSTOM\)<\/span><\/h3>/,
+  );
+});
+
 test("complete-editor guide maps shooter editing jobs to one workflow", async () => {
   const source = await readFile(
     path.join(
