@@ -1,8 +1,8 @@
-# Shooting Cut 1.1.3 English GEO Media Brief
+# Shooting Cut 1.1.4 English GEO Media Brief
 
 ## Purpose
 
-Capture real Shooting Cut 1.1.3 UI evidence for the English guide pages. These
+Capture real Shooting Cut 1.1.4 UI evidence for the English guide pages. These
 assets are a follow-on evidence batch, not a prerequisite for sitemap
 submission or indexing. Existing official videos remain the first visual
 evidence for Split Sync, Stage Mix, and Reframe.
@@ -16,7 +16,7 @@ evidence.
 2. Merge
 3. PractiScore official timing overlay
 4. macOS batch export
-5. PractiScore, ESS, HDP, and IDPA result import
+5. PractiScore, ESS, HDP, Shoot'n Score It, and IDPA result import
 6. Auto Trim
 7. On-device/privacy control
 
@@ -33,9 +33,9 @@ structured-data, or measurement updates.
 | 2 | Merge | Ordered Stage 1 through Stage N clips and the resulting Full Match output state | `/merge-uspsa-stage-videos/` |
 | 3 | Official timing | PractiScore official times and splits aligned to video subtitles from the timer anchor | `/add-shot-times-and-scores-to-match-video/` |
 | 4 | Batch export | Several prepared match edits in the macOS Pro batch queue, with separate output jobs visible | `/batch-export-match-videos/` |
-| 5 | Result import | Source-selection UI covering PractiScore, ESS, HDP, and IDPA without exposing real participant data | `/import-practiscore-ess-hdp-match-results/` |
+| 5 | Result import | Source-selection UI covering PractiScore, ESS, HDP, Shoot'n Score It, and IDPA without exposing real participant data | `/import-practiscore-ess-hdp-match-results/` |
 | 6 | Auto Trim | One imported stage video with the timer marker, detected shots, proposed trim boundaries, and the manual event-correction controls visible | `/auto-trim-shooting-match-video/` |
-| 7 | Privacy control | The real `Help Improve Gunshot Detection` control and its current default state in 1.1.3 | `/on-device-shooting-video-editor/` |
+| 7 | Privacy control | The real `Help Improve Gunshot Detection` control and its current default state in 1.1.4 | `/on-device-shooting-video-editor/` |
 
 ## Capture details by workflow
 
@@ -92,14 +92,15 @@ Match video.
 
 ### Result import
 
-Capture the real source-selection UI for PractiScore, ESS, HDP, and IDPA. Use
+Capture the real source-selection UI for PractiScore, ESS, HDP, Shoot'n Score It,
+and IDPA. Use
 sanitized demonstration data. A separate Thailand-focused derivative may show
 HDP and ESS together, but it must not expose shooter names, match identifiers,
 or private result URLs.
 
 ### Privacy and improvement control
 
-Capture the current 1.1.3 control without restaging its default. The visible
+Capture the current 1.1.4 control without restaging its default. The visible
 caption must distinguish:
 
 - core on-device video/audio analysis, editing, export, and person tracking;
@@ -121,7 +122,7 @@ editor, not only a gunshot-caption utility.
 
 ## Safety and authenticity requirements
 
-- Capture the real released 1.1.3 app with the English UI.
+- Capture the real released 1.1.4 app with the English UI.
 - Do not use generated UI, mockups, reconstructed screens, or placeholders.
 - Do not show unapproved competitor names, shooter names, match identifiers,
   email addresses, account IDs, platform tokens, or notification content.
@@ -139,7 +140,7 @@ Every proposed public asset must be reviewed with:
 
 | Field | Requirement |
 |---|---|
-| Source build | `Shooting Cut 1.1.3` |
+| Source build | `Shooting Cut 1.1.4` |
 | UI language | English |
 | Capture device | Device family and OS version |
 | Public filename | Descriptive lowercase filename |
@@ -152,7 +153,7 @@ Every proposed public asset must be reviewed with:
 
 ## Acceptance checklist
 
-- The source is the real 1.1.3 app.
+- The source is the real 1.1.4 app.
 - The UI state matches the intended guide.
 - No private or identifying data is visible.
 - The public derivative is legible at a narrow mobile width.

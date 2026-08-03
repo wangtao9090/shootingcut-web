@@ -1,7 +1,7 @@
 # Shooting Cut GEO 内容与技术交接
 
-> 状态：2026-07-29 实施稿。发布前用最终 commit、CI、Pages 与线上检查结果
-> 替换文中的待填项。
+> 状态：2026-08-02 持续维护稿。产品事实基线已同步至 1.1.4；每次发布仍需
+> 用最终 commit、CI、Pages 与线上检查结果更新发布记录。
 
 ## 1. 目标与当前结论
 
@@ -9,16 +9,16 @@
 搜索引擎与生成式回答系统更容易准确理解、检索和引用 Shooting Cut 的
 现有能力。
 
-Shooting Cut 1.1.3 应被描述为一款完整的竞技射击视频编辑器。计时器蜂鸣
+Shooting Cut 1.1.4 应被描述为一款完整的竞技射击视频编辑器。计时器蜂鸣
 声与枪声分析是支持裁剪、同步、计时和字幕的一项能力，不是产品的全部。
 当前内容架构围绕射手实际会问的工作流问题组织：单段自动裁剪、整场比赛
 合并、双机位同步、2–3 机位剪辑、横屏素材重构、检测排查、成绩导入、
 官方逐发计时字幕、泰国 HDP/ESS 结果留存、分屏比较和批量导出。
 
-## 2. 1.1.3 产品事实基线
+## 2. 1.1.4 产品事实基线
 
 以下口径来自本机 `Shooting_Cut` 产品仓库的当前源码审计与已上线的
-1.1.3，而不是长期未更新的用户手册。
+1.1.4，而不是长期未更新的用户手册或已漂移的 App Store 长描述。
 
 ### 2.1 平台、模式与方案
 
@@ -26,25 +26,31 @@ Shooting Cut 1.1.3 应被描述为一款完整的竞技射击视频编辑器。�
 - Auto Trim：恰好 1 个视频。
 - Merge：最多 20 个按顺序播放的视频，可调整顺序和包含状态；每个输入
   可保留自己的分析状态与成绩关联。
-- Split Sync：恰好 2 个同步视角；四种布局是 Full Screen、
-  Dual View: Center HUD、Dual View: Top HUD、Side by Side。
+- Split Sync：恰好 2 个同步视角；Full Screen 为上下布局（9:16，
+  1080×1920），Dual View: Center HUD 与 Dual View: Top HUD 为上下布局
+  （3:4，1080×1440），Side by Side 为左右布局（16:9，1920×1080）。
+  多机位的 Full Screen 与 HUD 布局可调整为 50/50、40/60、30/70；同视角
+  对比固定 50/50，Side by Side 不使用上下比例控制。
 - Stage Mix：2–3 个同步输入，角色为 POV、Follow、Static；自动切换会
   考虑移动状态，并允许人工覆盖。
-- Auto Trim 与成绩导入免费；免费 Auto Trim 导出包含 Shooting Cut
-  水印与 Logo 片头卡。
-- 可安全公开的 Pro 能力：移除 Shooting Cut 水印、自定义片头卡、
-  Split Sync、Stage Mix、macOS 批量导出。
+- 免费能力：Auto Trim、其中的计时器/枪声分析、Reframe/Track、受支持的
+  成绩导入、计时/成绩字幕、常规导出，以及一次选择一个受支持目标的用户
+  主动分享。免费 Auto Trim 导出包含 Shooting Cut 水印与 Logo 片头卡。
+- Pro 能力：Merge、Split Sync、Stage Mix、移除/自定义水印、自定义片头
+  卡、一次工作流内多平台分享，以及 macOS 批量导出。
 - 一次订阅覆盖订阅者的所有 Apple 设备；不得写成“一次购买”或终身买断。
-- 当前用户主动直传目标是 YouTube 和 Facebook。不要宣传 TikTok 直传。
+- 当前用户主动直传目标是 YouTube 和 Facebook；免费用户一次可选择一个
+  目标，Pro 可在同一工作流中选择多个平台。不要宣传 TikTok 直传。
 
 ### 2.2 成绩和计时
 
-- 当前存在 PractiScore、ESS、HDP/IDPA 的成绩导入路径。
+- 当前存在 PractiScore、ESS、HDP/IDPA、Shoot'n Score It（SSI）的成绩
+  导入路径，成绩导入本身免费。
 - ESS 目录中配置了 41 个区域站点。
 - 当 PractiScore 记录实际包含官方计时器逐发数据时，Shooting Cut 可用
   视频中的蜂鸣声建立锚点，并在字幕中使用官方时间、Split、发数与成绩。
-- ESS、HDP、IDPA 可提供成绩导入，但不提供相同的 PractiScore 式官方
-  逐发锚定来源。
+- ESS、HDP、SSI、IDPA 可提供成绩导入，但不提供相同的 PractiScore 式
+  官方逐发锚定来源。
 - 不宣称任意 PDF、WinMSS、所有计分系统或自动弹着点识别。
 
 ### 2.3 Reframe/Track 与导出
@@ -70,17 +76,18 @@ Shooting Cut 1.1.3 应被描述为一款完整的竞技射击视频编辑器。�
 
 ### 2.5 源码审计纠错
 
-本轮先以 1.1.3 源码纠正旧手册和早期站点中的漂移口径，再写公开页面。
+本轮先以 1.1.4 源码纠正旧手册、App Store 长描述和早期站点中的漂移口径，
+再写公开页面。
 下表也是未来版本复核时的最小检查集：
 
-| 容易漂移或误写的口径 | 1.1.3 已核实口径 |
+| 容易漂移或误写的口径 | 1.1.4 已核实口径 |
 |---|---|
 | 把产品缩写成枪声字幕叠加工具 | Shooting Cut 是完整的竞技射击视频编辑器；计时器与枪声分析只是服务于裁剪、同步、计时和字幕的一项能力 |
-| 版本、平台与系统要求 | 当前上线版本为 1.1.3，支持 iPhone、iPad、Mac；站点口径为 iOS/iPadOS/macOS 26.0+ |
+| 版本、平台与系统要求 | 当前上线版本为 1.1.4，支持 iPhone、iPad、Mac；站点口径为 iOS/iPadOS/macOS 26.0+ |
 | 模式输入数量 | Auto Trim 恰好 1 段；Merge 最多 20 段顺序素材；Split Sync 恰好 2 个同步视角；Stage Mix 为 2–3 个同步机位 |
-| 购买/订阅 | Auto Trim 与成绩导入免费；公开 Pro 边界见 2.1；一次订阅覆盖订阅者的 Apple 设备，不是一次购买或终身买断 |
-| 直接上传平台 | 仅宣传用户主动发起的 YouTube 与 Facebook 直传，不宣传 TikTok 直传 |
-| 成绩与官方逐发计时 | PractiScore 记录实际带有官方逐发计时才可用于官方时间锚定；ESS、HDP、IDPA 是成绩导入，不提供同类逐发锚定 |
+| 购买/订阅 | 完整免费能力与 Pro 模式边界见 2.1；一次订阅覆盖订阅者的 Apple 设备，不是一次购买或终身买断 |
+| 分享/直接上传平台 | 系统分享和一次选择一个受支持目标属于免费 Auto Trim 工作流；Pro 提供同一工作流多平台分享；直传只宣传 YouTube 与 Facebook，不宣传 TikTok |
+| 成绩与官方逐发计时 | PractiScore 记录实际带有官方逐发计时才可用于官方时间锚定；ESS、HDP、SSI、IDPA 是成绩导入，不提供同类逐发锚定 |
 | Track 比例与分辨率 | Track 比例是 9:16、3:4、4:5、6:7、1:1；Source 不裁切，16:9 是独立非 Track 路径；Track 以 1080 短边为上限并可降至 720p |
 | 检测限制 | AGC、邻近枪声、回音/混响、弱蜂鸣声是实际排查项；`.22` 不是限制 |
 
@@ -145,7 +152,7 @@ Shooting Cut 1.1.3 应被描述为一款完整的竞技射击视频编辑器。�
 `shootingcut.cn` 域名验证、证书和 HTTPS，再在下一次 App 版本中把中文
 隐私 URL 改为 `https://shootingcut.cn/privacy.html`，并完成带签名构建、
 真机链接检查与 App 发布。网站仓库本轮不越权修改 Xcode 产品源码；最终
-上线报告必须明确现有 1.1.3 的过渡影响。
+上线报告必须明确现有 1.1.4 的过渡影响。
 
 ## 5. 调研工具与证据边界
 
@@ -268,7 +275,7 @@ HDP Thailand 与 Thailand Practical Shooting Association 在 Facebook
 | Facebook / OpenCLI | `Thailand Practical Shooting Association` | [THPSA 主页](https://www.facebook.com/thpsa)，约 2.3 万关注者；1 次查询 | 泰国 IPSC 社区与泰语/英语发现入口存在 | 某一产品需求或两个参赛群体的精确重合 |
 | ESS Thailand | `/portal?match=90…98` 与 `/portal/results/{id}?division=1` | [Thailand portal](https://tha.as.ipscess.org/portal)；9 个 match ID 与 9 个结果 URL。`98` 暴露 9 个 division，`90–97` 只返回通用 Matches 页且对应 division URL 为 404 | 当前结果可见而抽样旧结果 URL 不可用，支持“可访问时及时导入” | ESS 永远只保留一场、源站未来行为或 Shooting Cut 能恢复已删除来源 |
 | HDP | `/api/Matchs?ItemPerPage=100` 与完成赛事 scoreboards | [HDP Matchs API](https://api.homedutypistol.com/api/Matchs?ItemPerPage=100)；81 场、其中 50 场标记完成；50 个完成赛事计分板抽查 | 审计时 HDP 提供可浏览的完成赛事与成绩导入来源 | 数字永久不变、官方逐发计时、长期可用性承诺 |
-| 产品源码 | `ESSSiteDirectory.swift`、`ESSParser.swift`、`HDPParser.swift` | 1.1.3 当前仓库；ESS 41 个区域站点及 HDP/ESS 导入路径 | 公开功能、输入和来源边界 | 社区需求强度或未来路线图 |
+| 产品源码 | `ESSSiteDirectory.swift`、`ESSParser.swift`、`HDPParser.swift`、`SSISiteDirectory.swift`、`SSIParser.swift`、`SSISourceAdapter.swift` | 1.1.4 当前仓库；ESS、HDP 与 SSI 导入路径 | 公开功能、输入和来源边界 | 社区需求强度或未来路线图 |
 
 姓名重叠分析只作为内部选题依据。单场规范化精确匹配支持两个参赛群体存在
 实际交集，但拼写、音译、时间窗口和单场样本限制很大，因此公开交接和页面
@@ -486,7 +493,7 @@ GEO 不承诺排名或引用，应建立可重复的基线：
 - `shootingcut.cn` DNS/证书/HTTPS 尚未完成：GitHub Pages 仍报告
   `https_enforced=false`，正常 HTTPS 校验因证书 SAN 不匹配失败，HTTP
   当前返回 200。完成第 10 节域名验证和 DNS 顺序后才能关闭此项。
-- App 1.1.3 的非 `GLOBAL_VERSION` 中文隐私链接仍指向已经移除的
+- App 1.1.4 的非 `GLOBAL_VERSION` 中文隐私链接仍指向已经移除的
   `.com/privacy-zh.html`；下一版 App 必须按第 4.1 节迁移到
   `.cn/privacy.html`。这项产品仓库变更不包含在本次网站发布中。
 

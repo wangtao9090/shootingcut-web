@@ -239,6 +239,13 @@ test("Split Sync guide explains POV and third-person review", async () => {
     "footwork, reloads, hard stops, movement, and stage strategy",
     "exactly two simultaneous recordings",
     "manually verify",
+    "Stack both synchronized views top and bottom",
+    "9:16, 1080 × 1920",
+    "3:4, 1080 × 1440",
+    "16:9, 1920 × 1080",
+    "50/50, 40/60, or 30/70",
+    "same-view comparison: 50/50",
+    "does not use the top-and-bottom ratio control",
   ]) {
     assert.ok(source.includes(phrase), `Split Sync guide must include: ${phrase}`);
   }
@@ -376,19 +383,22 @@ test("llms.txt exposes the complete reviewed product and route surface", async (
 
   assert.equal(countExact(llms, "# Shooting Cut"), 1);
   for (const fact of [
-    "Current product version: 1.1.3",
+    "Current product version: 1.1.4",
     "Shooting Cut is a complete competitive-shooting video editor for iPhone, iPad, and Mac.",
     "Requires iOS 26.0+, iPadOS 26.0+, or macOS 26.0+.",
     "Auto Trim accepts exactly 1 video.",
     "Merge combines up to 20 sequential clips into one long video.",
     "Split Sync accepts exactly 2 simultaneous views",
     "Stage Mix accepts 2–3 simultaneous inputs labeled POV, Follow, or Static",
-    "Auto Trim and score import are free.",
+    "Auto Trim, its timer and shot analysis, Reframe and Track, supported result import, timing and score overlays, standard export, and one-destination user-initiated sharing are free.",
     "Free Auto Trim exports include the Shooting Cut watermark and logo intro card.",
+    "Pro unlocks Merge, Split Sync, and Stage Mix",
     "One subscription covers all of the subscriber's Apple devices",
-    "Direct upload to YouTube and Facebook is a Pro feature.",
+    "one supported sharing destination at a time",
+    "Pro enables multi-platform sharing",
     "PractiScore result includes official per-shot timer records",
-    "ESS, HDP, and IDPA support score import but do not provide the same PractiScore-style official per-shot timing anchor.",
+    "Supported result-import families are PractiScore, ESS, HDP, Shoot'n Score It, and IDPA",
+    "ESS, HDP, Shoot'n Score It, and IDPA support score import but do not provide the same PractiScore-style official per-shot timing anchor.",
     "Track supports cropped 9:16, 3:4, 4:5, 6:7, and 1:1 outputs.",
     "Source keeps the source frame. Non-tracked 16:9 is separate from the Track crop ratios.",
     "currently enabled by default",
@@ -431,10 +441,12 @@ test("llms.txt exposes the complete reviewed product and route surface", async (
   assert.doesNotMatch(sitemap, /llms\.txt/i);
 });
 
-test("English product facts identify direct platform upload as Pro", async () => {
+test("English product facts distinguish free one-destination sharing from Pro multi-platform sharing", async () => {
   const root = await copyCurrentSite();
-  const requiredFact =
-    "Direct upload to YouTube and Facebook is a Pro feature.";
+  const requiredFacts = [
+    "one supported sharing destination at a time",
+    "Pro enables multi-platform sharing",
+  ];
   const requiredFiles = [
     "index.html",
     "faq.html",
@@ -445,10 +457,12 @@ test("English product facts identify direct platform upload as Pro", async () =>
 
   for (const relativePath of requiredFiles) {
     const source = await readFile(path.join(root, relativePath), "utf8");
-    assert.ok(
-      source.includes(requiredFact),
-      `${relativePath} must state the verified Pro upload boundary`,
-    );
+    for (const requiredFact of requiredFacts) {
+      assert.ok(
+        source.includes(requiredFact),
+        `${relativePath} must state the verified sharing boundary: ${requiredFact}`,
+      );
+    }
   }
 });
 
@@ -778,8 +792,8 @@ test("does not let a legal negative sentence excuse an adjacent positive claim",
   await replaceInFile(
     root,
     "privacy.html",
-    "ShootingCut 1.1.3 does not offer TikTok video direct upload.",
-    "ShootingCut 1.1.3 does not offer TikTok video direct upload. TikTok direct upload is supported.",
+    "ShootingCut 1.1.4 does not offer TikTok video direct upload.",
+    "ShootingCut 1.1.4 does not offer TikTok video direct upload. TikTok direct upload is supported.",
   );
   const result = runValidator(root);
   assertRejected(
@@ -790,7 +804,7 @@ test("does not let a legal negative sentence excuse an adjacent positive claim",
 
 test("does not let a negative clause excuse a contradictory clause", async () => {
   const legalSentence =
-    "ShootingCut 1.1.3 does not offer TikTok video direct upload.";
+    "ShootingCut 1.1.4 does not offer TikTok video direct upload.";
   const variants = [
     "TikTok direct upload is supported, but ShootingCut does not currently offer TikTok video direct upload.",
     "ShootingCut does not currently offer TikTok video direct upload — however, TikTok direct upload is supported.",

@@ -1764,7 +1764,7 @@ const requiredSupportBoundaryRules = [
   },
 ];
 
-const requiredProUploadBoundaryPages = new Set([
+const requiredAccessBoundaryPages = new Set([
   "index.html",
   "faq.html",
   "competitive-shooting-video-editor/index.html",
@@ -1797,23 +1797,32 @@ function validateSupportBoundary(page) {
   }
 }
 
-function validateProUploadBoundary(page) {
-  if (!requiredProUploadBoundaryPages.has(page.relativePath)) {
+function validateAccessBoundary(page) {
+  if (!requiredAccessBoundaryPages.has(page.relativePath)) {
     return;
   }
 
   const visibleText = visibleTextForRequirements(page.source);
-  if (
-    !/\bDirect upload to YouTube and Facebook is a Pro feature\./i.test(
-      visibleText,
-    )
-  ) {
-    addFailure(
-      page.relativePath,
-      page.source,
-      0,
-      "must state that direct YouTube and Facebook upload is a Pro feature",
-    );
+  const rules = [
+    {
+      pattern: /\bone supported sharing destination at a time\b/i,
+      message: "must state the free one-destination sharing boundary",
+    },
+    {
+      pattern: /\bPro enables multi-platform sharing\b/i,
+      message: "must state the Pro multi-platform sharing boundary",
+    },
+    {
+      pattern:
+        /\bPro unlocks (?:the )?Merge\b[\s\S]{0,200}\bSplit Sync\b[\s\S]{0,200}\bStage Mix\b/i,
+      message: "must state that Merge, Split Sync, and Stage Mix require Pro",
+    },
+  ];
+
+  for (const rule of rules) {
+    if (!rule.pattern.test(visibleText)) {
+      addFailure(page.relativePath, page.source, 0, rule.message);
+    }
   }
 }
 
@@ -2450,7 +2459,7 @@ async function main() {
     validateMarketingFacts(page);
     validatePrivacyBoundary(page);
     validateSupportBoundary(page);
-    validateProUploadBoundary(page);
+    validateAccessBoundary(page);
   }
   for (const page of pages.values()) {
     validateLocalLinks(page, pages, publicFiles);

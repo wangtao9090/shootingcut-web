@@ -4,7 +4,7 @@
 
 - Domain: `https://shootingcut.com/`
 - Search language: English
-- Product version at baseline: `1.1.3`
+- Product version at baseline: `1.1.3`; current refresh version: `1.1.4`
 - App market: currently available non-China App Store markets
 - Included surfaces: Google Search, Bing, ChatGPT, Perplexity, Claude,
   Microsoft Copilot, YouTube, Facebook, and Reddit when each surface is
@@ -46,7 +46,7 @@ The English sitemap contains 18 URLs:
 13. Merge USPSA stage videos
 14. Side-by-side shooting video comparison
 15. Batch export match videos on Mac
-16. Import PractiScore, ESS, HDP, and IDPA match results
+16. Import PractiScore, ESS, HDP, Shoot'n Score It, and IDPA match results
 17. Thailand HDP and ESS match results
 18. Add official shot times and scores to match video
 
@@ -210,15 +210,20 @@ or committed.
 
 | Checked at (UTC) | Field | App Store value | Website value | State | Action |
 |---|---|---|---|---|---|
+| 2026-08-02 | Version | `1.1.4` | `1.1.4` | Pass | Synchronized current public pages, structured data, policy/support pages, and `llms.txt`. |
+| 2026-08-02 | New result source | Shoot'n Score It result import is present in the released product and current source | PractiScore, ESS, HDP, Shoot'n Score It, and IDPA | Pass | Added SSI to the result-import guide and machine-readable facts without claiming PractiScore-style official per-shot timing. |
+| 2026-08-02 | Free/Pro wording | App Store long description still groups social upload with Pro | Source audit shows free Auto Trim can choose one supported destination at a time; Pro enables multi-platform sharing | Source-corrected | Website follows current product behavior; App Store description should be corrected in a future metadata update. |
+| 2026-08-02 | Editing-mode entitlement | Current source exposes Auto Trim free and requires Pro for Merge, Split Sync, and Stage Mix | Same | Pass | Added the exact boundary to the homepage, FAQ, editor guide, support page, and `llms.txt`. |
+| 2026-08-02 | Split Sync layout geometry | Current source defines four layouts and multi-angle pane ratios | Full Screen 9:16; two HUD layouts 3:4; Side by Side 16:9; supported top/bottom ratios 50/50, 40/60, 30/70 | Pass | Added exact arrangements, canvases, and ratio exceptions to the Split Sync surfaces and regression tests. |
 | 2026-07-30T10:07:22Z | App ID | `6761160281` | English App Store links use `id6761160281` | Pass | None |
 | 2026-07-30T10:07:22Z | Product name | `Shooting Cut` | Canonical product name is `Shooting Cut` | Pass | None |
 | 2026-07-30T10:07:22Z | Version | `1.1.3` | `1.1.3` | Pass | None |
 | 2026-07-30T10:07:22Z | Current-version release date | `2026-07-29T18:40:40Z` | Not published as a product claim | No conflict | Keep the release date in this measurement record rather than adding volatile copy sitewide. |
 | 2026-07-30T10:07:22Z | Minimum OS requirement | `26.0` in the US iOS lookup result | iOS 26.0+, iPadOS 26.0+, and macOS 26.0+ | Pass | None; the platform-specific website values also match the verified product source. |
 | 2026-07-30T10:07:22Z | English App Store destination | `https://apps.apple.com/us/app/shooting-cut/id6761160281` | Locale-neutral `https://apps.apple.com/app/shooting-cut/id6761160281` | Pass | Keep the locale-neutral public link so English users reach their applicable storefront. |
-| 2026-07-30T10:07:22Z | Free/Pro wording | Auto Trim and score import are free; Pro removes the watermark and adds custom intro cards, multi-camera modes, social upload, and batch export | Same after the 2026-07-30 correction | Corrected | Added the missing Pro qualifier for direct platform upload to the homepage, FAQ, editor overview, support page, and `llms.txt`. |
+| 2026-07-30T10:07:22Z | Free/Pro wording | Auto Trim and score import are free; Pro removes the watermark and adds custom intro cards, multi-camera modes, social upload, and batch export | Same after the 2026-07-30 correction | Superseded | The 2026-08-02 source audit above replaces this earlier App Store-derived sharing boundary. |
 | 2026-07-30T10:07:22Z | One-subscription device scope | Not stated in the US description | One subscription covers the subscriber's Apple devices, subject to App Store account and entitlement rules | Product-source verified; no App Store conflict | None |
-| 2026-07-30T10:07:22Z | Direct upload destinations | YouTube and Facebook (Pro) | YouTube and Facebook (Pro) | Corrected | Added an exact entitlement boundary and regression validation; TikTok direct upload remains explicitly unsupported. |
+| 2026-07-30T10:07:22Z | Direct upload destinations | YouTube and Facebook (Pro) | YouTube and Facebook (Pro) | Superseded | The 2026-08-02 source audit confirms free one-destination sharing and Pro multi-platform sharing; TikTok direct upload remains explicitly unsupported. |
 
 Fields to check:
 
