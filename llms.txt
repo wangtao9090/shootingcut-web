@@ -2,7 +2,7 @@
 
 > Canonical English site: https://shootingcut.com/
 > Simplified Chinese site: https://shootingcut.cn/
-> Current product version: 1.1.4
+> Current product version: 1.1.6
 
 Shooting Cut is a complete competitive-shooting video editor for iPhone, iPad, and Mac. It can trim dead time, synchronize POV and third-person views, combine every stage into one Full Match video, add verified timing and score context, reframe supported edits for multiple formats, and export finished videos. Timer and gunshot analysis is one editing capability within the broader editor.
 
@@ -16,12 +16,13 @@ This file supplements the public HTML pages and XML sitemap. Product facts, limi
 - Split Sync accepts exactly 2 simultaneous views. Full Screen stacks both views top and bottom at 9:16; Dual View: Center HUD and Dual View: Top HUD arrange the views vertically at 3:4; Side by Side places both views left and right at 16:9.
 - Multi-angle Full Screen, Center HUD, and Top HUD layouts support 50/50, 40/60, and 30/70 top-and-bottom pane ratios. Same-view comparison remains 50/50, and Side by Side does not use the top-and-bottom ratio control.
 - Stage Mix accepts 2–3 simultaneous inputs labeled POV, Follow, or Static, uses movement-aware switching, and allows manual override.
+- Strings Mode is built for classifiers, Standards stages, and Steel Challenge: it finds every string in a stage recording, cuts the dead time between strings, and timer-aligns multi-camera footage per string into a split-screen or Stage Mix layout.
 
 ## Free, Pro, subscription, and upload facts
 
 - Auto Trim, its timer and shot analysis, Reframe and Track, supported result import, timing and score overlays, standard export, and one-destination user-initiated sharing are free.
 - Free Auto Trim exports include the Shooting Cut watermark and logo intro card.
-- Pro unlocks Merge, Split Sync, and Stage Mix, removes the Shooting Cut watermark, and enables custom intro cards, multi-platform sharing, and macOS batch export.
+- Pro unlocks Merge, Split Sync, Stage Mix, and Strings Mode, removes the Shooting Cut watermark, and enables custom intro cards, multi-platform sharing, and macOS batch export.
 - One subscription covers all of the subscriber's Apple devices, subject to App Store account and entitlement rules.
 - A free Auto Trim workflow can export to the device, use the system share sheet, or choose one supported sharing destination at a time. YouTube and Facebook uploads require separate platform authorization. Pro enables multi-platform sharing.
 

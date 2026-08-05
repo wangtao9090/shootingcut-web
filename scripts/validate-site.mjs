@@ -1569,11 +1569,6 @@ const contextualFactRules = [
   },
   {
     pattern:
-      /\bstrings\b.{0,80}\b(?:editing\s+)?(?:mode|workflow)\b|\b(?:editing\s+)?(?:mode|workflow)s?\b.{0,80}\bstrings\b/i,
-    message: 'obsolete "Strings" editing-mode claim',
-  },
-  {
-    pattern:
       /\btiktok\b.{0,100}\b(?:direct(?:ly)?\s+upload|upload(?:ed|ing|s)?|integrat(?:e|ed|es|ing|ion)|connect(?:ed|ing|ion|s)?|share\s+(?:directly\s+)?to|post(?:ed|ing|s)?\s+to|publish(?:ed|ing|es)?\s+to)\b|(?:direct(?:ly)?\s+upload|upload(?:ed|ing|s)?|integrat(?:e|ed|es|ing|ion)|connect(?:ed|ing|ion|s)?|share\s+(?:directly\s+)?to|post(?:ed|ing|s)?\s+to|publish(?:ed|ing|es)?\s+to).{0,100}\btiktok\b/i,
     allowedPattern:
       /\b(?:does\s+not|do\s+not|doesn't|not\s+currently|currently\s+does\s+not|no\s+current)\b.{0,120}\b(?:tiktok|direct(?:ly)?\s+upload)\b/i,
@@ -1891,18 +1886,6 @@ function validateMarketingFacts(page) {
         break;
       }
     }
-  }
-
-  const stringsHeading = visibleBlocks.find((block) =>
-    /^strings$/i.test(block.text),
-  );
-  if (stringsHeading) {
-    addFailure(
-      page.relativePath,
-      page.source,
-      stringsHeading.sourceIndexes[0] ?? 0,
-      'obsolete "Strings" editing-mode heading',
-    );
   }
 }
 

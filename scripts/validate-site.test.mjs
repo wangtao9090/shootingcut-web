@@ -410,16 +410,17 @@ test("llms.txt exposes the complete reviewed product and route surface", async (
 
   assert.equal(countExact(llms, "# Shooting Cut"), 1);
   for (const fact of [
-    "Current product version: 1.1.4",
+    "Current product version: 1.1.6",
     "Shooting Cut is a complete competitive-shooting video editor for iPhone, iPad, and Mac.",
     "Requires iOS 26.0+, iPadOS 26.0+, or macOS 26.0+.",
     "Auto Trim accepts exactly 1 video.",
     "Merge combines up to 20 sequential clips into one long video.",
     "Split Sync accepts exactly 2 simultaneous views",
     "Stage Mix accepts 2–3 simultaneous inputs labeled POV, Follow, or Static",
+    "Strings Mode is built for classifiers, Standards stages, and Steel Challenge",
     "Auto Trim, its timer and shot analysis, Reframe and Track, supported result import, timing and score overlays, standard export, and one-destination user-initiated sharing are free.",
     "Free Auto Trim exports include the Shooting Cut watermark and logo intro card.",
-    "Pro unlocks Merge, Split Sync, and Stage Mix",
+    "Pro unlocks Merge, Split Sync, Stage Mix, and Strings Mode",
     "One subscription covers all of the subscriber's Apple devices",
     "one supported sharing destination at a time",
     "Pro enables multi-platform sharing",
