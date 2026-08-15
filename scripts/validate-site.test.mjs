@@ -410,7 +410,7 @@ test("llms.txt exposes the complete reviewed product and route surface", async (
 
   assert.equal(countExact(llms, "# Shooting Cut"), 1);
   for (const fact of [
-    "Current product version: 1.1.6",
+    "Current product version: 1.1.8",
     "Shooting Cut is a complete competitive-shooting video editor for iPhone, iPad, and Mac.",
     "Requires iOS 26.0+, iPadOS 26.0+, or macOS 26.0+.",
     "Auto Trim accepts exactly 1 video.",

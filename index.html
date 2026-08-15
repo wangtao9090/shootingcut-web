@@ -44,7 +44,7 @@
         "description": "A complete competitive-shooting video editor for iPhone, iPad, and Mac that trims stage footage, synchronizes camera views, combines sequential stages, adds timing and score context, reframes supported edits, and exports finished videos.",
         "url": "https://shootingcut.com/",
         "downloadUrl": "https://apps.apple.com/app/shooting-cut/id6761160281",
-        "softwareVersion": "1.1.6",
+        "softwareVersion": "1.1.8",
         "author": {
             "@type": "Organization",
             "name": "ShootingCut LLC",
@@ -65,10 +65,14 @@
             "Audio analysis proposes shot and timer markers for user review",
             "Auto Trim: exactly 1 video; audio analysis, Reframe and Track, supported result import, timing and score overlays, standard export, and one-destination user-initiated sharing are free in the Auto Trim workflow; free exports include the Shooting Cut watermark and logo intro card",
             "Performance Subtitles overlay with live stopwatch (split times, shot count, running time)",
-            "Merge: up to 20 videos",
+            "Subtitle content is configurable: the timer, best split, first shot, rolling shot list, time column, and split column each switch on or off independently, and the shot list row count is selectable",
+            "Movable overlays: the watermark, score card, timer, and rolling shot list can be dragged to any position in the frame, and more than one custom watermark can be placed at once",
+            "Merge: up to 20 videos, with a per-stage intro card and a Stages Confirmation workbench for reviewing stage order before export",
             "Split Sync: exactly 2 videos; Full Screen stacks both views top and bottom at 9:16, Dual View: Center HUD and Dual View: Top HUD use 3:4, and Side by Side places both views left and right at 16:9; multi-angle top-and-bottom and HUD layouts support 50/50, 40/60, and 30/70 pane ratios",
             "Stage Mix: 2–3 videos labeled POV, Follow, or Static, with automatic movement-aware switching and manual override",
-            "Pro unlocks Merge, Split Sync, and Stage Mix, removes the Shooting Cut watermark, enables custom intro cards, multi-platform sharing, and macOS batch export",
+            "Strings Mode: finds every string in a classifier, Standards, or Steel Challenge run, cuts the dead time between strings, and timer-aligns multi-camera footage string by string",
+            "Waveform review offers two zoom levels for checking detected timer beeps and shots",
+            "Pro unlocks Merge, Split Sync, Stage Mix, and Strings Mode, removes the Shooting Cut watermark, enables custom intro cards, movable and multiple custom watermarks, multi-platform sharing, and macOS batch export",
             "Supported result-import families include PractiScore, ESS, HDP, Shoot'n Score It, and IDPA",
             "One subscription covers all of the subscriber's Apple devices"
         ],
@@ -129,7 +133,7 @@
                 "name": "What platforms does Shooting Cut support?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Shooting Cut is available on Mac (macOS 26.0+), iPad (iPadOS 26.0+), and iPhone (iOS 26.0+). Auto Trim, its audio analysis, Reframe and Track, supported result import, timing and score overlays, standard export, and one-destination user-initiated sharing are free. Pro unlocks Merge, Split Sync, and Stage Mix, removes the watermark, and adds custom intro cards, multi-platform sharing, and macOS batch export. One subscription covers all of the subscriber's Apple devices."
+                    "text": "Shooting Cut is available on Mac (macOS 26.0+), iPad (iPadOS 26.0+), and iPhone (iOS 26.0+). Auto Trim, its audio analysis, Reframe and Track, supported result import, timing and score overlays, standard export, and one-destination user-initiated sharing are free. Pro unlocks Merge, Split Sync, Stage Mix, and Strings Mode, removes the watermark, and adds custom intro cards, movable overlays, multi-platform sharing, and macOS batch export. One subscription covers all of the subscriber's Apple devices."
                 }
             },
             {
@@ -137,7 +141,7 @@
                 "name": "Which Shooting Cut mode should I use?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Use Auto Trim for exactly 1 video, Merge for up to 20 videos, Split Sync for exactly 2 videos, or Stage Mix for 2–3 videos labeled POV, Follow, or Static. Stage Mix provides automatic movement-aware switching with manual override."
+                    "text": "Use Auto Trim for exactly 1 video, Merge for up to 20 videos, Split Sync for exactly 2 videos, or Stage Mix for 2–3 videos labeled POV, Follow, or Static. Stage Mix provides automatic movement-aware switching with manual override. For a classifier, Standards stage, or Steel Challenge run recorded as several strings, use Strings Mode to cut the dead time between strings."
                 }
             },
             {
@@ -595,7 +599,7 @@
 
     <!-- Release Banner -->
     <div class="release-banner" id="releaseBanner">
-        <span class="free-tag">NEW</span> v1.1.6 is here — <strong>Strings mode is live for classifiers, Standards stages, and Steel Challenge.</strong> Timer-align multi-camera footage, cut it string by string, and lay out each string as a <a href="/edit-multi-camera-shooting-video/">split-screen or Stage Mix</a> edit. <a href="https://apps.apple.com/app/shooting-cut/id6761160281">Update now &rarr;</a>
+        <span class="free-tag">NEW</span> v1.1.8 is here — <strong>Overlays move where you want them, and the subtitle shows only what you want.</strong> Drag the watermark, score card, timer, and rolling shot list anywhere in frame, place more than one custom watermark, and switch <a href="/add-shot-times-and-scores-to-match-video/">each subtitle line</a> on or off. <a href="https://apps.apple.com/app/shooting-cut/id6761160281">Update now &rarr;</a>
         <button class="banner-close" id="bannerClose" aria-label="Close banner">&times;</button>
     </div>
 
@@ -631,6 +635,7 @@
                 Shooting Cut&trade; turns raw match footage into a finished video in one purpose-built workflow.
                 Trim dead time, sync POV and third-person views, combine every stage, add timing and results,
                 and export a full-match video or vertical social clip on iPhone, iPad, and Mac.
+                Shot and timer detection does the cutting, so you can finish the match and post from your phone minutes later.
             </p>
             <div class="hero-buttons">
                 <a href="https://apps.apple.com/app/shooting-cut/id6761160281" class="appstore-btn" target="_blank">
@@ -671,7 +676,7 @@
                 <div class="feature-card fade-in">
                     <div class="feature-icon">🎞️</div>
                     <h3>Full Match Merge <span style="color:var(--accent-light);font-size:0.8em;">(PRO)</span></h3>
-                    <p>Arrange up to 20 sequential stage clips in competition order and export one Full Match video while preserving each clip's score association.</p>
+                    <p>Arrange up to 20 sequential stage clips in competition order and export one Full Match video while preserving each clip's score association. The Stages Confirmation workbench shows the whole running order in one place so you can fix a stage's position, source, and intro card before the render starts.</p>
                 </div>
                 <div class="feature-card fade-in">
                     <div class="feature-icon">🔄</div>
@@ -701,7 +706,7 @@
                 <div class="feature-card fade-in">
                     <div class="feature-icon">🎵</div>
                     <h3>Reviewed Audio Analysis <span style="color:var(--green);font-size:0.8em;">(FREE IN AUTO TRIM)</span></h3>
-                    <p>Analyze timer beeps and gunshot impulses for free in Auto Trim to propose trim points and timing data. Review detected markers when AGC, neighboring shots, echo, or weak beeps affect the recording.</p>
+                    <p>Analyze timer beeps and gunshot impulses for free in Auto Trim to propose trim points and timing data. Review detected markers when AGC, neighboring shots, echo, or weak beeps affect the recording. The waveform has two zoom levels: a whole-run view for finding the stage window, and a close view for moving a single marker.</p>
                 </div>
                 <div class="feature-card fade-in">
                     <div class="feature-icon">🗂️</div>
@@ -726,12 +731,22 @@
                 <div class="feature-card fade-in">
                     <div class="feature-icon">🎞️</div>
                     <h3>Intro Title Cards <span style="color:var(--green);font-size:0.8em;">(FREE DEFAULT)</span> <span style="color:var(--accent-light);font-size:0.8em;">(PRO: CUSTOM)</span></h3>
-                    <p>Free Auto Trim exports include the Shooting Cut logo intro card. Pro enables custom intro cards with match details, shooter information, and your own logo.</p>
+                    <p>Free Auto Trim exports include the Shooting Cut logo intro card. Pro enables custom intro cards with match details, shooter information, and your own logo. In a Full Match Merge, every stage can carry its own intro card, so a viewer knows which stage they are watching without you cutting title slides by hand.</p>
                 </div>
                 <div class="feature-card fade-in">
                     <div class="feature-icon">💧</div>
                     <h3>Custom Watermarks <span style="color:var(--accent-light);font-size:0.8em;">(PRO)</span></h3>
-                    <p>Pro can remove the Shooting Cut watermark or replace it with custom text, a logo, or an image. Free Auto Trim exports retain the Shooting Cut watermark.</p>
+                    <p>Pro can remove the Shooting Cut watermark or replace it with custom text, a logo, or an image, and you can place more than one custom watermark in the same export. Free Auto Trim exports retain the Shooting Cut watermark.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🧲</div>
+                    <h3>Movable Overlays <span style="color:var(--accent-light);font-size:0.8em;">(PRO)</span></h3>
+                    <p>Drag the watermark, score card, timer, and rolling shot list to wherever the frame has room. Move an overlay off the target array, out of the vertical crop, or away from a platform's caption bar instead of accepting a fixed corner.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">💬</div>
+                    <h3>Subtitle Content Control</h3>
+                    <p>Decide what the performance subtitle says. Switch the timer, best split, first shot, rolling shot list, time column, and split column on or off one by one, and choose how many shot rows stay on screen — a full data readout for a review edit, or a bare timer for a social clip.</p>
                 </div>
             </div>
         </div>
@@ -998,9 +1013,9 @@
         <div class="container">
             <div class="section-header fade-in">
                 <span class="section-label">Editing Modes</span>
-                <h2 class="section-title">Four Modes for Every Situation</h2>
+                <h2 class="section-title">Five Modes for Every Situation</h2>
                 <p class="section-subtitle">
-                    Whether you have one clip or a full multi-camera rig, Shooting Cut has the right mode for your workflow.
+                    Each mode is a separate workflow with its own published result: a single-stage recap, a full-match video, a two-angle comparison, a switched multi-camera stage, or a string-by-string classifier run.
                 </p>
             </div>
             <div class="modes-grid">
@@ -1031,6 +1046,13 @@
                     <div class="mode-badge">2–3 videos</div>
                     <p>Label each video POV, Follow, or Static. Automatic movement-aware switching builds the edit, and manual override lets you control any cut.</p>
                     <div class="mode-videos">Best for: cinematic multi-cam edits</div>
+                </div>
+                <div class="mode-card fade-in">
+                    <div class="mode-icon">🧵</div>
+                    <h3>Strings <span style="color:var(--accent-light);font-size:0.85em;">(PRO)</span></h3>
+                    <div class="mode-badge">One run, many strings</div>
+                    <p>Read every timer beep in a single recording, split the run into its strings, and drop the reload-and-reset time in between. Multi-camera footage is timer-aligned string by string, and PractiScore results can verify each string against its official time.</p>
+                    <div class="mode-videos">Best for: classifiers, Standards, Steel Challenge</div>
                 </div>
             </div>
         </div>
@@ -1074,7 +1096,7 @@
         <span class="section-label">Download</span>
         <h2 class="section-title">Ready to Level Up Your Review Game?</h2>
         <p class="section-subtitle">
-            Download Shooting Cut today on the App Store. Auto Trim, its audio analysis, Reframe and Track, supported result import, timing and score overlays, standard export, and one-destination user-initiated sharing are free. Pro unlocks Merge, Split Sync, and Stage Mix, removes the Shooting Cut watermark, and adds custom intro cards, multi-platform sharing, and macOS batch export. One subscription covers all of the subscriber's Apple devices.
+            Download Shooting Cut today on the App Store. Auto Trim, its audio analysis, Reframe and Track, supported result import, timing and score overlays, standard export, and one-destination user-initiated sharing are free. Pro unlocks Merge, Split Sync, Stage Mix, and Strings Mode, removes the Shooting Cut watermark, and adds custom intro cards, movable overlays, multi-platform sharing, and macOS batch export. One subscription covers all of the subscriber's Apple devices.
         </p>
         <a href="https://apps.apple.com/app/shooting-cut/id6761160281" class="appstore-btn" target="_blank" style="margin: 0 auto; display: inline-flex;">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:22px;height:22px;fill:white;"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
@@ -1136,7 +1158,7 @@
                 <details class="faq-item">
                     <summary class="faq-question">Is Shooting Cut free?</summary>
                     <div class="faq-answer">
-                        <p>Shooting Cut is free to download. Auto Trim, its audio analysis, Reframe and Track, supported result import, timing and score overlays, standard export, and one-destination user-initiated sharing are free. Free Auto Trim exports include the Shooting Cut watermark and logo intro card. Pro unlocks Merge, Split Sync, and Stage Mix, removes the watermark, and adds custom intro cards, multi-platform sharing, and macOS batch export. One subscription covers all of the subscriber's Apple devices. No Shooting Cut account or sign-up is required.</p>
+                        <p>Shooting Cut is free to download. Auto Trim, its audio analysis, Reframe and Track, supported result import, timing and score overlays, standard export, and one-destination user-initiated sharing are free. Free Auto Trim exports include the Shooting Cut watermark and logo intro card. Pro unlocks Merge, Split Sync, Stage Mix, and Strings Mode, removes the watermark, and adds custom intro cards, movable overlays, multi-platform sharing, and macOS batch export. One subscription covers all of the subscriber's Apple devices. No Shooting Cut account or sign-up is required. Check the <a href="https://apps.apple.com/app/shooting-cut/id6761160281" target="_blank">App Store listing</a> for current subscription pricing in your region.</p>
                     </div>
                 </details>
                 <details class="faq-item">
